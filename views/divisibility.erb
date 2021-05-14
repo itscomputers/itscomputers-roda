@@ -1,0 +1,105 @@
+<h1>divisibility</h1>
+
+<p>
+This study of integers begins with the notion of <em>divsibility</em>: whether
+the division of two integers results in an integer.  Since division does not
+always yield a result at all, let alone an integer result, we frame this
+question in terms of multiplication.
+</p>
+
+<div class="definition">
+  <p>
+    A nonzero integer <code>b</code> <strong>divides</strong> an integer
+    <code>a</code> if there exists some integer <code>n</code> such that
+    <code>a == b * n</code>.
+  </p>
+
+  <p>
+    The notation for this is <code>b | a</code>, which reads "<code>b</code>
+    divides <code>a</code>".  The following statements are equivalent ways of
+    describing that <code>b | a</code>.
+  </p>
+
+  <ul>
+    <% divisibility_statements("b", "a", divisible: true).each do |statement| %>
+      <li><%= statement %></li>
+    <% end %>
+  </ul>
+</div>
+
+<p>
+  Here are a couple of examples:
+</p>
+
+<ul>
+  <li>
+    <code>15 | 45</code> since <code>45 == 15 * 3</code>.  In other words,
+    <ul>
+      <% divisibility_statements(15, 45).each do |statement| %>
+        <li><%= statement %></li>
+      <% end %>
+    </ul>
+  </li>
+  <li>
+    <code>10 ∤ 45</code> since <code>45 != 10 * n</code> for any <code>n</code>.
+    In fact, <code>45</code> is strictly between <code>10 * 4</code> and <code>10 * 5</code>.
+    In other words,
+    <ul>
+      <% divisibility_statements(15, 45).each do |statement| %>
+        <li><%= statement %></li>
+      <% end %>
+    </ul>
+  </li>
+</ul>
+
+<div class="dynamic-example">
+  <h3>example</h3>
+
+  <div class="question">
+    <h4>question</h4>
+    <form method="POST">
+      Does
+      <input
+        id="divisor"
+        name="divisor"
+        value="<%= @example&.divisor %>"
+        type="number"
+        required="true"
+        placeholder="divisor"
+      />
+      divide
+      <input
+        id="dividend"
+        name="dividend"
+        value="<%= @example&.dividend %>"
+        type="number"
+        required="true"
+        placeholder="dividend"
+      />
+      ??
+      <input type="submit" value="submit" />
+    </form>
+  </div>
+
+  <% if @example %>
+    <div class="answer">
+      <h4>answer</h4>
+      <p><strong><%= @example.answer %></strong>:
+        <code>
+          <%= @example.divisor %>
+          <%= @example.boolean_answer ? "|" : "\u2224" %>
+          <%= @example.dividend %>
+        </code>
+      </p>
+
+      <ul>
+        <% divisibility_statements(@example.divisor, @example.dividend).each do |statement| %>
+          <li><%= statement %></li>
+        <% end %>
+      </ul>
+
+      <p><strong>because</strong>: <%= @example.reason %></p>
+    </div>
+  <% end %>
+</div>
+
