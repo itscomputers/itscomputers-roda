@@ -2,9 +2,10 @@ module Examples
   class Divisibility
     attr_reader :dividend, :divisor
 
-    def initialize(params)
+    def initialize(divisor, dividend)
       @dividend = params['dividend'].to_i
       @divisor = params['divisor'].to_i
+      @format = format
     end
 
     def boolean_answer
@@ -29,14 +30,14 @@ module Examples
 
     def does_not_divide
       [
-        "<code>#{@dividend}</code>",
+        @format.call(@dividend),
         "is between",
-        multipliers.map { |m| "<code>#{@divisor} * #{m}</code>" }.join(" and "),
+        multipliers.map { |m| @format.call "#{@divisor} * #{m}" }.join(" and "),
       ].join(" ")
     end
 
     def does_divide
-      "<code>#{@dividend} == #{@divisor} * #{@dividend / @divisor}</code>"
+      @format.call "#{@dividend} == #{@divisor} * #{@dividend / @divisor}"
     end
 
     def multiplier_offset

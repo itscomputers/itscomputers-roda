@@ -9,15 +9,15 @@ question in terms of multiplication.
 
 <div class="definition">
   <p>
-    A nonzero integer <code>b</code> <strong>divides</strong> an integer
-    <code>a</code> if there exists some integer <code>n</code> such that
-    <code>a == b * n</code>.
+    A nonzero integer <%= c "b" %> <strong>divides</strong> an integer
+    <%= c "a" %> if there exists some integer <%= c "n" %> such that
+    <%= c "a == b * n" %>.
   </p>
 
   <p>
-    The notation for this is <code>b | a</code>, which reads "<code>b</code>
-    divides <code>a</code>".  The following statements are equivalent ways of
-    describing that <code>b | a</code>.
+    The notation for this is <%= c "b | a" %>, which reads "<%= c "b" %>
+    divides <%= c "a" %>".  The following statements are equivalent ways of
+    describing that <%= c "b | a" %>.
   </p>
 
   <ul>
@@ -33,7 +33,7 @@ question in terms of multiplication.
 
 <ul>
   <li>
-    <code>15 | 45</code> since <code>45 == 15 * 3</code>.  In other words,
+    <%= c "15 | 45" %> since <%= c "45 == 15 * 3" %>.  In other words,
     <ul>
       <% divisibility_statements(15, 45).each do |statement| %>
         <li><%= statement %></li>
@@ -41,8 +41,8 @@ question in terms of multiplication.
     </ul>
   </li>
   <li>
-    <code>10 ∤ 45</code> since <code>45 != 10 * n</code> for any <code>n</code>.
-    In fact, <code>45</code> is strictly between <code>10 * 4</code> and <code>10 * 5</code>.
+    <%= c "10 ∤ 45" %> since <%= c "45 != 10 * n" %> for any <%= c "n" %>.
+    In fact, <%= c 45 %> is strictly between <%= c "10 * 4" %> and <%= c "10 * 5" %>.
     In other words,
     <ul>
       <% divisibility_statements(15, 45).each do |statement| %>
@@ -85,11 +85,11 @@ question in terms of multiplication.
     <div class="answer">
       <h4>answer</h4>
       <p><strong><%= @example.answer %></strong>:
-        <code>
-          <%= @example.divisor %>
-          <%= @example.boolean_answer ? "|" : "\u2224" %>
-          <%= @example.dividend %>
-        </code>
+        <%= code [
+          @example.divisor,
+          @example.boolean_answer ? "|" : "\u2224",
+          @example.dividend,
+        ].join(" ") %>
       </p>
 
       <ul>
