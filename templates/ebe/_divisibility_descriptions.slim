@@ -1,0 +1,8 @@
+- divides = (divisor != 0 && dividend % divisor == 0) if divides.nil?
+
+ul
+  li $ #{divisor} $ #{divides ? "divides" : "does not divide"} $ #{dividend} $
+  li $ #{divisor} $ is #{divides ? "" : "not"} a divisor of $ #{dividend} $
+  li $ #{dividend} $ is #{divides ? "" : "not"} divisible by $ #{divisor} $
+  li $ #{dividend} $ is #{divides ? "" : "not"} a multiple of $ #{divisor} $
+

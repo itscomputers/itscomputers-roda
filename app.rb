@@ -1,25 +1,21 @@
 require 'roda'
-require_relative './helpers'
+require_relative './view'
 require_relative './code_snippet'
 
 class App < Roda
-  plugin :render, engine: 'slim'
+  plugin :assets, js: ["application.js"]
+  plugin :render,
+    engine: "slim",
+    views: "templates"
 
   route do |r|
-    r.on "divisibility" do
-      @ruby_code = CodeSnippet.wrap(
-        "Division",
-        CodeSnippet.get("lib/ebe/division.rb", method_name: "divides?"),
-      )
+    r.assets
 
-      r.get do
-        @h = OpenStruct.new
-        view "divisibility"
-      end
-
-      r.post do
-        @h = Helpers::Divisibility.new(r.params)
-        view "divisibility"
+    r.on "ebe" do
+      r.on "divisibility" do
+        @ruby = CodeSnippet.wrap "module Naive", CodeSnippet.get("lib/ebe/naive.rb", method_name: "divides?")
+        @view = View::Ebe::Divisibility.new(r.params)
+        view "ebe/divisibility"
       end
     end
   end

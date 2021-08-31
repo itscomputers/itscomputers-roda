@@ -1,0 +1,8 @@
+- header = "solution" if header.nil?
+
+div class="#{klass}"
+  button onclick="showHide('#{id}')" #{header}
+
+  div class="suppressed" id="#{id}"
+    == yield
+

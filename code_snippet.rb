@@ -3,11 +3,11 @@ class CodeSnippet
     new(file_name, method_name).build
   end
 
-  def self.wrap(module_name, *snippets)
+  def self.wrap(label, *snippets)
     [
-      "module #{module_name}",
+      label,
       snippets.map { |snippet| snippet.split("\n").map { |line| "  #{line}" }.join("\n") }.join("\n\n"),
-      "end"
+      "end",
     ].join("\n")
   end
 
@@ -17,21 +17,21 @@ class CodeSnippet
   end
 
   def build
-    @snippet ||= lines.join
+    @snippet ||= lines.join("\n")
   end
 
   def lines
     @lines ||= [
       *File.readlines(@file_name)
         .drop_while { |line| !line.match /def #{@method_name}/ }
-        .tap { |array| @spaces = array.first.chars.take_while { |ch| ch == " " }.join }
-        .take_while { |line| !line.match end_line },
+        .tap { |array| @spaces = array.first.chars.take_while { |ch| ch == " " }.count }
+        .take_while { |line| !line.start_with? end_line },
       end_line,
-    ].map { |line| line.split(@spaces).drop(1).join }
+    ].map { |line| line.chars.drop(@spaces).join.chomp }
   end
 
   def end_line
-    "#{@spaces}end"
+    "#{@spaces.times.map { " " }.join}end"
   end
 end
 

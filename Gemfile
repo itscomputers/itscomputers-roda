@@ -5,5 +5,5 @@ gem "puma"
 gem "slim"
 
 gem "rspec"
-gem "rspec-roda"
+gem "capybara"
 
