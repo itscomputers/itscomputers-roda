@@ -1,0 +1,168 @@
+%h1 divisibility
+
+%p
+  This study of integers begins with the notion of <em>divisibility</em>:
+  whether the division of two integers results in an integer.  Since division
+  does not always yield a result at all, let alone an integer result, we frame
+  this question in terms of multiplication.
+
+.definition
+  %h2 definition
+
+  %p
+    Given two integers $ a, b $, we write $ b \mid a $ and say that $ b $
+    <strong>divides</strong> $ a $ if we can express $ a = b \cdot n $ for some integer $ n $.
+
+  %p
+    The following statements are equivalent ways of
+    describing that $ b \mid a $.
+
+  = render "ebe/_divisibility_descriptions", :locals => { :dividend => "a", :divisor => "b", :divides => true }
+
+.examples
+  %h2 examples
+
+  .example
+    $ 15 \mid 45 $ since $ 45 = 15 \cdot 3 $.
+
+    = render "ebe/_divisibility_descriptions", :locals => { :dividend => 45, :divisor => 15, }
+
+  .example
+    $ 10 \nmid 45 $ since $ 45 $ is strictly between $ 10 \cdot 4 $ and
+    $ 10 \cdot 5 $, which shows that $ 45 = 10 \cdot n $ is impossible.
+
+    = render "ebe/_divisibility_descriptions", :locals => { :dividend => 45, :divisor => 10, }
+
+  .example
+    %form(id="divisibility-dynamic-example" method="GET")
+      Does
+      %input> id="divisor" name="divisor" value="#{@view.divisor}" type="number" required="true" placeholder="divisor"
+      divide
+      %input> id="dividend" name="dividend" value="#{@view.dividend}" type="number" required="true" placeholder="dividend"
+      ??
+      %input type="submit" value="submit"
+
+    - if @view.divisor && @view.dividend
+      - answer = @view.divides? ? "yes" : "no"
+      - symbol = @view.divides? ? '\mid' : '\nmid'
+      - if @view.divides?
+        - details = "$ #{@view.dividend} = #{@view.divisor} \\cdot #{@view.quotient} $"
+      - elsif @view.divisor == 0
+        - details = "$ #{@view.dividend} = #{@view.divisor} \\cdot n $ is not possible for any value of $ n $." if @view.divisor == 0
+      - else
+        - bounds = @view.multipliers.map { |m| "$ #{@view.divisor} \\cdot #{m} $" }
+        - details = "$ #{@view.dividend} $ is strictly between #{bounds.join(" and ")}" if !@view.divides? && @view.divisor != 0
+
+      .answer
+        %p
+          <strong>#{answer}.</strong>
+          $ #{@view.divisor} #{symbol} #{@view.dividend} $
+          since #{details}.
+
+        = render "ebe/_divisibility_descriptions", :locals => { :dividend => @view.dividend, :divisor => @view.divisor, }
+
+.exercise
+  %h2 exercise
+
+  :markdown
+    Write a naive `divides?` function that takes two integer inputs and returns
+    `true` if the first divides the second and returns `false` otherwise.  This
+    naive function should only use addition, subtraction, multiplication, and
+    comparison.
+
+    some test values:
+    - `divides?(15, 45) ~> true`
+    - `divides?(-15, 45) ~> true`
+    - `divides?(15, -45) ~> true`
+    - `divides?(-15, -45) ~> true`
+    - `divides?(10, 45) ~> false`
+    - `divides?(-10, 45) ~> false`
+    - `divides?(10, -45) ~> false`
+    - `divides?(-10, -45) ~> false`
+    - `divides?(7, 0) ~> true`
+    - `divides?(7, 7) ~> true`
+    - `divides?(7, -7) ~> true`
+    - `divides?(1, 7) ~> true`
+    - `divides?(-1, 7) ~> true`
+    - `divides?(0, 7) ~> false`
+
+  = render "components/_solution", :locals => { :id => "example-divides" }
+    :markdown
+      ```ruby
+      #{@ruby}
+      ```
+
+.exercises
+  %h2 proof exercises
+
+  %ol
+    %li.exercise
+      %p
+        Every nonzero integer divides 0.
+
+      = render "components/_solution", :locals => { :id => "example-1" }
+        %p
+          For any nonzero integer $ b $, we can express 0 as $ 0 = b \cdot 0 $,
+          which proves that $ b \mid 0 $.
+
+    %li.exercise
+      %p
+        Every integer is divisible by both $ 1 $ and $ -1 $.
+
+      = render "components/_solution", :locals => { :id => "example-2" }
+        %p
+          Let $ a $ be any integer.  We can express $ a $ as $ a = 1 \cdot a $,
+          which shows that $ 1 \mid a $.  We can also express $ a $ as
+          $ a = -1 \cdot (-a) $, which shows that $ -1 \mid a $.
+
+    %li.exercise
+      %p
+        Every nonzero integer divides itself.
+
+      = render "components/_solution", :locals => { :id => "example-3" }
+        %p
+          For any nonzero integer $ a $, we can express $ a $ as $ a = a \cdot 1 $,
+          which shows that $ a \\mid a $.
+
+    %li.exercise
+      %p
+        If $ a $ and $ b $ are positive integers such that $ b \mid a $, prove that $ b \le a $.
+
+      = render "components/_solution", :locals => { :id => "example-4" }
+        %p
+          Since $ b \mid a $, there is an integer $ n $ such that $ a = b \cdot n $.
+          Since both $ a $ and $ b $ are positive, then $ n $ must be as well, because
+          if $ n $ were zero or negative, then multiplying by $ b $ would result in
+          zero or a negative number, which is impossible.  Therefore, we can be sure
+          that $ 1 \le n $.  Multiplying both sides of this inequa%lity by the positive
+          integer $ b $ results in $ b \le b \cdot n $, which can be rewritten as $ b \le a $.
+
+    %li.exercise
+      %p
+        If $ a $ and $ b $ are positive integers that both divide each other, then $ a = b $.
+
+      = render "components/_solution", :locals => { :id => "example-5" }
+        %p
+          Since $ b \mid a $, the previous exercise imp%lies that $ b \le a $.  Similarly,
+          since $ a \mid b $, the previous exercise imp%lies that $ a \le b $.  This is only
+          possible if $ a $ and $ b $ are actually equal.
+
+    %li.exercise
+      %p
+        Prove that the "divides" relation is transitive.  In other words, if $ c \mid b $
+        and $ b \mid a $, prove that $ c \mid a $.
+
+      = render "components/_solution", :locals => { :id => "example-6" }
+        %p
+          The first assumption, that $ c \mid b $, means that we can write
+          $ b = c \cdot m $ for some integer $ m $.  The second assumption,
+          that $ b \mid a $, means that we can write $ a = b \cdot n $
+          for some integer $ n $.  Substituting the first equation in for
+          $ b $ in the second equation yields
+          \[
+          a = (c \cdot m) \cdot n
+          \quad \imp%lies \quad
+          a = c \cdot (m \cdot n).
+          \]
+          Since we have expressed $ a $ as a multiple of $ c $, we conclude that $ c \mid a $.
+

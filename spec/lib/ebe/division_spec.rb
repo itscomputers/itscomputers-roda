@@ -1,4 +1,4 @@
-require_relative '../../../lib/ebe/division'
+require_relative '../../spec_helper'
 
 describe Ebe::Division do
   def any(except: nil, lower_bound: -10**8, upper_bound: 10**8)
@@ -17,7 +17,7 @@ describe Ebe::Division do
   end
 
   describe 'divides?' do
-    subject { Ebe::Division.divides?(b, a) }
+    subject { Ebe.divides?(b, a) }
 
     context "when `b == 0`" do
       let(:b) { 0 }
@@ -59,7 +59,7 @@ describe Ebe::Division do
   end
 
   describe 'div_rem' do
-    subject { Ebe::Division.div_rem(dividend, divisor) }
+    subject { Ebe.div_rem(dividend, divisor) }
 
     let(:quotient) { subject.first }
     let(:remainder) { subject.last }

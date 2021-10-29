@@ -1,7 +1,5 @@
 module Ebe
   module Division
-    module_function
-
     def divides?(b, a)
       b != 0 && a % b == 0
     end
