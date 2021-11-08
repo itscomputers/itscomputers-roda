@@ -1,91 +1,116 @@
-h1 divisibility
+p
+  | This study of integers begins with the notion of
+  em<divisibility
+  |
+    , whether the division of two integers results in an integer.  Since
+    division does not always yield a result at all, let alone an integer
+    result, we frame this question in terms of multiplication.
 
-p This study of integers begins with the notion of <em>divisibility</em>:
-  whether the division of two integers results in an integer.  Since division
-  does not always yield a result at all, let alone an integer result, we frame
-  this question in terms of multiplication.
+blockquote.definition
+  strong> definition.
+  | Given two integers $ a, b $, we say that $ b $
+  em<> divides
+  |
+    $ a $ if there is some integer $ n $ for which $ a = b \cdot n $.
+    If $ b $ divides $ a $, we write $ b \mid a $.
+    If $ b $ does not divide $ a $, we write $b \nmid a $.
 
-.definition
-  h2 definition
-
-  p Given two integers $ a, b $, we write $ b \mid a $ and say that $ b $
-    <strong>divides</strong> $ a $ if we can express $ a = b \cdot n $ for some integer $ n $.
+  hr
 
   p The following statements are equivalent ways of
     describing that $ b \mid a $.
 
   == render "ebe/_divisibility_descriptions", :locals => { :dividend => "a", :divisor => "b", :divides => true }
 
+  hr
+
+  p
+    |
+      Be careful! This notation is sometimes confused with the division
+      operation. If you see $ 15 / 45 $, it is the operation that returns the
+      rational number $ 1 / 3 $. If you see $ 15 \mid 45 $, it is the statement
+      that $ 45 $ is divisible by $ 15 $, ie, that $ 45 / 15 $ is an integer.
+
 .examples
   h2 examples
 
-  .example
-    span $ 15 \mid 45 $ since $ 45 = 15 \cdot 3 $.
-    == render "ebe/_divisibility_descriptions", :locals => { :dividend => 45, :divisor => 15, }
+  ol
+    li.example
+      | Does $ 15 $ divide $ 45 $?
+      .solution-container
+        strong> yes.
+        | $ 15 \mid 45 $ since $ 45 = 15 \cdot 3 $.  In other words,
 
-  .example
-    span $ 10 \nmid 45 $ since $ 45 $ is strictly between $ 10 \cdot 4 $ and
-      $ 10 \cdot 5 $, which shows that $ 45 = 10 \cdot n $ is impossible.
-    == render "ebe/_divisibility_descriptions", :locals => { :dividend => 45, :divisor => 10, }
+        == render "ebe/_divisibility_descriptions", :locals => { :dividend => 45, :divisor => 15, }
 
-  .example
-    form id="divisibility-dynamic-example" method="GET"
-      span> Does
-      input> id="divisor" name="divisor" value="#{@view.divisor}" type="number" required="true" placeholder="divisor"
-      span> divide
-      input> id="dividend" name="dividend" value="#{@view.dividend}" type="number" required="true" placeholder="dividend"
-      span> ??
-      input type="submit" value="submit"
+    li.example
+      | Does $ 10 $ divide $ 45 $?
+      .solution-container
+        strong> no.
+        |
+          $ 10 \nmid 45 $ since $ 45 $ is strictly between $ 10 \cdot 4 $ and
+          $ 10 \cdot 5 $, which shows that $ 45 = 10 \cdot n $ is impossible.
 
-    - if @view.divisor && @view.dividend
-      - answer = @view.divides? ? "yes" : "no"
-      - symbol = @view.divides? ? '\mid' : '\nmid'
-      - if @view.divides?
-        - details = "$ #{@view.dividend} = #{@view.divisor} \\cdot #{@view.quotient} $"
-      - elsif @view.divisor == 0
-        - details = "$ #{@view.dividend} = #{@view.divisor} \\cdot n $ is not possible for any value of $ n $." if @view.divisor == 0
-      - else
-        - bounds = @view.multipliers.map { |m| "$ #{@view.divisor} \\cdot #{m} $" }
-        - details = "$ #{@view.dividend} $ is strictly between #{bounds.join(" and ")}" if !@view.divides? && @view.divisor != 0
+        == render "ebe/_divisibility_descriptions", :locals => { :dividend => 45, :divisor => 10, }
 
-      .answer
-        p <strong>#{answer}.</strong>
-          $ #{@view.divisor} #{symbol} #{@view.dividend} $
-          since #{details}.
-        == render "ebe/_divisibility_descriptions", :locals => { :dividend => @view.dividend, :divisor => @view.divisor, }
+    li.example
+      form id="divisibility-dynamic-example" method="GET"
+        | Does
+        input> id="divisor" name="divisor" value="#{@view.divisor}" type="number" required="true" placeholder="divisor"
+        | divide
+        input> id="dividend" name="dividend" value="#{@view.dividend}" type="number" required="true" placeholder="dividend"
+        | ?
+        input type="submit" value="submit"
 
-.exercise
-  h2 exercise
+      - if @view.divisor && @view.dividend
+        - answer = @view.divides? ? "yes" : "no"
+        - symbol = @view.divides? ? '\mid' : '\nmid'
+        - if @view.divides?
+          - details = "$ #{@view.dividend} = #{@view.divisor} \\cdot #{@view.quotient} $"
+        - elsif @view.divisor == 0
+          - details = "$ #{@view.dividend} = #{@view.divisor} \\cdot n $ is not possible for any value of $ n $." if @view.divisor == 0
+        - else
+          - bounds = @view.multipliers.map { |m| "$ #{@view.divisor} \\cdot #{m} $" }
+          - details = "$ #{@view.dividend} $ is strictly between #{bounds.join(" and ")}" if !@view.divides? && @view.divisor != 0
 
-  div
-    | Write a naive
-    code<> divides?
-    | function that takes two integer inputs and returns
-    code<> true
-    | if the first divides the second and returns
-    code<> false
-    | otherwise. This naive function should only use addition, subtraction,
-    | multiplication, and comparison.
+        .solution-container
+          strong> #{answer}.
+          | $ #{@view.divisor} #{symbol} #{@view.dividend} $ since #{details}.
 
-    p some test values:
-    ul
-      - for example in @view.divides_examples
-        li
-          code divides?(#{example[:divisor]}, #{example[:dividend]}) ~> #{example[:divides?]}
-
-  == render "components/_solution", :locals => { :id => "example-divides" }
-    pre
-      == @ruby
+          == render "ebe/_divisibility_descriptions", :locals => { :dividend => @view.dividend, :divisor => @view.divisor, }
 
 .exercises
-  h2 proof exercises
+  h2 exercises
 
   ol
+    li.exercise
+      | Write a naive
+      code<> divides
+      | function that takes two integer inputs and returns
+      code<> true
+      | if the first divides the second and returns
+      code<> false
+      |
+        otherwise. This naive function should only use addition, subtraction,
+        multiplication, and comparison.
+
+      p some test values:
+      ul
+        - for example in @view.divides_examples
+          li
+            code divides(#{example[:divisor]}, #{example[:dividend]}) ~> #{example[:divides?]}
+
+      == render "components/_solution", :locals => { :id => "example-divides" }
+        pre
+          code.language-ruby
+            == @view.naive_code_snippet
+
+
     li.exercise
       p Every nonzero integer divides 0.
 
       == render "components/_solution", :locals => { :id => "example-1" }
-        p For any nonzero integer $ b $, we can express 0 as $ 0 = b \cdot 0 $,
+        p For any nonzero integer $ b $, we can express $ 0 $ as $ 0 = b \cdot 0 $,
           which proves that $ b \mid 0 $.
 
     li.exercise
@@ -137,5 +162,6 @@ p This study of integers begins with the notion of <em>divisibility</em>:
             \quad \implies \quad
             a = c \cdot (m \cdot n).
           \]
-          Since we have expressed $ a $ as a multiple of $ c $, we conclude that $ c \mid a $.
+          Since we have expressed $ a $ as an integer multiple of $ c $, we
+          conclude that $ c \mid a $.
 

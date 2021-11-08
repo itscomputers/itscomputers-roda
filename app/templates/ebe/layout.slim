@@ -1,0 +1,14 @@
+doctype html
+html
+  head
+    == render "_head"
+
+  body
+    main
+      == render "ebe/_breadcrumbs"
+
+      h1 = @contents.title
+
+      article
+        == yield
+

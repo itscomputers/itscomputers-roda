@@ -1,5 +1,5 @@
 module Views::Ebe
-  class Divisibility
+  class Divisibility < Views::Base
     EXAMPLES = [
       { :divisor =>  15, :dividend =>  45, :divides? => true },
       { :divisor => -15, :dividend =>  45, :divides? => true },
@@ -16,10 +16,6 @@ module Views::Ebe
       { :divisor =>  -1, :dividend =>   7, :divides? => true },
       { :divisor =>   0, :dividend =>   7, :divides? => false },
     ]
-
-    def initialize(params)
-      @params = params
-    end
 
     def divisor
       @params['divisor']&.to_i
@@ -48,6 +44,10 @@ module Views::Ebe
 
     def naive_divides?(b, a)
       Ebe::Naive.divides?(b, a)
+    end
+
+    def naive_code_snippet
+      CodeSnippet.wrap "module Naive", CodeSnippet.get("lib/ebe/naive.rb", method_name: "divides")
     end
 
     def divides_examples

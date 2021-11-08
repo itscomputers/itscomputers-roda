@@ -16,9 +16,9 @@ function showHideSolution(id) {
   const element = document.getElementById(id);
   const button = document.getElementById(`${id}-button`);
   if (element.classList.toggle('suppressed')) {
-    button.textContent = 'show solution';
+    button.textContent = button.textContent.replace("hide", "show");
   } else {
-    button.textContent = 'hide solution';
+    button.textContent = button.textContent.replace("show", "hide");
   }
 }
 
