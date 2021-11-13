@@ -1,0 +1,8 @@
+h1 projects
+
+ul
+  - for link in @view.links
+    li
+      a href="#{link.url}"
+        = link.text
+

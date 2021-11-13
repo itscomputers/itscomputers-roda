@@ -1,0 +1,546 @@
+h1 = @view.title
+
+section#intro
+  p Around 2300 years ago, Archimedes developed a “BigInteger” scheme in order to
+    express integers larger than supported by the Greek numeral system, ie,
+    larger than a myriad-myriad = $ 10^8 $. His system is described in a paper he
+    wrote called The Sand Reckoner, where he calculated an upper bound of $ 10^{63} $
+    for the number of grains of sand that could fit in the known universe.
+
+  p It was around this time that Archimedes sent a letter to a colleague in Egypt
+    with a problem that would surely strain any BigInteger system.
+
+hr
+
+section#letter
+  h2 the letter
+
+  p If thou art diligent and wise, O stranger, compute the number of cattle of
+    the Sun, who once upon a time grazed on the fields of the Thrinacian isle of
+    Sicily, divided into four herds of different colours, one milk white, another
+    a glossy black, a third yellow and the last dappled. In each herd were bulls,
+    mighty in number according to these proportions: Understand, stranger, that
+    the white bulls were equal to a half and a third of the black together with
+    the whole of the yellow, while the black were equal to the fourth part of the
+    dappled and a fifth, together with, once more, the whole of the yellow.
+    Observe further that the remaining bulls, the dappled, were equal to a sixth
+    part of the white and a seventh, together with all of the yellow. These were
+    the proportions of the cows: The white were precisely equal to the third part
+    and a fourth of the whole herd of the black; while the black were equal to
+    the fourth part once more of the dappled and with it a fifth part, when all,
+    including the bulls, went to pasture together. Now the dappled in four parts
+    were equal in number to a fifth part and a sixth of the yellow herd. Finally
+    the yellow were in number equal to a sixth part and a seventh of the white
+    herd. If thou canst accurately tell, O stranger, the number of cattle of the
+    Sun, giving separately the number of well-fed bulls and again the number of
+    females according to each colour, thou wouldst not be called unskilled or
+    ignorant of numbers, but not yet shalt thou be numbered among the wise.
+
+  p But come, understand also all these conditions regarding the cattle of the
+    Sun. When the white bulls mingled their number with the black, they stood
+    firm, equal in depth and breadth, and the plains of Thrinacia, stretching far
+    in all ways, were filled with their multitude. Again, when the yellow and the
+    dappled bulls were gathered into one herd they stood in such a manner that
+    their number, beginning from one, grew slowly greater till it completed a
+    triangular figure, there being no bulls of other colours in their midst nor
+    none of them lacking. If thou art able, O stranger, to find out all these
+    things and gather them together in your mind, giving all the relations, thou
+    shalt depart crowned with glory and knowing that thou hast been adjudged
+    perfect in this species of wisdom.
+
+hr
+
+section#cattle-problem
+  h2 the cattle problem
+
+  p Translating the letter, there are four colors of cattle: black, white,
+    yellow, and dappled. We label the bulls by the lower-case letters $ b $, $ w $,
+    $ y $, $ d $ and the cows by the upper-case letters $ B $, $ W $, $ Y $, $ D $.
+    The problem is given in two parts.
+
+  #part-1
+    h3 part 1
+
+    p The first paragraph translates to a system of 7 linear of equations in 8 variables.
+
+    table
+      thead
+        tr
+          th linear system
+      tbody
+        tr
+          td $ w = (\frac{1}{2} + \frac{1}{3}) b + y $
+        tr
+          td $ b = (\frac{1}{4} + \frac{1}{5}) d + y $
+        tr
+          td $ d = (\frac{1}{6} + \frac{1}{7}) w + y $
+        tr
+          td $ W = (\frac{1}{3} + \frac{1}{4}) (b + B) $
+        tr
+          td $ B = (\frac{1}{4} + \frac{1}{5}) (d + D) $
+        tr
+          td $ D = (\frac{1}{5} + \frac{1}{6}) (y + Y) $
+        tr
+          td $ Y = (\frac{1}{6} + \frac{1}{7}) (w + W) $
+
+    p Clearing denominators results in a system of 7 linear integer equations.
+
+    table
+      thead
+        tr
+          th integer linear system
+      tbody
+        tr
+          td $ 6 w = 5 b + 6 y $
+        tr
+          td $ 20 b = 9 b + 20 y $
+        tr
+          td $ 42 d = 13 b + 42 y $
+        tr
+          td $ 12 W = 7 b + 7 B $
+        tr
+          td $ 20 B = 9 d + 9 D $
+        tr
+          td $ 30 D = 11 y + 11 Y $
+        tr
+          td $ 42 Y = 13 w + 13 W $
+
+    p This is an underdetermined system, so there are infinitely many integer
+      solutions. A solution can be found either using algebraic manipulations or by
+      reducing the following matrix to its reduced-row-echelon form.
+
+    pre
+      code.language-ruby
+        = @view.linear_matrix
+
+    p Reducing the matrix and computing the null-space will result in a vector with
+      one free parameter. After clearing denominators to get integer solutions, or
+      after solving via algebraic manipulations, you will end up with the the
+      following solution.
+
+    table
+      thead
+        tr
+          th $ k = $ any integer
+      tbody
+        tr
+          td $ w = 10355482 \cdot k $
+        tr
+          td $ b = 7460514 \cdot k $
+        tr
+          td $ d = 7358060 \cdot k $
+        tr
+          td $ y = 4149387 \cdot k $
+        tr
+          td $ W = 7206360 \cdot k $
+        tr
+          td $ B = 4893246 \cdot k $
+        tr
+          td $ D = 3515820 \cdot k $
+        tr
+          td $ Y = 5439213 \cdot k $
+        tr
+          td Total $ = 50389082 \cdot k $
+
+    p
+      | The smallest solution has
+      strong<> 50,389,082
+      |
+        cattle, but Archimedes is unimpressed. We are, by his accounting, not
+        entirely unskilled in mathematics!
+
+  #part-2
+    h3 part 2
+
+    p In the second paragraph, Archimedes imposes two additional conditions.
+
+    p The first condition is that $ w + b $ must a square number. Using the
+      computed solution, we see that
+      $$ w + b = 17826996 \cdot k = 22 \cdot 3 \cdot 11 \cdot 29 \cdot 4657 \cdot k . $$
+      In order for this to be a square number, $ k $ must equal
+      $ 3 \cdot 11 \cdot 29 \cdot 4657 $ multiplied by a square number, ie, there
+      must be some integer $ t $ such that
+      $$ k = 957 \cdot 4657 \cdot t^2 . $$
+
+    p The second condition is that $ d + y $ must be a triangular number. Using
+      the computed solutions above and the value of $ k $, we get
+      $$ d + y = 2471 \cdot 4657 \cdot k=957 \cdot 2471 \cdot (4657t)^2 . $$
+      For this to be a triangular number, it must equal $ m (m + 1) / 2 $ for
+      some integer $ m $.  In other words,
+      $$ m^2 − m − 2 \cdot 957 \cdot 2471 \cdot (4657t)^2 = 0 . $$
+      The quadratic formula then implies that
+      $$ m = \dfrac{−1 + \sqrt{1 + 2 \cdot 957 \cdot 2471 \cdot (9314t)^2}}{2} , $$
+      or equivalently, putting $ v = 9314t $,
+      $$ m = \dfrac{−1 + \sqrt{1 + 4729494 v^2}}{2} . $$
+
+    p In order for this to be an integer, the inside of the square root must be
+      a perfect square, say $ u^2 $. Therefore, we are left trying to find an
+      integer solution $ (u, v) $ to
+      $$ u^2 − 4729494 v^2 = 1 , $$
+      where $ v $ is divisible by $ 9314 $.
+
+    p In modern mathematics, an equation of this sort is called Pell’s equation. It
+      was misattributed to John Pell, who never worked on the problem. Long before
+      being misnamed though, these equations were studied by the Ancient Greeks and
+      the solved by Indian mathematicians.
+
+hr
+
+section#continued-fractions
+  h2 continued fractions
+
+  p The continued fraction algorithm begins with a nonzero real number $ \alpha $,
+    computes its integer part called the quotient $ q $, and its fractional part
+    $ \beta = \alpha − q $. This $ beta $ is between $ 0 $ and $ 1 $, so it’s
+    reciprocal is greater than 1.
+
+  p At each iteration of the algorithm, $ \alpha $ is replaced by the reciprocal
+    of $ \beta $ and the same process is applied. This procedure is continued
+    indefinitely or until $ \beta $ is equal to $ 0 $. The pseudo-code for the
+    continued fraction algorithm is as follows.
+
+  pre
+    code.language-ruby
+      = @view.continued_fraction
+
+  p If $ \alpha $ is a rational number, the algorithm is essentially equivalent
+    to the Euclidean algorithm and terminates after finitely many steps.
+    Otherwise, the algorithm is infinite.
+
+  p The name continued fraction stems from the fact that the quotients in the
+    algorithm can be used to express $ \alpha $ as an “infinite fraction”. In
+    particular, indexing the quotients as $ q_0, q_1, q_2, \dots $ results in
+    $$ \alpha = q_0 + \cfrac{1}{q_1 + \cfrac{1}{q_2 + \cfrac{1}{\ddots}}} . $$
+
+  #continued-fraction-example.example
+    h3 example
+
+    p The continued fraction algorithm for $ \alpha = \sqrt{33} $ is the following.
+
+    table
+      thead
+        tr
+          th $ \alpha $
+          th $ q $
+          th $ \beta $
+      tbody
+        tr
+          td $ \sqrt{33} $
+          td $ 5 $
+          td $ −5 + \sqrt{33} $
+        tr
+          td $ \frac{5}{8} + \frac{1}{8}\sqrt{33} $
+          td $ 1 $
+          td $ −\frac{3}{8} + \frac{1}{8}\sqrt{33} $
+        tr
+          td $ 1 + \frac{1}{3}\sqrt{33} $
+          td $ 2 $
+          td $ −1 + \frac{1}{3}\sqrt{33} $
+        tr
+          td $ \frac{3}{8} + \frac{1}{8}\sqrt{33} $
+          td $ 1 $
+          td $ −\frac{5}{8} + \frac{1}{8}\sqrt{33} $
+        tr
+          td $ 5 + \sqrt{33} $
+          td $ 10 $
+          td $ −5 + \sqrt{33} $
+
+    p The $ \beta $ in the last row shown is the same as the $ \beta $ in the first
+      row. This implies that these last 4 rows will repeat indefinitely. The
+      quotients will be $ 5, 1, 2, 1, 10, 1, 2, 1, 10, 1, 2, 1, 10, \dots $ which
+      we abbreviate as $ \sqrt{33} = [5; 1, 2, 1, 10] $. The semicolon separates
+      the initial part from the periodic part.
+
+  #general-pattern
+    h3 general pattern
+
+    p The same pattern as the example holds in when $ \alpha = \sqrt{R} $.  Not
+      only is the continued fraction periodic, but it will terminate when
+      $ \alpha = q_0 + \sqrt{R} $.  The proof of this fact can be found in many
+      elementary number theory books.
+
+    p We want to be able to do this programatically for a fixed $ R $. To do
+      this, we need to track the arithmetic of subtracting the floor and then
+      inverting a quadratic rational number
+      $$ \dfrac{a + b \sqrt{R}}{c} . $$
+      To take the reciprocal, the denominator must be rationalized and the result
+      must be reduced by any common factors.
+
+    p Subtracting the quotient:
+      $$ \dfrac{a + b \sqrt{R}}{c} − q = \dfrac{(a − q c) +b \sqrt{R}}{c}, $$
+      and then taking the reciprocal and simplifying:
+      $$ \dfrac{c}{(a − q c) + b \sqrt{R}} = \dfrac{c(a − q c) − b c \sqrt{R}}{(a − q c)^2 − b^2 R} , $$
+      and finally negating both numerator and denominator for convenience:
+      $$ \dfrac{c}{(a − q c) + b \sqrt{R}} = \dfrac{c(q c - a) + b c \sqrt{R}}{b^2 R - (a − q c)^2} , $$
+
+  #programmatic-continued-fraction
+    p Representing the input quadratic rational by tuple $ (a, b, c) $, the
+      transformation of subtracting the floor and inverting is summarized as:
+
+    table
+      thead
+        tr
+          th input
+          th output
+      tbody
+        tr
+          td $ a $
+          td $ c \cdot (q \cdot c - a) $
+        tr
+          td $ b $
+          td $ b \cdot c $
+        tr
+          td $ c $
+          td $ b^2 \cdot R - (a - q \cdot c)^2 $
+
+    p The only remaining operation is to reduce by any common factors.  The
+      algorithm continues until the quadratic rational equals
+      $ q_0 + \sqrt{R}  \mapsto (q_0, 1, 1)$.
+      Pseudo-code for the continued fraction algorithm might look something
+      like this.
+
+    pre
+      code.language-ruby
+        = @view.continued_fraction_enhanced
+
+  #archimedes-cattle-continued-fraction
+    h3 continued fraction for archimedes' cattle problem
+
+    p Back to the cattle problem, the continued fraction of $ \sqrt{4729494} $
+      plays an important role in computing the smallest solution.  Using this
+      or some equivalent continued fraction algorithm implementation, we can
+      compute the continued fraction for $ \sqrt{4729494} $, which turns out to
+      have a period of $ 92 $. The first ten quotients are
+      $$ [2174, 1, 2, 1, 5, 2, 25, 3, 1, 1, \dots] . $$
+
+hr
+
+section#convergents
+  h2 convergents
+
+  p The convergents of a continued fraction are the rational numbers obtained
+    using finitely many of the quotients.  If the quotients are
+    $ [q_0, q_1, q_2, \dots ] $, then the first 3 convergents are
+    $$ q_0, \quad q_0 + \cfrac{1}{q_1}, \quad q_0 + \cfrac{1}{q_1 + \cfrac{1}{q_2}} $$
+
+  #convergents-example.example
+    h3 example
+
+    p Using the example above where $ \sqrt{33} = [5; 1, 2, 1, 10] $, the first
+      6 convergents are:
+
+    table
+      thead
+        tr
+          th convergents for $ \sqrt{33} $
+      tbody
+        tr
+          td $ \dfrac{5}{1} = 5 $
+        tr
+          td $ \dfrac{6}{1} = 5 + \cfrac{1}{1} $
+        tr
+          td $ \dfrac{17}{3} =  5 + \cfrac{1}{1 + \cfrac{1}{2}} $
+        tr
+          td $ \dfrac{23}{4} = 5 + \cfrac{1}{1 + \cfrac{1}{2 + \cfrac{1}{1}}} $
+        tr
+          td $ \dfrac{247}{43} = 5 + \cfrac{1}{1 + \cfrac{1}{2 + \cfrac{1}{1 + \cfrac{1}{10}}}} $
+        tr
+          td $ \dfrac{270}{47} = 5 + \cfrac{1}{1 + \cfrac{1}{2 + \cfrac{1}{1 + \cfrac{1}{10 + \cfrac{1}{1}}}}} $
+
+    p These rational numbers are approximations to $ \sqrt{33} $. The
+      approximations alternate between under- and over-estimates with each
+      more accurate than its predecessor.
+
+hr
+
+section#pells-equation
+  h2 pell's equation
+
+  p Finding integer solutions to an equation of the form $ u^2 − R v^2 = 1 $
+    is known as solving Pell’s equation.
+
+  p The Indian mathematician Brahmagupta (~600 CE) developed an identity to
+    derive infinitely many solutions of Pell’s equation from a single solution.
+    He was also able to find solutions to some notoriously difficult examples.
+
+  p Bhaskara II (~1150 CE) extended Brahmagupta’s techniques to develop his
+    “Circle Method”, which was capable of solving any instance of Pell’s
+    equation.
+
+  p But it wasn’t until 1768 that Lagrange proved that Bhaskara’s method will
+    always terminate after finitely many steps and yield a solution. Lagrange
+    used continued fractions for his proof.
+
+  p In particular, Lagrange was able to prove that the convergent right before
+    the end of the period of quotients can be used to produce a solution to
+    Pell’s equation.
+
+  #pells-equation-example.example
+    h3 example
+
+    p In the example for $ \sqrt{33} $, the convergent of interest is
+      $ \frac{23}{4} $. The numerator and denominator $ (23, 4) $ form a
+      solution $ (u, v) $ to $ u^2 − 33 v^2 = 1 $. Indeed,
+      $$ 23^2 - 33 \cdot 4^2 = 529 - 528 = 1. $$
+
+  #pells-equation-general
+    h3 general case
+
+    p In the general case, the convergent may form a solution to
+      $ u^2 − 33 v^2 = \pm 1 $, in which case the convergent at the end of the
+      second period will form a solution to Pell’s equation itself.
+
+    p In order to calculate the convergents efficiently, we use another property
+      of the continued fraction of $ \sqrt{R} $, namely that the numerators and
+      denominators of the convergents both satisfy the same recurrence relation:
+
+    code #{"next_value = quotient * current_value + previous_value"}
+
+  #programmatic-pells-equation
+    p Here is a modified version of the pseudo-code for the continued fraction
+      algorithm that also records convergents as we go.
+
+    pre
+      code.language-ruby
+        = @view.continued_fraction_with_convergents
+
+  #more-pell-solutions
+    h3 producing all solutions from one
+
+    p The last ingredient we need to solve Archimedes’ cattle problem is the
+      identity that Brahmagupta found to produce more solutions from a single
+      solution. This identity can be framed in modern terms as follows: if
+      $ (a, b) $ is the smallest integer solution (found using the continued
+      fraction convergents) to $ u^2 − R v^2 = 1 $, then every solution is of
+      the form $ (A, B) $, where $ (a + b \sqrt{R})^n = A + B \sqrt{R} $ for a
+      positive integer $ n $.  In other words, the powers of $ a + b \sqrt{R} $
+      give all solutions to Pell's equation.
+
+    p Note that if the convergents produce a solution $ (a, b) $ to
+      $ u^2 - R v^2 = -1 $, then squaring $ a + b \sqrt{R} $
+      will give the desired solution to $ u^2 - R v^2 = 1 $.
+
+    #more-pell-solutions-example.example
+      h3 example
+
+      p The smallest solution $ (23, 4) $ to $ u^2 - 33 v^2 = 1 $ can be used
+        to produce all solutions.  Here are the first 3.
+
+      table
+        thead
+          tr
+            th power
+            th computation
+            th solution
+        tbody
+          tr
+            th $ (23 + 4 \sqrt{33})^1 $
+            th $ 23 + 4 \sqrt{33} $
+            th $ (23, 4) $
+          tr
+            th $ (23 + 4 \sqrt{33})^2 $
+            th $ 1057 + 184 \sqrt{33} $
+            th $ (1057, 184) $
+          tr
+            th $ (23 + 4 \sqrt{33})^3 $
+            th $ 48599 + 8460 \sqrt{33} $
+            th $ (48599, 8460) $
+
+    #programmatic-pell-solutions
+      p To compute powers programmatically, we rely on multiplication of quadratic integers:
+        $$ (a, b) * (c, d)
+            \quad \mapsto \quad
+          (a + b \sqrt{R}) \cdot (c + d \sqrt{R}) =
+          (ac + bdR) + (ad + bc) \sqrt{R},
+        $$
+        which has the following pseudo-code.
+
+      pre
+        code.language-ruby
+          = @view.quadratic_integer_multiply
+
+      p Then the pseudo-code to compute the power of a quadratic integer might look like:
+
+      pre
+        code.language-ruby
+          = @view.quadratic_integer_power
+
+hr
+
+section#cattle-problem-solution
+  h2 the solution to archimedes' cattle problem
+
+  p Recall that we need to find a solution to $ u^2 − 4729494 v^2 = 1 $.  Using
+    the continued fraction of $ \sqrt{4729494} $ (which has a period of 92) and
+    its convergents, we arrive at a first solution $ (a, b) $ with
+    $$ a = 109931986732829734979866232821433543901088049 $$
+    $$ b = 50549485234315033074477819735540408986340 . $$
+    Amthor calculated these integers by hand in 1880.
+
+  p However, we also need a solution where $ v $ to be divisible by $ 9314 $,
+    which is not the case for $ v = b $.  Amthor proved that the
+    $ 2329^{\text{th}} $ power is the first solution that has a $ v $ divisible
+    by $ 9314 $.  More explicitly, $ (A, B) $ is a solution with $ B $ divisible
+    by $ 9314 $, where $ (A, B) $ are defined by
+    $$ A + B \sqrt{4729494} = (a + b \sqrt{4729494})^{2329} . $$
+    These numbers were not possible for Amthor to compute by hand.  He used
+    logarithms to show that $ A $ and $ B $ have $ 103,\!273 $ and $ 103,\!270 $
+    digits, respectively.
+
+  p Setting $ t = B / 9314 $ and plugging in, we get
+    $$ k = 957 \cdot 4657 t^2 = \dfrac{957 \cdot B^2}{2 \cdot 9314} , $$
+    which means the total number of cattle under the sun is
+    $$ \text{Total} = 50389082 \cdot k = \dfrac{50389082 \cdot 957 \cdot B^2}{2 \cdot 9314} . $$
+
+  p The smallest solution to Archimedes' cattle problem is a number that has $ 206,\!545 $ digits!!
+    $$ \text{Total} = 77602714064868182695302328332138866642323224059233 \dots $$
+    $$ \hspace{60pt} \dots 05994630144292500354883118973723406626719455081800 $$
+
+hr
+
+section#epilogue
+  h2 epilogue
+
+  p As mentioned, Amthor was able to find the exact solution by hand in 1880,
+    but was unable to compute the solution. He correctly computed the number of
+    digits and calculated the first four digits to be 7766. The first three of
+    his digits were correct.
+
+  p In 1965, mathematicians Williams, German, and Zarnke at the University of
+    Waterloo used an IBM 7040 and an IBM 1620 to compute the full solution. It
+    took 7:49 hours. They published their methods in the Mathematics of
+    Computation. The number itself was deposited in the unpublished
+    mathematical tables of the journal.
+
+  p In 1981, Harry Nelson used a Cray-1 computer at Livermore National
+    Laboratory to compute and verify the solution in about 10 minutes. He
+    published the result with 1/3 font size on 47 pages of the Journal of
+    Recreational Mathematics.
+
+hr
+
+section#bang-bang-con
+  h2 bang bang con west (february 2020)
+
+  p I gave a 10-minute soap opera version of this as a talk at !!con west in
+    februrary of 2020. At the end of the talk, I used a 2017 13in MacBook Pro
+    to compute the solution in a tenth of a second using some ruby code that I
+    wrote.
+
+  ul
+    li
+      a href="https://github.com/itscomputers/archimedes-cattle-problem/blob/master/cattle.rb"
+        = "ruby code on github"
+    li
+      a href="https://youtu.be/BVYotbZuiDY"
+        = "video of my !!con west talk"
+
+
+
+
+
+
+
+
+
+

@@ -17,6 +17,16 @@ class App < Roda
   route do |r|
     r.assets
 
+    r.root do
+      @view = Views::Root.new(r.params)
+      view "root"
+    end
+
+    r.get "archimedes_cattle_problem" do
+      @view = Views::ArchimedesCattleProblem.new(r.params)
+      view "archimedes_cattle_problem"
+    end
+
     r.on "ebe" do
       @contents = Views::Ebe::TableOfContents.new(r.params)
 
