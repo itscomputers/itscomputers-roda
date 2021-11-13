@@ -1,8 +1,19 @@
-h1 projects
+h1 its computers
 
-ul
-  - for link in @view.links
-    li
-      a href="#{link.url}"
-        = link.text
+section#links
+  ul
+    - for link in @view.links
+      li
+        a href="#{link.url}"
+          = link.text
+
+hr
+
+section#itscomputers-video
+  p "Everything is the same, but different. Things are more moderner than before --- bigger, and yet, smaller. It's computers..."
+
+  .video-container
+    .video
+      iframe src="https://www.youtube.com/embed/Yn5pJtgtRrg" width="560" height="315" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=true
+
 
