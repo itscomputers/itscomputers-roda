@@ -69,17 +69,13 @@ li a, .section-list-item {
   font-family: $code-font;
 }
 
-code, pre, .language-plaintext {
-  font-family: $code-font;
-  background: $dark-gray;
-  padding: 2px 5px;
-  border-radius: 3px;
-  color: $code-color;
-}
-
 table {
   margin-left: 20px;
   border-collapse: collapse;
+}
+
+.overflow-container {
+  overflow-x: auto;
 }
 
 td, th {
@@ -222,6 +218,8 @@ blockquote.exercise {
 
 mjx-container {
   color: $math-color;
+  overflow-x: auto;
+  overflow-y: hidden;
 }
 
 .language-plaintext {

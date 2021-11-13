@@ -63,47 +63,49 @@ section#cattle-problem
 
     p The first paragraph translates to a system of 7 linear of equations in 8 variables.
 
-    table
-      thead
-        tr
-          th linear system
-      tbody
-        tr
-          td $ w = (\frac{1}{2} + \frac{1}{3}) b + y $
-        tr
-          td $ b = (\frac{1}{4} + \frac{1}{5}) d + y $
-        tr
-          td $ d = (\frac{1}{6} + \frac{1}{7}) w + y $
-        tr
-          td $ W = (\frac{1}{3} + \frac{1}{4}) (b + B) $
-        tr
-          td $ B = (\frac{1}{4} + \frac{1}{5}) (d + D) $
-        tr
-          td $ D = (\frac{1}{5} + \frac{1}{6}) (y + Y) $
-        tr
-          td $ Y = (\frac{1}{6} + \frac{1}{7}) (w + W) $
+    .overflow-container
+      table
+        thead
+          tr
+            th linear system
+        tbody
+          tr
+            td $ w = (\frac{1}{2} + \frac{1}{3}) b + y $
+          tr
+            td $ b = (\frac{1}{4} + \frac{1}{5}) d + y $
+          tr
+            td $ d = (\frac{1}{6} + \frac{1}{7}) w + y $
+          tr
+            td $ W = (\frac{1}{3} + \frac{1}{4}) (b + B) $
+          tr
+            td $ B = (\frac{1}{4} + \frac{1}{5}) (d + D) $
+          tr
+            td $ D = (\frac{1}{5} + \frac{1}{6}) (y + Y) $
+          tr
+            td $ Y = (\frac{1}{6} + \frac{1}{7}) (w + W) $
 
     p Clearing denominators results in a system of 7 linear integer equations.
 
-    table
-      thead
-        tr
-          th integer linear system
-      tbody
-        tr
-          td $ 6 w = 5 b + 6 y $
-        tr
-          td $ 20 b = 9 b + 20 y $
-        tr
-          td $ 42 d = 13 b + 42 y $
-        tr
-          td $ 12 W = 7 b + 7 B $
-        tr
-          td $ 20 B = 9 d + 9 D $
-        tr
-          td $ 30 D = 11 y + 11 Y $
-        tr
-          td $ 42 Y = 13 w + 13 W $
+    .overflow-container
+      table
+        thead
+          tr
+            th integer linear system
+        tbody
+          tr
+            td $ 6 w = 5 b + 6 y $
+          tr
+            td $ 20 b = 9 b + 20 y $
+          tr
+            td $ 42 d = 13 b + 42 y $
+          tr
+            td $ 12 W = 7 b + 7 B $
+          tr
+            td $ 20 B = 9 d + 9 D $
+          tr
+            td $ 30 D = 11 y + 11 Y $
+          tr
+            td $ 42 Y = 13 w + 13 W $
 
     p This is an underdetermined system, so there are infinitely many integer
       solutions. A solution can be found either using algebraic manipulations or by
@@ -118,29 +120,30 @@ section#cattle-problem
       after solving via algebraic manipulations, you will end up with the the
       following solution.
 
-    table
-      thead
-        tr
-          th $ k = $ any integer
-      tbody
-        tr
-          td $ w = 10355482 \cdot k $
-        tr
-          td $ b = 7460514 \cdot k $
-        tr
-          td $ d = 7358060 \cdot k $
-        tr
-          td $ y = 4149387 \cdot k $
-        tr
-          td $ W = 7206360 \cdot k $
-        tr
-          td $ B = 4893246 \cdot k $
-        tr
-          td $ D = 3515820 \cdot k $
-        tr
-          td $ Y = 5439213 \cdot k $
-        tr
-          td Total $ = 50389082 \cdot k $
+    .overflow-container
+      table
+        thead
+          tr
+            th $ k = $ any integer
+        tbody
+          tr
+            td $ w = 10355482 \cdot k $
+          tr
+            td $ b = 7460514 \cdot k $
+          tr
+            td $ d = 7358060 \cdot k $
+          tr
+            td $ y = 4149387 \cdot k $
+          tr
+            td $ W = 7206360 \cdot k $
+          tr
+            td $ B = 4893246 \cdot k $
+          tr
+            td $ D = 3515820 \cdot k $
+          tr
+            td $ Y = 5439213 \cdot k $
+          tr
+            td Total $ = 50389082 \cdot k $
 
     p
       | The smallest solution has
@@ -217,33 +220,34 @@ section#continued-fractions
 
     p The continued fraction algorithm for $ \alpha = \sqrt{33} $ is the following.
 
-    table
-      thead
-        tr
-          th $ \alpha $
-          th $ q $
-          th $ \beta $
-      tbody
-        tr
-          td $ \sqrt{33} $
-          td $ 5 $
-          td $ −5 + \sqrt{33} $
-        tr
-          td $ \frac{5}{8} + \frac{1}{8}\sqrt{33} $
-          td $ 1 $
-          td $ −\frac{3}{8} + \frac{1}{8}\sqrt{33} $
-        tr
-          td $ 1 + \frac{1}{3}\sqrt{33} $
-          td $ 2 $
-          td $ −1 + \frac{1}{3}\sqrt{33} $
-        tr
-          td $ \frac{3}{8} + \frac{1}{8}\sqrt{33} $
-          td $ 1 $
-          td $ −\frac{5}{8} + \frac{1}{8}\sqrt{33} $
-        tr
-          td $ 5 + \sqrt{33} $
-          td $ 10 $
-          td $ −5 + \sqrt{33} $
+    .overflow-container
+      table
+        thead
+          tr
+            th $ \alpha $
+            th $ q $
+            th $ \beta $
+        tbody
+          tr
+            td $ \sqrt{33} $
+            td $ 5 $
+            td $ −5 + \sqrt{33} $
+          tr
+            td $ \frac{5}{8} + \frac{1}{8}\sqrt{33} $
+            td $ 1 $
+            td $ −\frac{3}{8} + \frac{1}{8}\sqrt{33} $
+          tr
+            td $ 1 + \frac{1}{3}\sqrt{33} $
+            td $ 2 $
+            td $ −1 + \frac{1}{3}\sqrt{33} $
+          tr
+            td $ \frac{3}{8} + \frac{1}{8}\sqrt{33} $
+            td $ 1 $
+            td $ −\frac{5}{8} + \frac{1}{8}\sqrt{33} $
+          tr
+            td $ 5 + \sqrt{33} $
+            td $ 10 $
+            td $ −5 + \sqrt{33} $
 
     p The $ \beta $ in the last row shown is the same as the $ \beta $ in the first
       row. This implies that these last 4 rows will repeat indefinitely. The
@@ -277,21 +281,22 @@ section#continued-fractions
     p Representing the input quadratic rational by tuple $ (a, b, c) $, the
       transformation of subtracting the floor and inverting is summarized as:
 
-    table
-      thead
-        tr
-          th input
-          th output
-      tbody
-        tr
-          td $ a $
-          td $ c \cdot (q \cdot c - a) $
-        tr
-          td $ b $
-          td $ b \cdot c $
-        tr
-          td $ c $
-          td $ b^2 \cdot R - (a - q \cdot c)^2 $
+    .overflow-container
+      table
+        thead
+          tr
+            th input
+            th output
+        tbody
+          tr
+            td $ a $
+            td $ c \cdot (q \cdot c - a) $
+          tr
+            td $ b $
+            td $ b \cdot c $
+          tr
+            td $ c $
+            td $ b^2 \cdot R - (a - q \cdot c)^2 $
 
     p The only remaining operation is to reduce by any common factors.  The
       algorithm continues until the quadratic rational equals
@@ -329,23 +334,24 @@ section#convergents
     p Using the example above where $ \sqrt{33} = [5; 1, 2, 1, 10] $, the first
       6 convergents are:
 
-    table
-      thead
-        tr
-          th convergents for $ \sqrt{33} $
-      tbody
-        tr
-          td $ \dfrac{5}{1} = 5 $
-        tr
-          td $ \dfrac{6}{1} = 5 + \cfrac{1}{1} $
-        tr
-          td $ \dfrac{17}{3} =  5 + \cfrac{1}{1 + \cfrac{1}{2}} $
-        tr
-          td $ \dfrac{23}{4} = 5 + \cfrac{1}{1 + \cfrac{1}{2 + \cfrac{1}{1}}} $
-        tr
-          td $ \dfrac{247}{43} = 5 + \cfrac{1}{1 + \cfrac{1}{2 + \cfrac{1}{1 + \cfrac{1}{10}}}} $
-        tr
-          td $ \dfrac{270}{47} = 5 + \cfrac{1}{1 + \cfrac{1}{2 + \cfrac{1}{1 + \cfrac{1}{10 + \cfrac{1}{1}}}}} $
+    .overflow-container
+      table
+        thead
+          tr
+            th convergents for $ \sqrt{33} $
+        tbody
+          tr
+            td $ \dfrac{5}{1} = 5 $
+          tr
+            td $ \dfrac{6}{1} = 5 + \cfrac{1}{1} $
+          tr
+            td $ \dfrac{17}{3} =  5 + \cfrac{1}{1 + \cfrac{1}{2}} $
+          tr
+            td $ \dfrac{23}{4} = 5 + \cfrac{1}{1 + \cfrac{1}{2 + \cfrac{1}{1}}} $
+          tr
+            td $ \dfrac{247}{43} = 5 + \cfrac{1}{1 + \cfrac{1}{2 + \cfrac{1}{1 + \cfrac{1}{10}}}} $
+          tr
+            td $ \dfrac{270}{47} = 5 + \cfrac{1}{1 + \cfrac{1}{2 + \cfrac{1}{1 + \cfrac{1}{10 + \cfrac{1}{1}}}}} $
 
     p These rational numbers are approximations to $ \sqrt{33} $. The
       approximations alternate between under- and over-estimates with each
@@ -426,25 +432,26 @@ section#pells-equation
       p The smallest solution $ (23, 4) $ to $ u^2 - 33 v^2 = 1 $ can be used
         to produce all solutions.  Here are the first 3.
 
-      table
-        thead
-          tr
-            th power
-            th computation
-            th solution
-        tbody
-          tr
-            th $ (23 + 4 \sqrt{33})^1 $
-            th $ 23 + 4 \sqrt{33} $
-            th $ (23, 4) $
-          tr
-            th $ (23 + 4 \sqrt{33})^2 $
-            th $ 1057 + 184 \sqrt{33} $
-            th $ (1057, 184) $
-          tr
-            th $ (23 + 4 \sqrt{33})^3 $
-            th $ 48599 + 8460 \sqrt{33} $
-            th $ (48599, 8460) $
+      .overflow-container
+        table
+          thead
+            tr
+              th power
+              th computation
+              th solution
+          tbody
+            tr
+              th $ (23 + 4 \sqrt{33})^1 $
+              th $ 23 + 4 \sqrt{33} $
+              th $ (23, 4) $
+            tr
+              th $ (23 + 4 \sqrt{33})^2 $
+              th $ 1057 + 184 \sqrt{33} $
+              th $ (1057, 184) $
+            tr
+              th $ (23 + 4 \sqrt{33})^3 $
+              th $ 48599 + 8460 \sqrt{33} $
+              th $ (48599, 8460) $
 
     #programmatic-pell-solutions
       p To compute powers programmatically, we rely on multiplication of quadratic integers:
@@ -493,8 +500,7 @@ section#cattle-problem-solution
     $$ \text{Total} = 50389082 \cdot k = \dfrac{50389082 \cdot 957 \cdot B^2}{2 \cdot 9314} . $$
 
   p The smallest solution to Archimedes' cattle problem is a number that has $ 206,\!545 $ digits!!
-    $$ \text{Total} = 77602714064868182695302328332138866642323224059233 \dots $$
-    $$ \hspace{60pt} \dots 05994630144292500354883118973723406626719455081800 $$
+    $$ \text{Total} = 77602714064868182695302328332138866642323224059233 \, \dots \, 05994630144292500354883118973723406626719455081800 $$
 
 hr
 
