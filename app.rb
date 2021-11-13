@@ -26,9 +26,16 @@ class App < Roda
         r.on route do
           @contents.section = section
           view_class_name = route.split("_").map(&:capitalize).join
-          @view = Views::Ebe.module_eval(view_class_name).new(r.params)
+          @view = Views::Ebe.module_eval(view_class_name).new(r.params).tap do |v|
+            v.title = "ebe - #{@contents.title_lookup.dig(section)}"
+          end
           view "ebe/#{route}", :layout => "ebe/layout"
         end
+      end
+
+      r.get do
+        @view = @contents.tap { |v| v.title = "ebe - number theory for programmers" }
+        view "ebe/table_of_contents"
       end
     end
   end

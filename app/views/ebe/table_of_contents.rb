@@ -3,14 +3,12 @@ module Views::Ebe
     attr_accessor :section
 
     SECTION_DETAILS = {
-      :table_of_contents => { :section => true },
       :divisibility => { :section => true },
       :bezout_identity => { :title => "bezout's identity" },
       :primality => { :section => true },
     }
 
     SECTIONS = [
-      :table_of_contents,
       :divisibility,
       :divisors,
       :common_divisors,
@@ -25,7 +23,7 @@ module Views::Ebe
 
     def initialize(params)
       super
-      @section = :divisibility
+      @section = :table_of_contents
     end
 
     def next_section
@@ -64,7 +62,7 @@ module Views::Ebe
       @section.to_s
     end
 
-    def title
+    def section_title
       [
         section_numbers.dig(@section),
         title_lookup.dig(@section),
@@ -82,7 +80,7 @@ module Views::Ebe
     def section_numbers
       return @numbered_sections unless @numbered_sections.nil?
 
-      section_number = -1
+      section_number = 0
       subsection_number = 0
 
       @numbered_sections = sections.inject(Hash.new) do |hash, section|

@@ -1,3 +1,5 @@
+h1 = @view.title
+
 .table-of-contents
   - for section in @view.sections
     - klass = @view.section_details.dig(section, :section) ? "section" : "subsection"
