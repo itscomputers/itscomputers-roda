@@ -4,6 +4,10 @@ html
     == render "_head"
 
   body
+    == render "_nav"
+
     main
       == yield
+
+    == render "_footer"
 

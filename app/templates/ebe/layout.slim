@@ -4,6 +4,8 @@ html
     == render "_head"
 
   body
+    == render "_nav"
+
     main
       == render "ebe/_breadcrumbs"
 
@@ -12,3 +14,4 @@ html
       article
         == yield
 
+    == render "_footer"

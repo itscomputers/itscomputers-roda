@@ -11,19 +11,14 @@ body {
 
 main {
   background: $main-background-color;
-  padding: 50px 15px;
+  padding: 50px 30px 15px;
   max-width: $content-width;
   margin: 0 auto;
 }
 
-article {
-  padding-bottom: 20px;
-}
-
 footer {
   background: $body-background-color;
-  padding: 20px 0;
-  margin: 0 -15px;
+  padding: 15px 0;
 }
 
 h1, h2, h3 {
@@ -193,6 +188,7 @@ blockquote.exercise {
 .breadcrumbs {
   display: flex;
   justify-content: space-between;
+  padding: 10px 0 0;
 
   a {
     background: $button-background-color;
@@ -237,7 +233,18 @@ mjx-container {
 }
 
 .rc-scout {
+  padding: 10px 0;
   text-align: center;
+}
+
+.rc-scout__link:link, .rc-scout__link:visited {
+  color: $link-color !important;
+  text-decoration: none !important;
+}
+
+.rc-scout__link:hover {
+  color: $link-hover-color !important;
+  text-decoration: underline !important;
 }
 
 /* Aside */
