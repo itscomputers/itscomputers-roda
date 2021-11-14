@@ -6,7 +6,12 @@ gem "slim"
 gem "kramdown"
 gem "sassc"
 
-gem "rerun"
-gem "rspec"
-gem "capybara"
+group :development do
+  gem "rerun"
+end
+
+group :test do
+  gem "rspec"
+  gem "capybara"
+end
 
