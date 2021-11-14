@@ -6,6 +6,7 @@ require_relative './app/views'
 require_relative './app/code_snippet'
 
 class App < Roda
+  plugin :public
   plugin :assets,
     css: ["prism.css", "application.scss"],
     js: ["application.js", "prism.js"]
@@ -16,6 +17,7 @@ class App < Roda
 
   route do |r|
     r.assets
+    r.public
 
     r.root do
       @view = Views::Root.new(r.params)
