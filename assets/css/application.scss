@@ -103,7 +103,9 @@ blockquote {
   background: $blockquote-background-color;
   outline: $blockquote-outline-color double 3px;
   padding: 5px 15px;
-  margin: 5px 60px;
+  margin: 5px auto;
+  width: 850px;
+  max-width: 95%;
 }
 
 .definition, .exercise, .example {
@@ -119,7 +121,9 @@ blockquote {
 .solution-container {
   background: $dark-gray;
   padding: 10px;
-  margin: 5px 20px;
+  margin: 5px auto;
+  width: 850px;
+  max-width: 100%;
   border: 1px solid $black;
   border-radius: 3px;
 

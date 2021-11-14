@@ -2,7 +2,6 @@ require 'roda'
 require 'tilt/sass'
 
 require_relative './lib/ebe'
-require_relative './app/views/base'
 require_relative './app/views'
 require_relative './app/code_snippet'
 
