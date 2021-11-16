@@ -108,6 +108,20 @@ blockquote {
   max-width: 95%;
 }
 
+code, .language-plaintext {
+  font-family: $code-font;
+  background: $dark-gray;
+  padding: 2px 5px;
+  border-radius: 3px;
+  color: $code-color;
+}
+
+.code-toolbar {
+  code {
+    padding: 0;
+  }
+}
+
 .definition, .exercise, .example {
   strong, em {
     color: $emph-color;
@@ -121,7 +135,7 @@ blockquote {
 .solution-container {
   background: $dark-gray;
   padding: 10px;
-  margin: 5px auto;
+  margin: 15px auto 0;
   width: 850px;
   max-width: 100%;
   border: 1px solid $black;
@@ -218,6 +232,7 @@ blockquote.exercise {
 
 mjx-container {
   color: $math-color;
+  padding: 0 5px;
   overflow-x: auto;
   overflow-y: hidden;
 }

@@ -4,21 +4,21 @@ module Views::Ebe
 
     SECTION_DETAILS = {
       :divisibility => { :section => true },
-      :bezout_identity => { :title => "bezout's identity" },
-      :primality => { :section => true },
+#     :bezout_identity => { :title => "bezout's identity" },
+#     :primality => { :section => true },
     }
 
     SECTIONS = [
       :divisibility,
       :divisors,
-      :common_divisors,
-      :greatest_common_divisor,
-      :linear_combinations,
-      :bezout_identity,
-      :common_multiples,
-      :least_common_multiple,
-      :linear_equations,
-      :primality,
+#     :common_divisors,
+#     :greatest_common_divisor,
+#     :linear_combinations,
+#     :bezout_identity,
+#     :common_multiples,
+#     :least_common_multiple,
+#     :linear_equations,
+#     :primality,
     ]
 
     def initialize(params)

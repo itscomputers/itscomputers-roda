@@ -1,4 +1,4 @@
-require_relative '../../spec_helper'
+require_relative "../../spec_helper"
 
 describe Ebe::Division do
   def any(except: nil, lower_bound: -10**8, upper_bound: 10**8)
@@ -16,7 +16,7 @@ describe Ebe::Division do
     any(except: except, upper_bound: -1)
   end
 
-  describe 'divides?' do
+  describe "#divides?" do
     subject { Ebe.divides?(b, a) }
 
     context "when `b == 0`" do
@@ -54,6 +54,40 @@ describe Ebe::Division do
       context "when `a` is not a multiple of `b`" do
         let(:a) { any * b + Random.rand(0...b.abs) }
         it { is_expected.to be false }
+      end
+    end
+
+    describe "explicit examples" do
+      Views::Ebe::Divisibility::EXAMPLES.each do |hash|
+        context "when dividing #{hash[:divisor]} into #{hash[:dividend]}" do
+          let(:a) { hash[:dividend] }
+          let(:b) { hash[:divisor] }
+          it { is_expected.to eq hash[:divides?] }
+        end
+      end
+    end
+  end
+
+  describe "#divisors" do
+    subject { Ebe.divisors(integer) }
+
+    Views::Ebe::Divisors::EXAMPLES.each do |hash|
+      context "when integer is #{hash[:integer]}" do
+        let(:integer) { hash[:integer] }
+        it { is_expected.to eq hash[:divisors] }
+      end
+    end
+
+    context "general behavior" do
+      let(:integer) { any lower_bound: 1, upper_bound: 1000 }
+      let(:non_divisors) { (1..integer).to_a - subject }
+
+      it "consists of divisors" do
+        expect(subject.all? { |divisor| Ebe.divides?(divisor, integer) }).to be true
+      end
+
+      it "leaves out non_divisors" do
+        expect(non_divisors.none? { |non_divisor| Ebe.divides?(non_divisor, integer) }).to be true
       end
     end
   end

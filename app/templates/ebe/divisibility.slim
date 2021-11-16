@@ -1,37 +1,28 @@
-p
-  | This study of integers begins with the notion of
-  em<divisibility
-  |
-    , whether the division of two integers results in an integer.  Since
-    division does not always yield a result at all, let alone an integer
-    result, we frame this question in terms of multiplication.
-
-blockquote.definition
-  strong> definition.
-  | Given two integers $ a, b $, we say that $ b $
-  em<> divides
-  |
-    $ a $ if there is some integer $ n $ for which $ a = b \cdot n $.
-    If $ b $ divides $ a $, we write $ b \mid a $.
-    If $ b $ does not divide $ a $, we write $b \nmid a $.
-
-  hr
-
-  p The following statements are equivalent ways of
-    describing that $ b \mid a $.
-
-  == render "ebe/_divisibility_descriptions", :locals => { :dividend => "a", :divisor => "b", :divides => true }
-
-  hr
-
+section.intro
   p
+    | This study of integers begins with the notion of
+    em< divisibility
     |
-      Be careful! This notation is sometimes confused with the division
-      operation. If you see $ 15 / 45 $, it is the operation that returns the
-      rational number $ 1 / 3 $. If you see $ 15 \mid 45 $, it is the statement
-      that $ 45 $ is divisible by $ 15 $, ie, that $ 45 / 15 $ is an integer.
+      , whether the division of two integers results in an integer.  Since division does not
+      always yield a result at all, let alone an integer result, we frame this question in
+      terms of multiplication.
 
-.examples
+  blockquote.definition
+    p
+      strong> definition.
+      | Given two integers $ a, b $, we say that $ b $
+      em<> divides
+      |
+        $ a $ if there is some integer $ n $ for which $ a = b \cdot n $.  If $ b $ divides
+        $ a $, we write $ b \mid a $.  If $ b $ does not divide $ a $, we write $b \nmid a $.
+
+    hr
+
+    p The following statements are equivalent ways of describing that $ b \mid a $.
+
+    == render "ebe/_divisibility_descriptions", :locals => { :dividend => "a", :divisor => "b", :divides => true }
+
+section.examples
   h2 examples
 
   ol
@@ -79,7 +70,16 @@ blockquote.definition
 
           == render "ebe/_divisibility_descriptions", :locals => { :dividend => @view.dividend, :divisor => @view.divisor, }
 
-.exercises
+section
+  h2 careful!
+  p
+    |
+      This notation $ a \mid b $ is sometimes confused with notation for the division
+      operation. If you see $ 15 / 45 $, it is the division operation that returns the
+      rational number $ 1 / 3 $. If you see $ 15 \mid 45 $, it is the statement that
+      $ 45 $ is divisible by $ 15 $, ie, that $ 45 / 15 $ is an integer.
+
+section.exercises
   h2 exercises
 
   ol
@@ -94,58 +94,59 @@ blockquote.definition
         otherwise. This naive function should only use addition, subtraction,
         multiplication, and comparison.
 
-      p some test values:
+      p Some test values:
       ul
         - for example in @view.divides_examples
           li
             code divides(#{example[:divisor]}, #{example[:dividend]}) ~> #{example[:divides?]}
 
-      == render "components/_solution", :locals => { :id => "example-divides" }
+      == render "components/_solution", :locals => { :id => "exercise-divides" }
         pre
           code.language-ruby
             == @view.naive_code_snippet
 
 
     li.exercise
-      p Every nonzero integer divides 0.
+      p Prove that every nonzero integer divides 0.
 
       == render "components/_solution", :locals => { :id => "example-1" }
-        p For any nonzero integer $ b $, we can express $ 0 $ as $ 0 = b \cdot 0 $,
-          which proves that $ b \mid 0 $.
+        p For any nonzero integer $ b $, we can express $ 0 $ as $ 0 = b \cdot 0 $, which
+          proves that $ b \mid 0 $.
 
     li.exercise
-      p Every integer is divisible by both $ 1 $ and $ -1 $.
+      p Prove that every integer is divisible by both $ 1 $ and $ -1 $.
 
       == render "components/_solution", :locals => { :id => "example-2" }
-        p Let $ a $ be any integer.  We can express $ a $ as $ a = 1 \cdot a $,
-          which shows that $ 1 \mid a $.  We can also express $ a $ as
-          $ a = -1 \cdot (-a) $, which shows that $ -1 \mid a $.
+        p Let $ a $ be any integer.  We can express $ a $ as $ a = 1 \cdot a $, which
+          shows that $ 1 \mid a $.  We can also express $ a $ as $ a = -1 \cdot (-a) $,
+          which shows that $ -1 \mid a $.
 
     li.exercise
-      p Every nonzero integer divides itself.
+      p Prove that every nonzero integer divides itself.
 
       == render "components/_solution", :locals => { :id => "example-3" }
-        p For any nonzero integer $ a $, we can express $ a $ as $ a = a \cdot 1 $,
-          which shows that $ a \mid a $.
+        p For any nonzero integer $ a $, we can express $ a $ as $ a = a \cdot 1 $, which
+          shows that $ a \mid a $.
 
     li.exercise
-      p If $ a $ and $ b $ are positive integers such that $ b \mid a $, prove that $ b \le a $.
+      p If $ b \mid a $, prove that $ -b \mid a $ and $ b \mid -a $.
 
       == render "components/_solution", :locals => { :id => "example-4" }
         p Since $ b \mid a $, there is an integer $ n $ such that $ a = b \cdot n $.
-          Since both $ a $ and $ b $ are positive, then $ n $ must be as well, because
-          if $ n $ were zero or negative, then multiplying by $ b $ would result in
-          zero or a negative number, which is impossible.  Therefore, we can be sure
-          that $ 1 \le n $.  Multiplying both sides of this inequality by the positive
-          integer $ b $ results in $ b \le b \cdot n $, which can be rewritten as $ b \le a $.
+          Then
+          $$ a = (-b) \cdot (-n) \quad \implies \quad -b \mid a $$
+          and
+          $$ -a = b \cdot (-n) \quad \implies \quad b \mid -a . $$
 
     li.exercise
-      p If $ a $ and $ b $ are positive integers that both divide each other, then $ a = b $.
+      p If $ c \mid a $ and $ c \mid b $, prove that $ c $ divides the sum $ a + b $.
 
       == render "components/_solution", :locals => { :id => "example-5" }
-        p Since $ b \mid a $, the previous exercise implies that $ b \le a $.  Similarly,
-          since $ a \mid b $, the previous exercise implies that $ a \le b $.  This is only
-          possible if $ a $ and $ b $ are actually equal.
+        p Since $ c \mid a $, we can write $ a = c \cdot m $ for some integer $ m $.
+          And since $ c \mid b $, we can write $ b = c \cdot n $ for some integer $ n $.
+          The sum $ a + b $ can then be expressed as
+          $$ a + b = (c \cdot m) + (c \cdot n) = c \cdot (m + n), $$
+          which shows that $ c \mid (a + b) $.
 
     li.exercise
       p Prove that the "divides" relation is transitive.  In other words, if $ c \mid b $
@@ -153,15 +154,14 @@ blockquote.definition
 
       == render "components/_solution", :locals => { :id => "example-6" }
         p The first assumption, that $ c \mid b $, means that we can write
-          $ b = c \cdot m $ for some integer $ m $.  The second assumption,
-          that $ b \mid a $, means that we can write $ a = b \cdot n $
-          for some integer $ n $.  Substituting the first equation in for
-          $ b $ in the second equation yields
+          $ b = c \cdot m $ for some integer $ m $.  The second assumption, that
+          $ b \mid a $, means that we can write $ a = b \cdot n $ for some integer $ n $.
+          Substituting the first equation in for $ b $ in the second equation yields
           \[
             a = (c \cdot m) \cdot n
             \quad \implies \quad
             a = c \cdot (m \cdot n).
           \]
-          Since we have expressed $ a $ as an integer multiple of $ c $, we
-          conclude that $ c \mid a $.
+          Since we have expressed $ a $ as an integer multiple of $ c $, we conclude that
+          $ c \mid a $.
 
