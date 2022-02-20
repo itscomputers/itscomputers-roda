@@ -3,7 +3,7 @@ html
   head
     == render "_head"
 
-  body
+  body onload="setScrollValue(#{@scroll})"
     == render "_nav"
 
     main

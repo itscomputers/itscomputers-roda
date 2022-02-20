@@ -33,13 +33,14 @@ blockquote.definition
         | The divisors of $ 42 $ are $$ 1, 2, 3, 6, 7, 14, 21, 42 . $$
 
     li.example
-      form id="divisors-dynamic-example" method="GET"
+      == render "components/_scroll_form"
         | What are the divisors of
         input> id="integer" name="integer" value="#{@view.integer}" type="number" required=true placeholder="integer" max="#{@view.maximum}"
         | ?
-        input type="submit" value="sumbit"
+        input type="submit" value="submit"
 
       - if @view.integer
+
         .solution-container
           | The divisors of $ #{@view.integer} $ are
           - if @view.integer == 0

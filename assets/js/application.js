@@ -22,3 +22,19 @@ function showHideSolution(id) {
   }
 }
 
+function getScrollValue() {
+  return document.documentElement.scrollTop;
+}
+
+function setScrollValue(value) {
+  if (value) {
+    document.documentElement.scrollTop = value;
+  }
+}
+
+function submitScrollValue() {
+  const scrollValue = getScrollValue();
+  const element = document.getElementById("scroll");
+  element.value = scrollValue;
+}
+

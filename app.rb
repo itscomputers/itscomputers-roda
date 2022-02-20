@@ -38,6 +38,7 @@ class App < Roda
         r.on route do
           @contents.section = section
           view_class_name = route.split("_").map(&:capitalize).join
+          @scroll = r.params["scroll"]
           @view = Views::Ebe.module_eval(view_class_name).new(r.params).tap do |v|
             v.title = "ebe - #{@contents.title_lookup.dig(section)}"
           end

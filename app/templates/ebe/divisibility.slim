@@ -45,7 +45,7 @@ section.examples
         == render "ebe/_divisibility_descriptions", :locals => { :dividend => 45, :divisor => 10, }
 
     li.example
-      form id="divisibility-dynamic-example" method="GET"
+      == render "components/_scroll_form"
         | Does
         input> id="divisor" name="divisor" value="#{@view.divisor}" type="number" required="true" placeholder="divisor"
         | divide
