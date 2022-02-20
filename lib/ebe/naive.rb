@@ -6,7 +6,7 @@ module Ebe
       return false if b == 0
 
       multiple = 0
-      direction = (a * b < 0) ? -1 : 1
+      direction = a * b < 0 ? -1 : 1
 
       while multiple.abs < a.abs
         multiple += direction * b
@@ -16,4 +16,3 @@ module Ebe
     end
   end
 end
-

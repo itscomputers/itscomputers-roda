@@ -92,7 +92,7 @@ describe Ebe::Division do
     end
   end
 
-  describe 'div_rem' do
+  describe "div_rem" do
     subject { Ebe.div_rem(dividend, divisor) }
 
     let(:quotient) { subject.first }
@@ -161,4 +161,3 @@ describe Ebe::Division do
     end
   end
 end
-

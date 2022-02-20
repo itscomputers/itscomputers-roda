@@ -19,4 +19,3 @@ module Ebe
     end
   end
 end
-

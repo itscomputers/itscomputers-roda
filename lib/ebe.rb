@@ -3,4 +3,3 @@ module Ebe
 
   extend Ebe::Division
 end
-

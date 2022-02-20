@@ -3,22 +3,22 @@ module Views::Ebe
     attr_accessor :section
 
     SECTION_DETAILS = {
-      :divisibility => { :section => true },
-#     :bezout_identity => { :title => "bezout's identity" },
-#     :primality => { :section => true },
+      divisibility: {section: true}
+      # :bezout_identity => { :title => "bezout's identity" },
+      # :primality => { :section => true },
     }
 
     SECTIONS = [
       :divisibility,
-      :divisors,
-#     :common_divisors,
-#     :greatest_common_divisor,
-#     :linear_combinations,
-#     :bezout_identity,
-#     :common_multiples,
-#     :least_common_multiple,
-#     :linear_equations,
-#     :primality,
+      :divisors
+      # :common_divisors,
+      # :greatest_common_divisor,
+      # :linear_combinations,
+      # :bezout_identity,
+      # :common_multiples,
+      # :least_common_multiple,
+      # :linear_equations,
+      # :primality,
     ]
 
     def initialize(params)
@@ -32,13 +32,13 @@ module Views::Ebe
 
     def next_section_details
       {
-        :url => "/ebe/#{next_section.to_s}",
-        :title => [
+        url: "/ebe/#{next_section}",
+        title: [
           section_numbers.dig(next_section),
           " - ",
           title_lookup.dig(next_section),
-          "\u2192",
-        ].join(" "),
+          "\u2192"
+        ].join(" ")
       }
     end
 
@@ -48,13 +48,13 @@ module Views::Ebe
 
     def prev_section_details
       {
-        :url => "/ebe/#{prev_section.to_s}",
-        :title => [
+        url: "/ebe/#{prev_section}",
+        title: [
           "\u2190",
           section_numbers.dig(prev_section),
           " - ",
-          title_lookup.dig(prev_section),
-        ].join(" "),
+          title_lookup.dig(prev_section)
+        ].join(" ")
       }
     end
 
@@ -65,7 +65,7 @@ module Views::Ebe
     def section_title
       [
         section_numbers.dig(@section),
-        title_lookup.dig(@section),
+        title_lookup.dig(@section)
       ].join(". ")
     end
 
@@ -83,7 +83,7 @@ module Views::Ebe
       section_number = 0
       subsection_number = 0
 
-      @numbered_sections = sections.inject(Hash.new) do |hash, section|
+      @numbered_sections = sections.inject({}) do |hash, section|
         if section_details.dig(section, :section)
           section_number += 1
           subsection_number = 0
@@ -93,32 +93,31 @@ module Views::Ebe
           section_string = "#{section_number}.#{subsection_number}"
         end
 
-        { **hash, section => section_string }
+        {**hash, section => section_string}
       end
     end
 
     def next_section_lookup
       @next_section_lookup ||= {
         **sections.each_cons(2).to_h,
-        sections.last => nil,
+        sections.last => nil
       }
     end
 
     def prev_section_lookup
       @prev_section_lookup ||= {
         sections.first => nil,
-        **sections.each_cons(2).map(&:reverse).to_h,
+        **sections.each_cons(2).map(&:reverse).to_h
       }
     end
 
     def title_lookup
-      @title_lookup ||= sections.inject(Hash.new) do |hash, section|
+      @title_lookup ||= sections.inject({}) do |hash, section|
         {
           **hash,
-          section => section_details.dig(section, :title) || section.to_s.gsub("_", " "),
+          section => section_details.dig(section, :title) || section.to_s.tr("_", " ")
         }
       end
     end
   end
 end
-

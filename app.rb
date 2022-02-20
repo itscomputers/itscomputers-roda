@@ -1,9 +1,9 @@
-require 'roda'
-require 'tilt/sass'
+require "roda"
+require "tilt/sass"
 
-require_relative './lib/ebe'
-require_relative './app/views'
-require_relative './app/code_snippet'
+require_relative "./lib/ebe"
+require_relative "./app/views"
+require_relative "./app/code_snippet"
 
 class App < Roda
   plugin :public
@@ -41,7 +41,7 @@ class App < Roda
           @view = Views::Ebe.module_eval(view_class_name).new(r.params).tap do |v|
             v.title = "ebe - #{@contents.title_lookup.dig(section)}"
           end
-          view "ebe/#{route}", :layout => "ebe/layout"
+          view "ebe/#{route}", layout: "ebe/layout"
         end
       end
 
@@ -52,4 +52,3 @@ class App < Roda
     end
   end
 end
-

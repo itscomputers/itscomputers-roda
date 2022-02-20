@@ -4,13 +4,10 @@ module Views
       @params = params
     end
 
-    def title=(title)
-      @title = title
-    end
+    attr_writer :title
 
     def title
       @title || "its computers"
     end
   end
 end
-

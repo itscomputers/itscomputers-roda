@@ -6,7 +6,7 @@ module Views
       Link.new("advent of code", "https://github.com/itscomputers/advent_of_code"),
       Link.new("is it friday the 13th??", "https://fridaythe13th.itscomputers.lol"),
       Link.new("archimedes cattle problem", "/archimedes_cattle_problem"),
-      Link.new("ebe - number theory for programmers", "/ebe"),
+      Link.new("ebe - number theory for programmers", "/ebe")
     ]
 
     def links
@@ -14,4 +14,3 @@ module Views
     end
   end
 end
-

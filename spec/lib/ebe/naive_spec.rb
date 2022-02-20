@@ -1,4 +1,4 @@
-require_relative '../../spec_helper'
+require_relative "../../spec_helper"
 
 describe Ebe::Naive do
   describe "#divides?" do
@@ -13,4 +13,3 @@ describe Ebe::Naive do
     end
   end
 end
-
