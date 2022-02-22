@@ -30,32 +30,34 @@ module Views::Ebe
       next_section_lookup[@section]
     end
 
-    def next_section_details
-      {
-        url: "/ebe/#{next_section}",
-        title: [
-          section_numbers[next_section],
-          " - ",
-          title_lookup[next_section],
-          "\u2192"
-        ].join(" ")
-      }
-    end
-
     def prev_section
       prev_section_lookup[@section]
     end
 
-    def prev_section_details
-      {
-        url: "/ebe/#{prev_section}",
-        title: [
-          "\u2190",
-          section_numbers[prev_section],
-          " - ",
-          title_lookup[prev_section]
-        ].join(" ")
-      }
+    def breadcrumbs
+      [
+        {
+          url: "/ebe/#{prev_section}",
+          show: !prev_section.nil?,
+          title: [
+            "\u2190",
+            section_numbers[prev_section],
+          ].join(" ")
+        },
+        {
+          url: "/ebe/table_of_contents",
+          show: true,
+          title: "\u2191"
+        },
+        {
+          url: "/ebe/#{next_section}",
+          show: !next_section.nil?,
+          title: [
+            section_numbers[next_section],
+            "\u2192"
+          ].join(" ")
+        }
+      ]
     end
 
     def route

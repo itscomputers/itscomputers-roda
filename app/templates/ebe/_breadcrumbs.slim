@@ -1,12 +1,6 @@
 .breadcrumbs
-  - if @contents.prev_section
-    - details = @contents.prev_section_details
-    a href="#{details[:url]}" = details[:title]
-  - else
-    div
-
-  - if @contents.next_section
-    - details = @contents.next_section_details
-    a href="#{details[:url]}" = details[:title]
-  - else
-    div
+  - for details in @contents.breadcrumbs
+    - if details[:show]
+      a href="#{details[:url]}" = details[:title]
+    - else
+      div
