@@ -44,7 +44,7 @@ blockquote.definition
         .solution-container
           | The divisors of $ #{@view.integer} $ are
           - if @view.integer == 0
-            |  all positive integers.
+            span> all positive integers.
           - else
             | $$ #{@view.divisors.join(", ")} . $$
 
@@ -112,6 +112,4 @@ blockquote.definition
         p Since $ b \mid a $, the previous exercise implies that $ b \le a $.  Similarly,
           since $ a \mid b $, the previous exercise implies that $ a \le b $.  This is
           only possible if $ a $ and $ b $ are actually equal.
-
-
 

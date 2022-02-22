@@ -10,8 +10,8 @@ module Views::Ebe
 
     SECTIONS = [
       :divisibility,
-      :divisors
-      # :common_divisors,
+      :divisors,
+      :common_divisors,
       # :greatest_common_divisor,
       # :linear_combinations,
       # :bezout_identity,
@@ -27,23 +27,23 @@ module Views::Ebe
     end
 
     def next_section
-      next_section_lookup.dig @section
+      next_section_lookup[@section]
     end
 
     def next_section_details
       {
         url: "/ebe/#{next_section}",
         title: [
-          section_numbers.dig(next_section),
+          section_numbers[next_section],
           " - ",
-          title_lookup.dig(next_section),
+          title_lookup[next_section],
           "\u2192"
         ].join(" ")
       }
     end
 
     def prev_section
-      prev_section_lookup.dig @section
+      prev_section_lookup[@section]
     end
 
     def prev_section_details
@@ -51,9 +51,9 @@ module Views::Ebe
         url: "/ebe/#{prev_section}",
         title: [
           "\u2190",
-          section_numbers.dig(prev_section),
+          section_numbers[prev_section],
           " - ",
-          title_lookup.dig(prev_section)
+          title_lookup[prev_section]
         ].join(" ")
       }
     end
@@ -64,8 +64,8 @@ module Views::Ebe
 
     def section_title
       [
-        section_numbers.dig(@section),
-        title_lookup.dig(@section)
+        section_numbers[@section],
+        title_lookup[@section]
       ].join(". ")
     end
 

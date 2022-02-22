@@ -1,0 +1,148 @@
+blockquote.definition
+  p
+    strong> definition.
+    | For two integers $ a $ and $ b $ (not both zero), the set of
+    em<> common divisors
+    |
+      of $ a $ and $ b $ consists of the positive integers that divide
+      both $ a $ and $ b $.
+
+  hr
+
+  p
+    |
+      Since every integer divides $ 0 $, the set of common divisors of
+      a nonzero integer $ a $ and $ 0 $ is just the set of divisors of $ a $.
+
+.examples
+  h2 examples
+
+  ol
+    li.example
+      | What are the common divisors of $ 30 $ and $ 42 $?
+
+      .solution-container
+        |
+          The divisors of $ 30 $ are $$ 1, 2, 3, 5, 6, 10, 15, 30 . $$
+          The divisors of $ 42 $ are $$ 1, 2, 3, 6, 7, 14, 21, 42 . $$
+          The common divisors of $ 30 $ and $ 42 $ are $$ 1, 2, 3, 6 . $$
+
+    li.example
+      | What are the common divisors of $ 21 $ and $ 231 $?
+
+      .solution-container
+        |
+          The divisors of $ 21 $ are $$ 1, 3, 7, 21 . $$
+          The divisors of $ 231 $ are $$ 1, 3, 7, 11, 21, 33, 77, 231 . $$
+          The common divisors of $ 21 $ and $ 231 $ are $$ 1, 3, 7, 21 . $$
+
+    li.example
+      | What are the common divisors of $ 130 $ and $ 2401 $.
+
+      .solution-container
+        |
+          The divisors of $ 130 $ are $$ 1, 2, 5, 10, 13, 26, 65, 130 . $$
+          The divisors of $ 2401 $ are $$ 1, 7, 49, 343, 2401 . $$
+          The only common divisor of $ 77 $ and $ 130 $ is $ 1 $.
+
+    li.example
+      == render "components/_scroll_form"
+        | What are the common divisors of
+        input> id="number" name="number" value="#{@view.number}" type="number" required=true placeholder="number" max="#{@view.maximum}"
+        | and
+        input> id="other" name="other" value="#{@view.other}" type="number" required=true placeholder="other number" max="#{@view.maximum}"
+        | ?
+        input type="submit" value="submit"
+
+      - if @view.solution?
+
+        .solution-container
+          | The divisors of $ #{@view.number} $ are
+          - if @view.number == 0
+            span<> all positive integers.
+          - else
+            | $$ #{@view.divisors.join(", ")} . $$
+
+          | The divisors of $ #{@view.other} $ are
+          - if @view.other == 0
+            span<> all positive integers.
+          - else
+            | $$ #{@view.other_divisors.join(", ")} . $$
+
+          | The common divisors of $ #{@view.number} $ and $ #{@view.other} $ are
+          - if @view.number == 0 && @view.other == 0
+            span<> all positive integers.
+          - else
+            | $$ #{@view.common_divisors.join(", ")} . $$
+
+.exercises
+  h2 exercises
+
+  ol
+    li.exercise
+      | Write a
+      code<>common_divisors
+      |
+        function that takes two integer inputs (not both zero) and returns the
+        sorted array of their common divisors.
+
+      p Some test values:
+      ul
+        - for example in @view.common_divisors_examples
+          li
+            code common_divisors(#{example[:inputs].join(", ")}) ~> #{example[:common_divisors]}
+
+      == render "components/_solution", :locals => { :id => "exercise-common-divisors" }
+        pre
+          code.language-ruby
+            == @view.common_divisors_code_snippet
+
+    li.exercise
+      |
+        If $ d $ is a common divisor of $ a $ and $ b $,
+        prove that $ d $ divides the sum $ a + b $.
+
+      == render "components/_solution", :locals => { :id => "example-2" }
+        |
+          As a common divisor, we know that $ d \mid a $ and $ d \mid b $.  Therefore
+          we can write $ a = d \cdot m $ for some integer $ m $ and $ b = d \cdot n $
+          for some integer $ n $.  The sum $ a + b $ can then be expressed as
+          $$ a + b = (d \cdot m) + (d \cdot n) = d \cdot (m + n), $$
+          which shows that $ d \mid (a + b) $.
+
+    li.exercise
+      |
+        Disprove the converse of the previous exercise by finding a counterexample.
+        In other words, find three integer $ a, b, d $ such that $ d $ divides the
+        sum $ a + b $, but where $ d $ is not a common divisor of $ a $ and $ b $.
+
+      == render "components/_solution", :locals => { :id => "example-3" }
+        |
+          Let $ a = 13 $ and $ b = 7 $.  The sum $ a + b = 20 $ is divisible by $ d = 5 $,
+          but this $ d $ is not a divisor of either $ a $ or $ b $, therefore not a common
+          divisor.
+
+    li.exercise
+      |
+        If $ d $ is a common divisor of $ a $ and $ b $,
+        prove that $ d $ divides the difference $ a - b $.
+
+      == render "components/_solution", :locals => { :id => "example-4" }
+        |
+          As a common divisor, we know that $ d \mid a $ and $ d \mid b $.  Therefore
+          we can write $ a = d \cdot m $ for some integer $ m $ and $ b = d \cdot n $
+          for some integer $ n $.  The sum $ a + b $ can then be expressed as
+          $$ a + b = (d \cdot m) - (d \cdot n) = d \cdot (m - n), $$
+          which shows that $ d \mid (a - b) $.
+
+    li.exercise
+      |
+        Disprove the converse of the previous exercise by finding a counterexample.
+        In other words, find three integer $ a, b, d $ such that $ d $ divides the
+        sum $ a + b $, but where $ d $ is not a common divisor of $ a $ and $ b $.
+
+      == render "components/_solution", :locals => { :id => "example-3" }
+        |
+          Let $ a = 13 $ and $ b = 7 $.  The difference $ a - b = 6 $ is divisible by $ d = 6 $,
+          but this $ d $ is not a divisor of either $ a $ or $ b $, therefore not a common
+          divisor.

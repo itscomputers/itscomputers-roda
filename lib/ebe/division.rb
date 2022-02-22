@@ -4,8 +4,6 @@ module Ebe
       b != 0 && a % b == 0
     end
 
-    alias_method :divides?, :divides
-
     def divisors(a)
       return if a == 0
       (1..a.abs).select { |b| Ebe.divides(b, a) }
@@ -16,6 +14,13 @@ module Ebe
       remainder += b.abs if remainder < 0
       quotient = (a - remainder) / b
       [quotient, remainder]
+    end
+
+    def common_divisors(a, b)
+      return divisors(a) if b == 0
+      return divisors(b) if a == 0
+      upper = [a.abs, b.abs].min
+      (1..upper).select { |d| Ebe.divides(d, a) && Ebe.divides(d, b) }
     end
   end
 end

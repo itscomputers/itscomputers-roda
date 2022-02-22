@@ -139,20 +139,10 @@ section.exercises
           $$ -a = b \cdot (-n) \quad \implies \quad b \mid -a . $$
 
     li.exercise
-      p If $ c \mid a $ and $ c \mid b $, prove that $ c $ divides the sum $ a + b $.
-
-      == render "components/_solution", :locals => { :id => "example-5" }
-        p Since $ c \mid a $, we can write $ a = c \cdot m $ for some integer $ m $.
-          And since $ c \mid b $, we can write $ b = c \cdot n $ for some integer $ n $.
-          The sum $ a + b $ can then be expressed as
-          $$ a + b = (c \cdot m) + (c \cdot n) = c \cdot (m + n), $$
-          which shows that $ c \mid (a + b) $.
-
-    li.exercise
       p Prove that the "divides" relation is transitive.  In other words, if $ c \mid b $
         and $ b \mid a $, prove that $ c \mid a $.
 
-      == render "components/_solution", :locals => { :id => "example-6" }
+      == render "components/_solution", :locals => { :id => "example-5" }
         p The first assumption, that $ c \mid b $, means that we can write
           $ b = c \cdot m $ for some integer $ m $.  The second assumption, that
           $ b \mid a $, means that we can write $ a = b \cdot n $ for some integer $ n $.

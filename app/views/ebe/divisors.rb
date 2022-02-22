@@ -11,7 +11,7 @@ module Views::Ebe
     ]
 
     def maximum
-      20000
+      50000
     end
 
     def raw_integer
