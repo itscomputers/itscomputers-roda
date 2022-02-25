@@ -48,9 +48,24 @@ blockquote.definition
     li.example
       == render "components/_scroll_form"
         | What are the common divisors of
-        input> id="number" name="number" value="#{@view.number}" type="number" required=true placeholder="number" max="#{@view.maximum}"
+        input>(
+          id="number"
+          name="number"
+          value="#{@view.number}"
+          type="number"
+          required=true
+          placeholder="number"
+          max="#{@view.maximum}"
+        )
         | and
-        input> id="other" name="other" value="#{@view.other}" type="number" required=true placeholder="other number" max="#{@view.maximum}"
+        input>(
+          id="other"
+          name="other"
+          value="#{@view.other}"
+          type="number"
+          required=true
+          placeholder="other number" max="#{@view.maximum}"
+        )
         | ?
         input type="submit" value="submit"
 
@@ -141,7 +156,7 @@ blockquote.definition
         In other words, find three integer $ a, b, d $ such that $ d $ divides the
         sum $ a + b $, but where $ d $ is not a common divisor of $ a $ and $ b $.
 
-      == render "components/_solution", :locals => { :id => "example-3" }
+      == render "components/_solution", :locals => { :id => "example-5" }
         |
           Let $ a = 13 $ and $ b = 7 $.  The difference $ a - b = 6 $ is divisible by $ d = 6 $,
           but this $ d $ is not a divisor of either $ a $ or $ b $, therefore not a common

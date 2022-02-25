@@ -1,1 +1,97 @@
+blockquote.definition
+  p
+    strong> definition.
+    | Given two integers $ a $ and $ b $, a
+    em<> linear combination
+    |
+      is any integer of the form $ a x + b y $
+      where $ x $ and $ y $ are integers.
+
+  hr
+
+  p Note these are sometimes called integer linear combinations.
+
+.examples
+  h2 examples
+
+  ol
+    li.example
+      | What are some linear combinations of $ 5 $ and $ 9 $?
+
+      .solution-container
+        ul
+          li $ 14 = 5 (1) + 9 (1) $
+          li $ 15 = 5 (3) + 9 (0) $
+          li $ 16 = 5 (5) + 9 (-1) $
+          li $ 17 = 5 (-2) + 9 (3) $
+          li $ 18 = 5 (0) + 9 (2) $
+          li $ 19 = 5 (2) + 9 (1) $
+
+    li.example
+      | What are some linear combinations of $ 6 $ and $ 10 $?
+
+      .solution-container
+        ul
+          li $ 6 = 6 (1) + 10 (0) $
+          li $ 8 = 6 (3) + 10 (-1) $
+          li $ 10 = 6 (0) + 10 (1) $
+          li $ 12 = 6 (2) + 10 (0) $
+          li $ 14 = 6 (-1) + 10 (2) $
+          li $ 16 = 6 (1) + 10 (1) $
+
+    li.example
+      == render "components/_scroll_form"
+        | What are some linear combinations of
+        input>(
+          id="number"
+          name="number"
+          value="#{@view.number}"
+          type="number"
+          required=true
+          placeholder="number"
+        )
+        | and
+        input>(
+          id="other"
+          name="other"
+          value="#{@view.other}"
+          type="number"
+          required=true
+          placeholder="other number"
+        )
+        | ?
+        input type="submit" value="submit"
+
+      - if @view.solution?
+        .solution-container
+          ul
+            - for example in @view.examples
+              li
+                | $ #{example[:total]} = #{@view.number} (#{example[:coeff]}) + #{@view.other} (#{example[:other_coeff]}) $
+
+h2 proposition
+
+p The following is a simple yet powerful proposition about divisibility and linear combinations.
+
+blockquote.definition
+  strong<> proposition.
+  |
+    If $ d $ is a common divisor of two integers $ a $ and $ b $,
+    then $ d $ is a divisor of
+  em<> any
+  | linear combination of $ a $ and $ b $.
+
+== render "components/_proof", :locals => { :id => "linear-combination-divisibility" }
+  |
+    Let $ c = a x + b y $ be a linear combination of $ a $ and $ b $.
+    Since $ d $ is a common divisor of $ a $ and $ b $, then we can
+    write $ a = d m $ and $ b = d n $ for some integers
+    $ m $ and $ n $.  The linear combination can be written as
+    $$ c = (d m) x + (d n) y $$
+    and then rewritten (factoring out the $ d $) as
+    $$ c = d \cdot (m x + n y) . $$
+    Since we have expressed the linear combination $ c $ as an
+    integer multiple of $ d $, we conclude that $ d \mid c $.
+
+
 

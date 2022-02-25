@@ -9,5 +9,9 @@ module Views
     def title
       @title || "its computers"
     end
+
+    def integer_param(key)
+      return @params[key]&.to_i
+    end
   end
 end

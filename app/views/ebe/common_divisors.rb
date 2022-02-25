@@ -16,11 +16,11 @@ module Views::Ebe
     end
 
     def number
-      @params["number"]&.to_i
+      integer_param "number"
     end
 
     def other
-      @params["other"]&.to_i
+      integer_param "other"
     end
 
     def divisors
