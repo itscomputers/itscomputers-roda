@@ -1,0 +1,97 @@
+p
+  | The
+  code<> divides
+  | function from the previous section employed a
+  code<> while
+  | loop without discussing whether or not it will terminate.
+
+p
+  |
+    In order to discuss this, we introduce the axioms that uniquely
+    model the set $ \mathbb{N} $ of
+  em< natural numbers
+  |
+    , consisting of integers that are greater than or equal to 0.
+    Some definitions of the natural numbers have them starting at 1.
+
+p
+  We will operate with the integer arithmetic we are familiar with,
+  including addition, multiplication, and comparison without proving
+  that our learned arithmetic follows from Peano's axioms.  The
+  primary purpose of this section is to introduce the axiom of induction.
+
+blockquote.definition
+  p
+    strong> Peano axioms.
+    | The set $ \mathbb{N} $ of natural numbers is defined according
+      to the following axioms where $ S: \mathbb{N} \to \mathbb{N} $
+      is the
+    em<> successor
+    | function.
+
+  ol
+    li
+      $ 0 $ is a natural number
+    li
+      | Every natural number is equal to itself (equality is
+      em< reflexive
+    li
+      | For every pair $ a, b $ of natural numbers,
+        if $ a = b $, then $ b = a $ (equality is
+      em< symmetric
+    li
+      |
+        For every trio $ a, b, c $ of natural numbers,
+        if $ a = b $ and $ b = c $, then $ a = c $ (equality is
+      em< transitive
+    li
+      |
+        For every natural number $ a $, if $ a = b $, then $ b $ is
+        a natural number (the natural numbers are closed under equality)
+    li
+      |
+        For every natural number $ a $, the successor $ S(a) $ is a
+        natural number (the natural numbers are closed under $ S $)
+    li
+      |
+        For every pair $ a, b $ of natural numbers, $ a = b $ if and
+        only if $ S(a) = S(b) $ ($ S $ is a one-to-one function)
+    li
+      |
+        For every natural number $ a $, $ S(a) \ne 0 $
+        (there is no natural number whose successor is 0)
+    li
+      |
+        If $ K $ is a set containing $ 0 $ that is closed under $ S $,
+        then $ K = \mathbb{N} $ (every natural number besides $ 0 $
+        is the successor of a natural number)
+
+p
+  Using this, the natural numbers as we know them in decimal form
+  are defined by
+  ul
+    li $ 1 = S(0) $
+    li $ 2 = S(1) = S(S(0)) $
+    li $ 3 = S(2) = S(S(S(0))) $
+    li $ 4 = S(3) = S(S(S(S(0)))) $
+    li etc
+
+h2
+  axiom of induction
+
+p
+  The last axiom is the axiom of induction.  You may have encountered
+  it before in a slightly different phrasing..
+
+blockquote.definition
+  p
+    strong> Axiom of induction.
+    If $ P $ is a proposition such that
+    ul
+      li $ P(0) $ is true
+      li
+        if $ P(a) $ is true for a natural number $ a $,
+        then $ P(a + 1) $ is true
+    then $ P(n) $ is true for every natural number $ n $.
+
+
