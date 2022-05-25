@@ -26,12 +26,12 @@ module Views::Ebe
       Ebe.divisors(integer)
     end
 
-    def divides_snippet
-      CodeSnippet.wrap "module Ebe", CodeSnippet.get("lib/ebe/division.rb", method_name: "divides")
-    end
-
     def divisors_snippet
-      CodeSnippet.wrap "module Ebe", CodeSnippet.get("lib/ebe/division.rb", method_name: "divisors")
+      code_snippet(
+        filename: "division.rb",
+        method_name: "divisors",
+        module_name: "Division",
+      )
     end
 
     def divisors_examples

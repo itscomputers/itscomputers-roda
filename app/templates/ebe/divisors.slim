@@ -1,36 +1,37 @@
-p
-  |
-    We saw that a negative integer can be a divisor of another integer.  However, when
-    speaking of the
-  em<> set of divisors
-  | of an integer, we will restrict ourselves to its positive divisors.
-
-blockquote.definition
+section.intro
   p
-    strong> definition.
-    | For a nonzero integer $ a $, the set of
+    |
+      We saw that a negative integer can be a divisor of another integer.  However, when
+      discussing the
     em<> divisors
-    | of $ a $ consists of the positive integers that divide $ a $.
+    | of an integer we will often restrict ourselves to its positive divisors.
 
-  hr
+  blockquote.definition
+    p
+      strong> definition.
+      | For a nonzero integer $ a $, the
+      em<> divisors
+      |
+        of $ a $ are of the positive integers that divide $ a $, ie,
+        $$ \{ n \in \mathbb{Z} \mid n > 0 \text{ and } n \mid b \}. $$
 
-  p Note that the set of divisors of $ 0 $ is undefined because every integer divides $ 0 $.
 
-.examples
+    hr
+
+    p Note that we do not define the set of divisors of $ 0 $ because every integer divides $ 0 $.
+
+section.examples
   h2 examples
 
   ol
-    li.example
-      | What are the divisors of $ 100 $?
+    - for integer in (47..51)
+      li.example
+        | What are the divisors of $ #{integer} $?
 
-      .solution-container
-        | The divisors of $ 100 $ are $$ 1, 2, 4, 5, 10, 20, 25, 50, 100 . $$
-
-    li.example
-      | What are the divisors of $ 42 $?
-
-      .solution-container
-        | The divisors of $ 42 $ are $$ 1, 2, 3, 6, 7, 14, 21, 42 . $$
+        .solution-container
+          |
+            The divisors of $ #{integer} $ are
+            $$ #{Ebe.divisors(integer).join(", ")} . $$
 
     li.example
       == render "components/_scroll_form"
@@ -48,32 +49,10 @@ blockquote.definition
           - else
             | $$ #{@view.divisors.join(", ")} . $$
 
-.exercises
+section.exercises
   h2 exercises
 
   ol
-    li.exercise
-      | In the previous section, we wrote a naive
-      code<> divides
-      |
-        function, which is non-performant.  Most programming languages have an efficient
-        built-in mechanism for computing divisibility using the modulus operator
-      code<> %
-      | (or something equivalent).  Explicitly, an integer
-      code<> a
-      | is divisible by a nonzero integer
-      code<> b
-      | if and only if
-      code< b % a == 0
-      | .  Use this to write an improved
-      code<> divides
-      | function.  It should pass all the same tests as the naive one.
-
-      == render "components/_solution", :locals => { :id => "example-1" }
-        pre
-          code.language-ruby
-            = @view.divides_snippet
-
     li.exercise
       p If $ a $ and $ b $ are positive integers such that $ b \mid a $, prove that
         $ b \le a $.
@@ -91,7 +70,7 @@ blockquote.definition
       code<> divisors
       |
         function that takes an integer input and returns the sorted array of its divisors.
-        (Hint: use exercises #1 and #2)
+        (Hint: use exercise #1)
 
       p Some test values:
       ul
@@ -102,11 +81,11 @@ blockquote.definition
       == render "components/_solution", :locals => { :id => "example-3" }
         pre
           code.language-ruby
-            = @view.divisors_snippet
+            == @view.divisors_snippet
 
     li.exercise
       p If $ a $ and $ b $ are positive integers such that $ a \mid b $ and $ b \mid a $, prove that
-        $ a = b $.  (Hint: use exercise #2)
+        $ a = b $.  (Hint: use exercise #1)
 
       == render "components/_solution", :locals => { :id => "example-4" }
         p Since $ b \mid a $, the previous exercise implies that $ b \le a $.  Similarly,
