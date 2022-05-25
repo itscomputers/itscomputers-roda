@@ -1,0 +1,168 @@
+section.intro
+  p In this section, we connect divisibility and division with remainder to the division
+    and modulus operations found in many programming languages, which enables us to write
+    performant versions of our naive functions.
+
+section
+  h2 division schemes
+  p
+    |
+      Since division of an integer (the dividend) by a nonzero integer (the divisor) does
+      not always yield an integer, we need a reliable scheme for producing an integer.
+      This choice of integer division is often paired with a modulus or remainder
+      operator.
+  p
+    | We will write
+    code<> a div b
+    | for the integer division of $ a $ by $ b $ and
+    code<> a mod b
+    |
+      for the corresponding modulus or remainder operation. These two operators are often
+      defined so that
+    code<> #{"a == b * (a div b) + (a mod b)"}
+    | , which looks very much like the quotient and remainder from the division algorithm.
+
+  p However, depending on the scheme and the signs of the dividend and divisor, the
+    quotient and remainder may or may not match those from the division algorithm. There
+    are four typical schemes for defining integer division. Many programming languages
+    will implement one or more of these.
+
+  ol#division-schemes
+    li
+      |
+        Truncated division is division where the quotient is rounded towards zero. The corresponding
+        modulus operator will yield a remainder whose sign matches the dividend.
+      pre
+        code.language-ruby
+          == @view.truncated_example
+      | For example, the
+      code<> %
+      | operator in C, Go, Rust, and Swift are based on truncation while the
+      code<> rem
+      | operator in Elixir, Haskell, and Lisp are based on truncation.
+
+    li
+      |
+        Floored division is division where the quotient is rounded towards negative
+        infinity. The corresponding modulus operator will yield a remainder whose sign
+        matches the divisor.
+      pre
+        code.language-ruby
+          == @view.floored_example
+      | For example, the
+      code<> %
+      | operator in Python and Ruby are based on floored division while the
+      code<> mod
+      | operator in Haskell and Lisp are based on floored division.
+
+    li
+      |
+        Euclidean division is the division defined by the division algorithm from the
+        previous section. In particular, the quotient and remainder are defined so that
+        the remainder is always nonnegative.
+
+      pre
+        code.language-ruby
+          == @view.euclidean_example
+      |
+        For example, Rust provides Euclidean division functionality in the standard
+        library via the
+      code<> div_euclid()
+      | and
+      code<> rem_euclid()
+      | integer methods.
+
+    li
+      |
+        Rounded division is division where the quotient is rounded to the nearest integer.
+        The corresponding modulus operator will yield a remainder closer to zero, ie, a
+        remainder $ r $ such that $ -|b|/2 < r <= |b|/2 $.
+      pre
+        code.language-ruby
+          == @view.rounded_example
+      | This is not as common, but the
+      code<> mods
+      |
+        operator in Maple uses rounded division, for example. There is also functionality
+        based on rounded division in C and Swift, however it is floating point as opposed
+        to integer functionality.
+
+  p
+    |
+      Note also that some languages provide combined division with remainder functionality,
+      for example
+    code<> divmod
+    | in Python and Ruby or
+    code<> div_rem
+    | in Rust.
+
+section.exercises
+  h2 exercises
+
+  ol
+    li.exercise
+      | Using your language's modulus operator, write a more performant
+      code<> divides
+      | function that has the same output as the naive version from
+      a< href=@contents.url_for(:divisibility)
+        = @contents.title_for(:divisibility)
+
+      p Some test values:
+      ul
+        - for example in @view.divides_examples
+          li
+            code divides(#{example[:divisor]}, #{example[:dividend]}) ~> #{example[:divides?]}
+
+      == render "components/_solution", :locals => { :id => "exercise-divides" }
+        pre
+          code.language-ruby
+            == @view.code_snippet("divides")
+
+    li.exercise
+      | Use your language's division and modulus operators to write a more performant
+      code<> div_rem
+      | function that has the same output as the naive version from the last section.
+
+      p Some test values:
+      ul
+        - for example in @view.div_rem_examples
+          li
+            code div_rem(#{example[:dividend]}, #{example[:divisor]}) ~> [#{example[:quotient]}, #{example[:remainder]}]
+
+      == render "components/_solution", :locals => { :id => "exercise-div-rem" }
+        pre
+          code.language-ruby
+            == @view.code_snippet("div_rem")
+
+    li.exercise
+      | Write a
+      code<> div
+      | function that returns the quotient from the division algorithm, respectively.
+
+      p Some test values:
+      ul
+        - for example in @view.div_rem_examples
+          li
+            code div(#{example[:dividend]}, #{example[:divisor]}) ~> #{example[:quotient]}
+
+      == render "components/_solution", :locals => { :id => "exercise-div" }
+        pre
+          code.language-ruby
+            == @view.code_snippet("div")
+
+    li.exercise
+      | Write a
+      code<> rem
+      | function that returns the quotient from the division algorithm, respectively.
+
+      p Some test values:
+      ul
+        - for example in @view.div_rem_examples
+          li
+            code rem(#{example[:dividend]}, #{example[:divisor]}) ~> #{example[:remainder]}
+
+      == render "components/_solution", :locals => { :id => "exercise-rem" }
+        pre
+          code.language-ruby
+            == @view.code_snippet("rem")
+

@@ -1,0 +1,12 @@
+- if divisor == 0
+  - answer = "There is no quotient and remainder when attempting to divide by zero."
+- else
+  - quotient, remainder = @view.div_rem(dividend, divisor)
+  - equation = "#{dividend} = #{divisor} (#{quotient}) + #{remainder}"
+  - inequality = "0 \\le #{remainder} < #{divisor.abs}"
+  - details = "$$ #{equation} \\quad \\text{and} \\quad #{inequality}. $$"
+  - answer = "The quotient is $ #{quotient} $ and the remainder is $ #{remainder} $ since #{details}"
+
+.solution-container
+  == answer
+

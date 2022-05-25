@@ -1,5 +1,5 @@
 module Views::Ebe
-  class DivisionAlgorithm < Views::Base
+  class WellOrderingPrinciple < Views::Base
     EXAMPLES = [
       {inputs: [0, 25], common_divisors: [1, 5, 25]},
       {inputs: [25, 0], common_divisors: [1, 5, 25]},

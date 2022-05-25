@@ -16,8 +16,8 @@ describe Ebe::Division do
     any(except: except, upper_bound: -1)
   end
 
-  describe "#divides?" do
-    subject { Ebe.divides?(b, a) }
+  describe "#divides" do
+    subject { Ebe.divides(b, a) }
 
     context "when `b == 0`" do
       let(:b) { 0 }
@@ -83,11 +83,11 @@ describe Ebe::Division do
       let(:non_divisors) { (1..integer).to_a - subject }
 
       it "consists of divisors" do
-        expect(subject.all? { |divisor| Ebe.divides?(divisor, integer) }).to be true
+        expect(subject.all? { |divisor| Ebe.divides(divisor, integer) }).to be true
       end
 
       it "leaves out non_divisors" do
-        expect(non_divisors.none? { |non_divisor| Ebe.divides?(non_divisor, integer) }).to be true
+        expect(non_divisors.none? { |non_divisor| Ebe.divides(non_divisor, integer) }).to be true
       end
     end
   end

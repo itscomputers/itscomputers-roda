@@ -1,8 +1,15 @@
-h1 = @view.title
+h1 = @view.sections[:table_of_contents].first.title
 
 .table-of-contents
-  - for section in @view.sections
-    - klass = @view.section_details.dig(section, :section) ? "section" : "subsection"
-    a class=klass href="/ebe/#{section}"
-      = "#{@view.section_numbers.dig(section)}. #{@view.title_lookup.dig(section)}"
+  a class="section" href=@view.sections[:prologue].first.url
+    = "prologue"
+  - for (section_id, subsections), index in @view.main_sections.each_with_index
+    = "#{index + 1}. #{section_id}"
+    - for subsection in subsections
+      a class="subsection" href=subsection.url
+        = subsection.to_s
+  span appendix
+  - for subsection in @view.sections[:appendix]
+    a class="subsection" href=subsection.url
+      = subsection.to_s
 

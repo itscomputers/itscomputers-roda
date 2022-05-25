@@ -16,11 +16,23 @@ module Ebe
       [quotient, remainder]
     end
 
+    def div(a, b)
+      div_rem(a, b).first
+    end
+
+    def rem(a, b)
+      div_rem(a, b).last
+    end
+
     def common_divisors(a, b)
       return divisors(a) if b == 0
       return divisors(b) if a == 0
       upper = [a.abs, b.abs].min
       (1..upper).select { |d| Ebe.divides(d, a) && Ebe.divides(d, b) }
+    end
+
+    def hi
+      "hi"
     end
   end
 end

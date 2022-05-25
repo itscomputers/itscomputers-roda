@@ -1,59 +1,132 @@
 module Views::Ebe
+  class Section
+    attr_reader :id, :title
+    attr_accessor :prev_section, :next_section, :section_number, :subsection_number
+
+    def initialize(id, title: nil)
+      @id = id
+      @title = title || id.to_s.tr("_", " ")
+    end
+
+    def url
+      "/ebe/#{id}"
+    end
+
+    def number
+      return nil if section_number.nil? || subsection_number.nil?
+      "#{section_number}.#{subsection_number}"
+    end
+
+    def to_s
+      return @title if number.nil?
+      "#{number}. #{@title}"
+    end
+  end
+
   class TableOfContents < Views::Base
     attr_accessor :section
 
-    SECTION_DETAILS = {
-      divisibility: {section: true}
-      # :bezout_identity => { :title => "bezout's identity" },
-      # :primality => { :section => true },
+    SECTIONS = {
+      :table_of_contents => [Section.new(:table_of_contents, title: "number theory for programmers")],
+      :prologue => [Section.new(:prologue)],
+      :division => [
+        Section.new(:divisibility),
+        Section.new(:division_with_remainder),
+        Section.new(:remainders_in_programming),
+        Section.new(:divisors),
+        Section.new(:common_divisors),
+        Section.new(:linear_combinations),
+      ],
+      :appendix => [
+        Section.new(:peano_axioms),
+        Section.new(:mathematical_induction),
+        Section.new(:well_ordering_principle),
+      ]
     }
-
-    SECTIONS = [
-      :divisibility,
-      :divisors,
-      :common_divisors,
-      :linear_combinations,
-      # :greatest_common_divisor,
-      # :bezout_identity,
-      # :common_multiples,
-      # :least_common_multiple,
-      # :linear_equations,
-      # :primality,
-    ]
 
     def initialize(params)
       super
-      @section = :table_of_contents
+      assign_breadcrumbs!
+      assign_section_numbers!
+      @section = SECTIONS[:table_of_contents]
+    end
+
+    def sections
+      SECTIONS
+    end
+
+    def section_lookup
+      @section_lookup ||= sections.values.flatten.reduce({}) do |hash, section|
+        { **hash, section.id => section }
+      end
+    end
+
+    def section_for(section_id)
+      section_lookup[section_id]
+    end
+
+    def title_for(section_id)
+      section_for(section_id)&.to_s
+    end
+
+    def url_for(section_id)
+      section_for(section_id)&.url
+    end
+
+    def main_sections
+      sections.reject do |section_id, _|
+        [:table_of_contents, :prologue, :appendix].include?(section_id)
+      end
+    end
+
+    def assign_breadcrumbs!
+      [nil, *sections.values.drop(1).flatten].each_cons(2) do |prev_section, curr_section|
+        prev_section.next_section = curr_section unless prev_section.nil?
+        curr_section.prev_section = prev_section
+      end
+    end
+
+    def assign_section_numbers!
+      main_sections.values.each_with_index do |subsections, section_index|
+        subsections.each_with_index do |subsection, subsection_index|
+          subsection.section_number = section_index + 1
+          subsection.subsection_number = subsection_index + 1
+        end
+      end
+      sections[:appendix].each_with_index do |subsection, subsection_index|
+        subsection.section_number = "a"
+        subsection.subsection_number = subsection_index + 1
+      end
     end
 
     def next_section
-      next_section_lookup[@section]
+      @section.next_section
     end
 
     def prev_section
-      prev_section_lookup[@section]
+      @section.prev_section
     end
 
     def breadcrumbs
       [
         {
-          url: "/ebe/#{prev_section}",
+          url: prev_section&.url,
           show: !prev_section.nil?,
           title: [
             "\u2190",
-            section_numbers[prev_section],
+            prev_section&.number,
           ].join(" ")
         },
         {
-          url: "/ebe/table_of_contents",
+          url: "/ebe",
           show: true,
           title: "\u2191"
         },
         {
-          url: "/ebe/#{next_section}",
+          url: next_section&.url,
           show: !next_section.nil?,
           title: [
-            section_numbers[next_section],
+            next_section&.number,
             "\u2192"
           ].join(" ")
         }
@@ -61,65 +134,11 @@ module Views::Ebe
     end
 
     def route
-      @section.to_s
+      @section.id
     end
 
     def section_title
-      [
-        section_numbers[@section],
-        title_lookup[@section]
-      ].join(". ")
-    end
-
-    def sections
-      SECTIONS
-    end
-
-    def section_details
-      SECTION_DETAILS
-    end
-
-    def section_numbers
-      return @numbered_sections unless @numbered_sections.nil?
-
-      section_number = 0
-      subsection_number = 0
-
-      @numbered_sections = sections.inject({}) do |hash, section|
-        if section_details.dig(section, :section)
-          section_number += 1
-          subsection_number = 0
-          section_string = section_number.to_s
-        else
-          subsection_number += 1
-          section_string = "#{section_number}.#{subsection_number}"
-        end
-
-        {**hash, section => section_string}
-      end
-    end
-
-    def next_section_lookup
-      @next_section_lookup ||= {
-        **sections.each_cons(2).to_h,
-        sections.last => nil
-      }
-    end
-
-    def prev_section_lookup
-      @prev_section_lookup ||= {
-        sections.first => nil,
-        **sections.each_cons(2).map(&:reverse).to_h
-      }
-    end
-
-    def title_lookup
-      @title_lookup ||= sections.inject({}) do |hash, section|
-        {
-          **hash,
-          section => section_details.dig(section, :title) || section.to_s.tr("_", " ")
-        }
-      end
+      @section.to_s
     end
   end
 end

@@ -1,0 +1,22 @@
+- quotient, remainder = @view.div_rem(dividend, divisor)
+
+- if divisor == 0
+  - answer = "no"
+  - symbol = '\nmid'
+  - details = "$ #{dividend} = #{divisor} \\cdot n $ is not possible for any value of $ n $"
+- elsif remainder == 0
+  - answer = "yes"
+  - symbol = '\mid'
+  - details = "$ #{dividend} = #{divisor} \\cdot #{quotient} $"
+- else
+  - answer = "no"
+  - symbol = '\nmid'
+  - bounds = [quotient, quotient + 1].sort_by { |m| m * divisor }.map { |b| "$ #{divisor} \\cdot #{b} $" }
+  - details = "$ #{dividend} $ is strictly between #{bounds.join(" and ")}"
+
+.solution-container
+  strong> #{answer}.
+  | $ #{divisor} #{symbol} #{dividend} $ since #{details}.
+
+  == render "ebe/divisibility/_statements", :locals => locals
+
