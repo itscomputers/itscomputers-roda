@@ -1,49 +1,40 @@
-blockquote.definition
-  p
-    strong> definition.
-    | For two integers $ a $ and $ b $ (not both zero), the set of
-    em<> common divisors
-    |
-      of $ a $ and $ b $ consists of the positive integers that divide
-      both $ a $ and $ b $.
+section.intro
+  In this section we discuss the notion of two integers having a common divisor.
 
-  hr
+  blockquote.definition
+    p
+      strong> definition.
+      | A
+      em<> common divisor
+      | of two integers is an integer that divides them both.  The
+      em<> common divisors
+      |
+        of two integers (not both zero) are the positive integers that divide
+        both them both.
 
-  p
-    |
-      Since every integer divides $ 0 $, the set of common divisors of
-      a nonzero integer $ a $ and $ 0 $ is just the set of divisors of $ a $.
+    hr
 
-.examples
+    p
+      |
+        Since every integer divides $ 0 $, the common divisors of a nonzero integer
+        $ a $ and $ 0 $ is equal to the divisors of $ a $.
+
+section.examples
   h2 examples
 
   ol
-    li.example
-      | What are the common divisors of $ 30 $ and $ 42 $?
+    - for a, b in [[30, 42], [21, 231], [130, 2401]]
+      li.example
+        | What are the common divisors of $ #{a} $ and $ #{b} $?
 
-      .solution-container
-        |
-          The divisors of $ 30 $ are $$ 1, 2, 3, 5, 6, 10, 15, 30 . $$
-          The divisors of $ 42 $ are $$ 1, 2, 3, 6, 7, 14, 21, 42 . $$
-          The common divisors of $ 30 $ and $ 42 $ are $$ 1, 2, 3, 6 . $$
-
-    li.example
-      | What are the common divisors of $ 21 $ and $ 231 $?
-
-      .solution-container
-        |
-          The divisors of $ 21 $ are $$ 1, 3, 7, 21 . $$
-          The divisors of $ 231 $ are $$ 1, 3, 7, 11, 21, 33, 77, 231 . $$
-          The common divisors of $ 21 $ and $ 231 $ are $$ 1, 3, 7, 21 . $$
-
-    li.example
-      | What are the common divisors of $ 130 $ and $ 2401 $.
-
-      .solution-container
-        |
-          The divisors of $ 130 $ are $$ 1, 2, 5, 10, 13, 26, 65, 130 . $$
-          The divisors of $ 2401 $ are $$ 1, 7, 49, 343, 2401 . $$
-          The only common divisor of $ 77 $ and $ 130 $ is $ 1 $.
+        .solution-container
+          |
+            The divisors of $ #{a} $ are
+            $$ #{Ebe.divisors(a).join(", ")} . $$
+            The divisors of $ #{b} $ are
+            $$ #{Ebe.divisors(b).join(", ")} . $$
+            The common divisors of $ #{a} $ and $ #{b} $ are
+            $$ #{Ebe.common_divisors(a, b).join(", ")} . $$
 
     li.example
       == render "components/_scroll_form"
@@ -64,33 +55,33 @@ blockquote.definition
           value="#{@view.other}"
           type="number"
           required=true
-          placeholder="other number" max="#{@view.maximum}"
+          placeholder="other number"
+          max="#{@view.maximum}"
         )
         | ?
         input type="submit" value="submit"
 
-      - if @view.solution?
-
+      - unless @view.number.nil? || @view.other.nil?
         .solution-container
           | The divisors of $ #{@view.number} $ are
           - if @view.number == 0
             span<> all positive integers.
           - else
-            | $$ #{@view.divisors.join(", ")} . $$
+            | $$ #{Ebe.divisors(@view.number).join(", ")} . $$
 
           | The divisors of $ #{@view.other} $ are
           - if @view.other == 0
             span<> all positive integers.
           - else
-            | $$ #{@view.other_divisors.join(", ")} . $$
+            | $$ #{Ebe.divisors(@view.other).join(", ")} . $$
 
           | The common divisors of $ #{@view.number} $ and $ #{@view.other} $ are
           - if @view.number == 0 && @view.other == 0
             span<> all positive integers.
           - else
-            | $$ #{@view.common_divisors.join(", ")} . $$
+            | $$ #{Ebe.common_divisors(@view.number, @view.other).join(", ")} . $$
 
-.exercises
+section.exercises
   h2 exercises
 
   ol
@@ -120,8 +111,8 @@ blockquote.definition
       == render "components/_solution", :locals => { :id => "example-2" }
         |
           As a common divisor, we know that $ d \mid a $ and $ d \mid b $.  Therefore
-          we can write $ a = d \cdot m $ for some integer $ m $ and $ b = d \cdot n $
-          for some integer $ n $.  The sum $ a + b $ can then be expressed as
+          we can write $ a = d \cdot m $ and $ b = d \cdot n $ for some integers
+          $ m $ and $ n $.  The sum $ a + b $ can then be expressed as
           $$ a + b = (d \cdot m) + (d \cdot n) = d \cdot (m + n), $$
           which shows that $ d \mid (a + b) $.
 
@@ -145,9 +136,9 @@ blockquote.definition
       == render "components/_solution", :locals => { :id => "example-4" }
         |
           As a common divisor, we know that $ d \mid a $ and $ d \mid b $.  Therefore
-          we can write $ a = d \cdot m $ for some integer $ m $ and $ b = d \cdot n $
-          for some integer $ n $.  The sum $ a + b $ can then be expressed as
-          $$ a + b = (d \cdot m) - (d \cdot n) = d \cdot (m - n), $$
+          we can write $ a = d \cdot m $ and $ b = d \cdot n $ for some integers
+          $ m $ and $ n $.  The difference $ a - b $ can then be expressed as
+          $$ a - b = (d \cdot m) - (d \cdot n) = d \cdot (m - n), $$
           which shows that $ d \mid (a - b) $.
 
     li.exercise

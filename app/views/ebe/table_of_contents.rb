@@ -35,13 +35,13 @@ module Views::Ebe
         Section.new(:remainders_in_programming),
         Section.new(:divisors),
         Section.new(:common_divisors),
-        Section.new(:linear_combinations),
+        Section.new(:greatest_common_divisor),
       ],
       :appendix => [
         Section.new(:peano_axioms),
         Section.new(:mathematical_induction),
         Section.new(:well_ordering_principle),
-      ]
+      ],
     }
 
     def initialize(params)
