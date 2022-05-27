@@ -1,118 +1,366 @@
-p
-  | The
-  code<> divides
-  | function from the previous section employed a
-  code<> while
-  |
-    loop without discussing whether or not it will terminate.
+section.intro
+  p There are many ways to define the set of natural numbers $ \mathbb{N} $ and
+    their arithmetic. One of the most common is the Peano axioms. This appendix
+    contains a brief introduction to the axioms and some properties that can be
+    derived from them.
 
+  blockquote.definition
+    p
+      strong> Peano axioms.
+      | The set $ \mathbb{N} $ of natural numbers is defined according
+        to the following axioms where $ S: \mathbb{N} \to \mathbb{N} $
+        is the
+      em<> successor
+      | function.
 
+    ol
+      li
+        | $ 0 $ is a natural number
+      li
+        | Every natural number is equal to itself (equality is
+        em< reflexive
+        | )
+      li
+        | For every pair $ a, b $ of natural numbers,
+          if $ a = b $, then $ b = a $ (equality is
+        em< symmetric
+        | )
+      li
+        |
+          For every trio $ a, b, c $ of natural numbers,
+          if $ a = b $ and $ b = c $, then $ a = c $ (equality is
+        em< transitive
+        | )
+      li
+        |
+          For every natural number $ a $, if $ a = b $, then $ b $ is
+          a natural number (the natural numbers are
+        em< closed under equality
+        | )
+      li
+        |
+          For every natural number $ a $, the successor $ S(a) $ is a
+          natural number (the natural numbers are
+        em< closed under the successor function
+        | )
+      li
+        |
+          For every pair $ a, b $ of natural numbers, $ a = b $ if and
+          only if $ S(a) = S(b) $ (the successor is a one-to-one function)
+      li
+        |
+          For every natural number $ a $, $ S(a) \ne 0 $
+          (there is no natural number whose successor is $ 0 $)
+      li
+        |
+          If $ K $ is a set containing $ 0 $ that is closed under $ S $,
+          then $ K = \mathbb{N} $ (every natural number besides $ 0 $
+          is the successor of a natural number)
 
-blockquote.definition
-  p
-    strong> definition.
-    | For a nonzero integer $ a $, the set of
-    em<> divisors
-    | of $ a $ consists of the positive integers that divide $ a $.
+    hr
 
-  hr
+    p The decimal expansion of the positive integers are defined as
 
-  p Note that the set of divisors of $ 0 $ is undefined because every integer divides $ 0 $.
+    ul
+      li $ 1 = S(0) $
+      li $ 2 = S(1) = S(S(0)) $
+      li $ 3 = S(2) = S(S(S(0))) $
+      li $ 4 = S(3) = S(S(S(S(0)))) $
+      li ...etc
 
-.examples
-  h2 examples
+  p The arithmetic of the natural numbers can be defined using the successor function.
 
-  ol
-    li.example
-      | What are the divisors of $ 100 $?
+  blockquote.definition
+    p
+      strong> Addition.
 
-      .solution-container
-        | The divisors of $ 100 $ are $$ 1, 2, 4, 5, 10, 20, 25, 50, 100 . $$
+    ul
+      li $ a + 0 = a $ for all $ a \in \mathbb{N} $
+      li $ a + S(b) = S(a + b) $ for all $ a, b \in \mathbb{N} $
 
-    li.example
-      | What are the divisors of $ 42 $?
+    hr
 
-      .solution-container
-        | The divisors of $ 42 $ are $$ 1, 2, 3, 6, 7, 14, 21, 42 . $$
+    p
+      |
+        For example,
+        $$ \begin{align}
+          a + 1 &= a + S(0) = S(a + 0) = S(a) \\
+          a + 2 &= a + S(1) = S(a + 1) = S(S(a)) \\
+          a + 3 &= a + S(2) = S(a + 2) = S(S(S(a)))
+        \end{align} $$
 
-    li.example
-      == render "components/_scroll_form"
-        | What are the divisors of
-        input> id="integer" name="integer" value="#{@view.integer}" type="number" required=true placeholder="integer" max="#{@view.maximum}"
-        | ?
-        input type="submit" value="submit"
+  blockquote.definition
+    p
+      strong> Multiplication.
 
-      - if @view.integer
+    ul
+      li $ a \cdot 0 = 0 $ for all $ a \in \mathbb{N} $
+      li $ a \cdot S(b) = a + a \cdot b $ for all $ a, b \in \mathbb{N} $
 
-        .solution-container
-          | The divisors of $ #{@view.integer} $ are
-          - if @view.integer == 0
-            span> all positive integers.
-          - else
-            | $$ #{@view.divisors.join(", ")} . $$
+    hr
 
-.exercises
+    p
+      |
+        For example,
+        $$ \begin{align}
+          a \cdot 1 &= a \cdot S(0) = a + a \cdot 0 = a + 0 = a \\
+          a \cdot 2 &= a \cdot S(1) = a + a \cdot 1 = a + a \\
+          a \cdot 3 &= a \cdot S(2) = a + a \cdot 2 = a + (a + a)
+        \end{align} $$
+
+  p The total ordering of the natural numbers is defined as follows.
+
+  blockquote.definition
+    p
+      strong> Total ordering.
+      |
+        Given $ a, b \in \mathbb{N} $, we say that $ a \le b $ if and only if
+        $ b = a + n $ for some $ n \in \mathbb{N} $.
+
+    hr
+
+    p
+      |
+        For example, for any $ a \in \mathbb{N} $
+        $$ \begin{align}
+          a = 0 + a \quad & \longrightarrow \quad 0 \le a \\
+          a = a + 0 \quad & \longrightarrow \quad a \le a \\
+          s(a) = s(a + 0) = a + s(0) \quad & \longrightarrow \quad a \le s(a)
+        \end{align} $$
+
+section
+  h2 models
+
+  blockquote.definition
+    p
+      strong> Set-theoretic model.
+      | One explicit construction of the natural numbers uses set theory.
+
+      ul
+        li $ 0 $ is defined to be the empty set
+        li
+          | the successor of a set $ a $ is defined to be the union of $ a $
+            with the set containing $ a $
+
+    hr
+
+    p $$ \begin{align}
+        0 &= \{ \} \\
+        1 &= s(0) = 0 \cup \{ 0 \} = \{ \} \cup \{ 0 \} = \{ 0 \} \\
+        2 &= s(1) = 1 \cup \{ 1 \} = \{ 0 \} \cup \{ 1 \} = \{ 0, 1 \} \\
+        3 &= s(2) = 2 \cup \{ 2 \} = \{ 0, 1 \} \cup \{ 2 \} = \{ 0, 1, 2 \}
+      \end{align} $$
+
+section.exercises
   h2 exercises
 
+  p Here are just a few examples of familiar properties that can be proved using
+    the Peano axioms. There are a great deal more, but these are enough for this
+    introduction.
+
   ol
     li.exercise
-      | In the previous section, we wrote a naive
-      code<> divides
       |
-        function, which is non-performant.  Most programming languages have an efficient
-        built-in mechanism for computing divisibility using the modulus operator
-      code<> %
-      | (or something equivalent).  Explicitly, an integer
-      code<> a
-      | is divisible by a nonzero integer
-      code<> b
-      | if and only if
-      code< b % a == 0
-      | .  Use this to write an improved
-      code<> divides
-      | function.  It should pass all the same tests as the naive one.
+        Define a set-theoretic model of the natural numbers with addition and
+        multiplication using arrays in the programming language of your choice.
+        It will likely be non-performant, but perhaps enlightening.
 
-      == render "components/_solution", :locals => { :id => "example-1" }
+      == render "components/_solution", :locals => { :id => "exercise-peano-implementation" }
         pre
           code.language-ruby
-            = @view.divides_snippet
+            = File.read("lib/peano.rb")
 
     li.exercise
-      p If $ a $ and $ b $ are positive integers such that $ b \mid a $, prove that
-        $ b \le a $.
-
-      == render "components/_solution", :locals => { :id => "example-2" }
-        p Since $ b \mid a $, there is an integer $ n $ such that $ a = b \cdot n $.
-          Since both $ a $ and $ b $ are positive, then $ n $ must be as well, because if
-          $ n $ were zero or negative, then multiplying by $ b $ would result in zero or a
-          negative number, which is impossible.  Therefore, we can be sure that
-          $ 1 \le n $.  Multiplying both sides of this inequality by the positive integer
-          $ b $ results in $ b \le b \cdot n $, which can be rewritten as $ b \le a $.
-
-    li.exercise
-      | Write a
-      code<> divisors
       |
-        function that takes an integer input and returns the sorted array of its divisors.
-        (Hint: use exercises #1 and #2)
+        Prove that addition is associative: for any $ a, b, c \in \mathbb{N} $
+        $$ (a + b) + c = a + (b + c). $$
 
-      p Some test values:
-      ul
-        - for example in @view.divisors_examples
-          li
-            code divisors(#{example[:integer]}) ~> #{example[:divisors]}
-
-      == render "components/_solution", :locals => { :id => "example-3" }
-        pre
-          code.language-ruby
-            = @view.divisors_snippet
+      == render "components/_solution", :locals => { :id => "exercise-addition-associative" }
+        p Given $ a, b \in \mathbb{N} $, define $ K $ to be the set of natural
+          numbers that satisfy the associativity relation, ie,
+          $$ K = \{ k \in \mathbb{N} \mid (a + b) + k = a + (b + k) \}. $$
+          Clearly $ 0 \in K $, since
+          $$ (a + b) + 0 = a + b = a + (b + 0). $$
+          We want to prove that $ K $ is closed under the successor function.
+          Let $ k \in K $ and consider its successor $ s(k) $. The left-hand
+          side of the associativity relation is
+          $$ (a + b) + s(k) = s((a + b) + k) $$
+          and the right-hand side is
+          $$ a + (b + s(k)) = a + s(b + k) = s(a + (b + k)). $$
+          Since $ k \in K $, these are equal, which proves that $ s(k) \in K $.
+          By Axiom 9, $ K $ must be equal to the set of natural numbers, so
+          addition is associative for any $ a, b, c \in \mathbb{N} $.
 
     li.exercise
-      p If $ a $ and $ b $ are positive integers such that $ a \mid b $ and $ b \mid a $, prove that
-        $ a = b $.  (Hint: use exercise #2)
+      |
+        Prove that addition is commutative: for any $ a, b \in \mathbb{N} $
+        $$ a + b = b + a. $$
 
-      == render "components/_solution", :locals => { :id => "example-4" }
-        p Since $ b \mid a $, the previous exercise implies that $ b \le a $.  Similarly,
-          since $ a \mid b $, the previous exercise implies that $ a \le b $.  This is
-          only possible if $ a $ and $ b $ are actually equal.
+      == render "components/_solution", :locals => { :id => "exercise-addition-commutative" }
+        p For any $ k \in \mathbb{N} $, let $ C_k $ be the set of natural numbers
+          that commute with $ k $,
+          $$ C_k = \{ c \in \mathbb{N} \mid k + c = c + k \}. $$
+          We want to prove that $ C_k = \mathbb{N} $ for all $ k \in \mathbb{N} $.
 
+        p We want to use Axiom 9 to do this, so we let $ K $ be the set of natural
+          numbers that commute with all natural numbers,
+          $$ K = \{ k \in \mathbb{N} \mid C_k = \mathbb{N} \}. $$
+
+        p Firstly, we prove that $ 0 \in K $, ie, that $ C_0 = \mathbb{N} $
+          By definition, $ 0 \in C_0 $ (every natural number commutes with
+          itself), so using Axiom 9, it remains to show that $ C_0 $ is closed
+          under the successor function. Let $ c \in C_0 $ so that
+          $ 0 + c = c + 0 = c $. Then
+          $$ 0 + s(c) = s(0 + c) = s(c) = s(c) + 0, $$
+          so $ s(c) \in C_0 $. Therefore, $ C_0 = \mathbb{N} $.
+
+        p Next, suppose that $ k \in K $, so that $ C_k = \mathbb{N} $. In
+          other words, we know that $ k $ commutes with every natural number.
+          Consider the set $ C_{s(k}) $, the set of natural numbers that
+          commute with $ s(k) $. We know that $ 0 \in C_{s(k)} $ since $ 0 $
+          commutes with ever natural number. To use Axiom 9 again, let $ c $
+          be an element of $ C_{s(k)} $ so that $ s(k) + c = c + s(k) $.
+          Now consider $ s(c) $:
+          $$ \begin{align}
+            s(k) + s(c)
+              &= s(s(k) + c) \\
+              &= s(c + s(k)) \\
+              &= s(s(c + k)) \\
+              &= s(s(k + c)) \\
+              &= s(k + s(c)) \\
+              &= s(s(c) + k) \\
+              &= s(c) + s(k)
+          \end{align} $$
+          Therefore $ C_{s(k)} $ is closed under the successor function and must
+          be equal to $ \mathbb{N} $.
+
+        p We have now shown that $ 0 \in K $ and that $ K $ itself is closed under
+          the successor function.  Therefore, $ K = \mathbb{N} $ and addition of
+          natural numbers is commutative.
+
+    li.exercise
+      |
+        Prove the distributive property: for any $ a, b, c \in \mathbb{N} $
+        $$ a \cdot (b + c) = (a \cdot b) + (a \cdot c). $$
+
+      == render "components/_solution", :locals => { :id => "exercise-distributive-property" }
+        p Given $ a, b $, let
+          $$ K = \{ k \in \mathbb{N} \mid a \cdot (b + k) = (a \cdot b) + (a \cdot k) \}. $$
+
+          We have that $ 0 \in K $ since
+          $$ \begin{align}
+            a \cdot (b + 0)
+              &= a \cdot b \\
+              &= (a \cdot b) + 0 \\
+              &= (a \cdot b) + (a \cdot 0)
+          \end{align} $$
+
+          Given $ k \in K $, we can show that $ s(k) \in K $ as well:
+          $$ \begin{align}
+            a \cdot (b + s(k))
+              &= a \cdot s(b + k) \\
+              &= a + (a \cdot (b + k)) \\
+              &= (a \cdot (b + k)) + a \\
+              &= ((a \cdot b) + (a \cdot k)) + a \\
+              &= (a \cdot b) + ((a \cdot k) + a) \\
+              &= (a \cdot b) + (a + (a \cdot k)) \\
+              &= (a \cdot b) + (a \cdot s(k))
+          \end{align} $$
+
+          Therefore $ K = \mathbb{N} $ and the distributive law holds in general.
+
+    li.exercise
+      |
+        Prove that multiplication is associative: for any $ a, b, c \in \mathbb{N} $
+        $$ (a \cdot b) \cdot c = a \cdot (b \cdot c). $$
+
+      == render "components/_solution", :locals => { :id => "exercise-multiplication-associative" }
+        p Given $ a, b \in \mathbb{N} $, define $ K $ to be the set of natural
+          numbers that satisfy the associativity relation, ie,
+          $$ K = \{ k \in \mathbb{N} \mid (a \cdot b) \cdot k = a \cdot (b \cdot k) \}. $$
+
+          Clearly $ 0 \in K $, since
+          $$ (a \cdot b) \cdot 0 = 0 $$
+          and
+          $$ a \cdot (b \cdot 0) = a \cdot 0 = 0. $$
+
+          We want to prove that $ K $ is closed under the successor function.
+          Let $ k \in K $ and consider its successor $ s(k) $. Using the distributive
+          law, we get
+          $$ \begin{align}
+            (a \cdot b) \cdot s(k)
+              &= (a \cdot b) + ((a \cdot b) \cdot k) \\
+              &= (a \cdot b) + (a \cdot (b \cdot k)) \\
+              &= a \cdot (b + b \cdot k) \\
+              &= a \cdot (b \cdot s(k))
+          \end{align} $$
+          so $ s(k) \in K $, which completes the proof.
+
+    li.exercise
+      |
+        Prove that multiplication is commutative: for any $ a, b \in \mathbb{N} $
+        $$ a \cdot b = b \cdot a. $$
+
+      == render "components/_solution", :locals => { :id => "exercise-multiplication-commutative" }
+        p For any $ k \in \mathbb{N} $, let $ C_k $ be the set of natural numbers
+          that commute with $ k $,
+          $$ C_k = \{ c \in \mathbb{N} \mid k \cdot c = c \cdot k \}. $$
+          We want to prove that $ C_k = \mathbb{N} $ for all $ k \in \mathbb{N} $.
+
+        p We want to use Axiom 9 to do this, so we let $ K $ be the set of natural
+          numbers that commute with all natural numbers,
+          $$ K = \{ k \in \mathbb{N} \mid C_k = \mathbb{N} \}. $$
+
+        p Firstly, we prove that $ 0 \in K $, ie, that $ C_0 = \mathbb{N} $
+          By definition, $ 0 \in C_0 $ (every natural number commutes with
+          itself), so using Axiom 9, it remains to show that $ C_0 $ is closed
+          under the successor function. Let $ c \in C_0 $ so that
+          $ 0 \cdot c = c \cdot 0 = 0 $. Then
+          $$ 0 \cdot s(c) = 0 + 0 \cdot c = 0 + 0 = 0, $$
+          so $ s(c) \in C_0 $. Therefore, $ C_0 = \mathbb{N} $.
+
+        p Next, suppose that $ k \in K $, so that $ C_k = \mathbb{N} $. In
+          other words, we know that $ k $ commutes with every natural number.
+          Consider the set $ C_{s(k}) $, the set of natural numbers that
+          commute with $ s(k) $. We know that $ 0 \in C_{s(k)} $ since $ 0 $
+          commutes with ever natural number. To use Axiom 9 again, let $ c $
+          be an element of $ C_{s(k)} $ so that $ s(k) \cdot c = c \cdot s(k) $.
+          Now consider $ s(c) $:
+          $$ \begin{align}
+            s(k) \cdot s(c)
+              &= s(k) + (s(k) \cdot c) \\
+              &= s(k) + (c \cdot s(k)) \\
+              &= (c \cdot s(k)) + s(k) \\
+              &= (c + c \cdot k) + s(k) \\
+              &= c + (c \cdot k + s(k)) \\
+              &= c + s(c \cdot k + k) \\
+              &= s(c + (c \cdot k + k)) \\
+              &= s(c + (k + c \cdot k)) \\
+              &= s(c + (k + k \cdot c)) \\
+              &= s((k + k \cdot c) + c) \\
+              &= s(k + (k \cdot c + c)) \\
+              &= k + s(k \cdot c + c) \\
+              &= k + (k \cdot c + s(c)) \\
+              &= (k + k \cdot c) + s(c) \\
+              &= (k \cdot s(c)) + s(c) \\
+              &= s(c) + (k \cdot s(c)) \\
+              &= s(c) + (s(c) \cdot k) \\
+              &= s(c) \cdot s(k)
+          \end{align} $$
+          Therefore $ C_{s(k)} $ is closed under the successor function and must
+          be equal to $ \mathbb{N} $.
+
+        p We have now shown that $ 0 \in K $ and that $ K $ itself is closed under
+          the successor function.  Therefore, $ K = \mathbb{N} $ and multiplication of
+          natural numbers is commutative.
+
+    li.exercise
+      |
+        Prove that the ordering is transitive: for any $ a, b, c \in \mathbb{N} $ if
+        $ a \leq b $ and $ b \leq c $, then $ a \leq c $.
+
+      == render "components/_solution", :locals => { :id => "exercise-ordering-transitive" }
+        p Suppose that $ a \leq b $ and $ b \leq c $.  Then $ b = a + m $ and $ c = b + n $
+          for some natural numbers $ m, n $. Therefore
+          $$ c = b + n = (a + m) + n = a + (m + n) $$
+          which proves that $ a \leq c $.
