@@ -8,7 +8,7 @@ section.intro
     p
       strong> Peano axioms.
       | The set $ \mathbb{N} $ of natural numbers is defined according
-        to the following axioms where $ S: \mathbb{N} \to \mathbb{N} $
+        to the following axioms where $ s: \mathbb{N} \to \mathbb{N} $
         is the
       em<> successor
       | function.
@@ -39,36 +39,37 @@ section.intro
         | )
       li
         |
-          For every natural number $ a $, the successor $ S(a) $ is a
+          For every natural number $ a $, the successor $ s(a) $ is a
           natural number (the natural numbers are
         em< closed under the successor function
         | )
       li
         |
           For every pair $ a, b $ of natural numbers, $ a = b $ if and
-          only if $ S(a) = S(b) $ (the successor is a one-to-one function)
+          only if $ s(a) = s(b) $ (the successor is a one-to-one function)
       li
         |
-          For every natural number $ a $, $ S(a) \ne 0 $
+          For every natural number $ a $, $ s(a) \ne 0 $
           (there is no natural number whose successor is $ 0 $)
       li
         |
-          If $ K $ is a set containing $ 0 $ that is closed under $ S $,
+          If $ K $ is a set containing $ 0 $ that is closed under $ s $,
           then $ K = \mathbb{N} $ (every natural number besides $ 0 $
           is the successor of a natural number)
 
     hr
 
-    p The decimal expansion of the positive integers are defined as
+    p The decimal expansion of the positive natural numbers are then defined as
 
     ul
-      li $ 1 = S(0) $
-      li $ 2 = S(1) = S(S(0)) $
-      li $ 3 = S(2) = S(S(S(0))) $
-      li $ 4 = S(3) = S(S(S(S(0)))) $
+      li $ 1 = s(0) $
+      li $ 2 = s(1) = s(s(0)) $
+      li $ 3 = s(2) = s(s(s(0))) $
+      li $ 4 = s(3) = s(s(s(s(0)))) $
       li ...etc
 
-  p The arithmetic of the natural numbers can be defined using the successor function.
+  p The addition and multiplication of the natural numbers can be defined
+    recursively using the successor function.
 
   blockquote.definition
     p
@@ -76,7 +77,7 @@ section.intro
 
     ul
       li $ a + 0 = a $ for all $ a \in \mathbb{N} $
-      li $ a + S(b) = S(a + b) $ for all $ a, b \in \mathbb{N} $
+      li $ a + s(b) = s(a + b) $ for all $ a, b \in \mathbb{N} $
 
     hr
 
@@ -84,9 +85,9 @@ section.intro
       |
         For example,
         $$ \begin{align}
-          a + 1 &= a + S(0) = S(a + 0) = S(a) \\
-          a + 2 &= a + S(1) = S(a + 1) = S(S(a)) \\
-          a + 3 &= a + S(2) = S(a + 2) = S(S(S(a)))
+          a + 1 &= a + s(0) = s(a + 0) = s(a) \\
+          a + 2 &= a + s(1) = s(a + 1) = s(s(a)) \\
+          a + 3 &= a + s(2) = s(a + 2) = s(s(s(a)))
         \end{align} $$
 
   blockquote.definition
@@ -95,7 +96,7 @@ section.intro
 
     ul
       li $ a \cdot 0 = 0 $ for all $ a \in \mathbb{N} $
-      li $ a \cdot S(b) = a + a \cdot b $ for all $ a, b \in \mathbb{N} $
+      li $ a \cdot s(b) = a + a \cdot b $ for all $ a, b \in \mathbb{N} $
 
     hr
 
@@ -103,9 +104,9 @@ section.intro
       |
         For example,
         $$ \begin{align}
-          a \cdot 1 &= a \cdot S(0) = a + a \cdot 0 = a + 0 = a \\
-          a \cdot 2 &= a \cdot S(1) = a + a \cdot 1 = a + a \\
-          a \cdot 3 &= a \cdot S(2) = a + a \cdot 2 = a + (a + a)
+          a \cdot 1 &= a \cdot s(0) = a + a \cdot 0 = a + 0 = a \\
+          a \cdot 2 &= a \cdot s(1) = a + a \cdot 1 = a + a \\
+          a \cdot 3 &= a \cdot s(2) = a + a \cdot 2 = a + (a + a)
         \end{align} $$
 
   p The total ordering of the natural numbers is defined as follows.
