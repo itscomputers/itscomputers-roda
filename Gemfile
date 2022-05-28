@@ -15,6 +15,7 @@ end
 
 group :development do
   gem "rerun"
+  gem "irb"
 end
 
 group :test do
