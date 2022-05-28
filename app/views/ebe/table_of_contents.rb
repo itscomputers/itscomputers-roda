@@ -27,9 +27,9 @@ module Views::Ebe
     attr_accessor :section
 
     SECTIONS = {
-      :table_of_contents => [Section.new(:table_of_contents, title: "number theory for programmers")],
-      :prologue => [Section.new(:prologue)],
-      :division => [
+      table_of_contents: [Section.new(:table_of_contents, title: "number theory for programmers")],
+      prologue: [Section.new(:prologue)],
+      division: [
         Section.new(:divisibility),
         Section.new(:division_with_remainder),
         Section.new(:remainders_in_programming),
@@ -37,7 +37,7 @@ module Views::Ebe
         Section.new(:common_divisors),
         Section.new(:greatest_common_divisor),
       ],
-      :appendix => [
+      appendix: [
         Section.new(:peano_axioms),
         Section.new(:mathematical_induction),
         Section.new(:well_ordering_principle),
@@ -57,7 +57,7 @@ module Views::Ebe
 
     def section_lookup
       @section_lookup ||= sections.values.flatten.reduce({}) do |hash, section|
-        { **hash, section.id => section }
+        {**hash, section.id => section}
       end
     end
 
@@ -115,21 +115,21 @@ module Views::Ebe
           title: [
             "\u2190",
             prev_section&.number,
-          ].join(" ")
+          ].join(" "),
         },
         {
           url: "/ebe",
           show: true,
-          title: "\u2191"
+          title: "\u2191",
         },
         {
           url: next_section&.url,
           show: !next_section.nil?,
           title: [
             next_section&.number,
-            "\u2192"
-          ].join(" ")
-        }
+            "\u2192",
+          ].join(" "),
+        },
       ]
     end
 

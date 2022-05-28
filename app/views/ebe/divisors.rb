@@ -7,7 +7,7 @@ module Views::Ebe
       {integer: 30, divisors: [1, 2, 3, 5, 6, 10, 15, 30]},
       {integer: 32, divisors: [1, 2, 4, 8, 16, 32]},
       {integer: 34, divisors: [1, 2, 17, 34]},
-      {integer: 36, divisors: [1, 2, 3, 4, 6, 9, 12, 18, 36]}
+      {integer: 36, divisors: [1, 2, 3, 4, 6, 9, 12, 18, 36]},
     ]
 
     def maximum

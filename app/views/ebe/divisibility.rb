@@ -14,7 +14,7 @@ module Views::Ebe
       {divisor: 7, dividend: -7, divides?: true},
       {divisor: 1, dividend: 7, divides?: true},
       {divisor: -1, dividend: 7, divides?: true},
-      {divisor: 0, dividend: 7, divides?: false}
+      {divisor: 0, dividend: 7, divides?: false},
     ]
 
     def divisor

@@ -66,4 +66,3 @@ module Peano
     end
   end
 end
-

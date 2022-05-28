@@ -22,24 +22,28 @@ describe Ebe::Division do
     context "when `b == 0`" do
       let(:b) { 0 }
       let(:a) { any }
+
       it { is_expected.to be false }
     end
 
     context "when `b != 0` and `a == 0`" do
       let(:b) { any(except: 0) }
       let(:a) { 0 }
+
       it { is_expected.to be true }
     end
 
     context "when `b == 1`" do
       let(:b) { 1 }
       let(:a) { any }
+
       it { is_expected.to be true }
     end
 
     context "when `b == -1`" do
       let(:b) { -1 }
       let(:a) { any }
+
       it { is_expected.to be true }
     end
 
@@ -48,11 +52,13 @@ describe Ebe::Division do
 
       context "when `a` is a multiple of `b`" do
         let(:a) { any * b }
+
         it { is_expected.to be true }
       end
 
       context "when `a` is not a multiple of `b`" do
         let(:a) { any * b + Random.rand(0...b.abs) }
+
         it { is_expected.to be false }
       end
     end
@@ -62,6 +68,7 @@ describe Ebe::Division do
         context "when dividing #{hash[:divisor]} into #{hash[:dividend]}" do
           let(:a) { hash[:dividend] }
           let(:b) { hash[:divisor] }
+
           it { is_expected.to eq hash[:divides?] }
         end
       end
@@ -74,6 +81,7 @@ describe Ebe::Division do
     Views::Ebe::Divisors::EXAMPLES.each do |hash|
       context "when integer is #{hash[:integer]}" do
         let(:integer) { hash[:integer] }
+
         it { is_expected.to eq hash[:divisors] }
       end
     end
@@ -115,6 +123,7 @@ describe Ebe::Division do
     context "when `divisor == 0`" do
       let(:dividend) { any }
       let(:divisor) { 0 }
+
       it { expect { subject }.to raise_exception ZeroDivisionError }
     end
 
@@ -123,11 +132,13 @@ describe Ebe::Division do
 
       context "when divisor is positive" do
         let(:divisor) { positive }
+
         it_behaves_like "satisfies division algorithm properties"
       end
 
       context "when divisor is negative" do
         let(:divisor) { negative }
+
         it_behaves_like "satisfies division algorithm properties"
       end
     end
@@ -137,11 +148,13 @@ describe Ebe::Division do
 
       context "when divisor is positive" do
         let(:divisor) { positive }
+
         it_behaves_like "satisfies division algorithm properties"
       end
 
       context "when divisor is negative" do
         let(:divisor) { negative }
+
         it_behaves_like "satisfies division algorithm properties"
       end
     end
@@ -151,11 +164,13 @@ describe Ebe::Division do
 
       context "when divisor is positive" do
         let(:divisor) { positive }
+
         it_behaves_like "satisfies division algorithm properties"
       end
 
       context "when divisor is negative" do
         let(:divisor) { negative }
+
         it_behaves_like "satisfies division algorithm properties"
       end
     end

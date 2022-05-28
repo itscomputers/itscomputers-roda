@@ -15,9 +15,9 @@ module Views::Ebe
     def examples
       example_coefficients.map do |(coeff, other_coeff)|
         {
-          :coeff => coeff,
-          :other_coeff => other_coeff,
-          :total => number * coeff + other * other_coeff
+          coeff: coeff,
+          other_coeff: other_coeff,
+          total: number * coeff + other * other_coeff,
         }
       end.sort_by { |example| example[:total] }
     end
