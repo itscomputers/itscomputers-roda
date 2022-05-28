@@ -39,13 +39,10 @@ class App < Roda
       @contents.sections.values.drop(1).flatten.each do |section|
         route = section.id.to_s
 
-        r.on route do
+        r.on section.id.to_s do
           @contents.section = section
-          view_class_name = route.split("_").map(&:capitalize).join
           @scroll = r.params["scroll"]
-          @view = Views::Ebe.module_eval(view_class_name).new(r.params).tap do |v|
-            v.title = "ebe - #{section.title}"
-          end
+          @view = get_view(section, route: r)
           view "ebe/#{route}", layout: "ebe/layout"
         end
       end
@@ -55,5 +52,14 @@ class App < Roda
         view "ebe/table_of_contents"
       end
     end
+  end
+
+  def get_view(section, route:)
+    class_name = section.id.to_s.split("_").map(&:capitalize).join
+    Views::Ebe.module_eval(class_name).new(route.params).tap do |view|
+      view.title = section.title
+    end
+  rescue NameError
+    Views::Base.new(route.params)
   end
 end
