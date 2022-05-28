@@ -5,6 +5,9 @@ require:
 inherit_gem:
   standard: config/base.yml
 
+AllCops:
+  NewCops: enable
+
 Style/TrailingCommaInArguments:
   Enabled: true
   EnforcedStyleForMultiline: comma
