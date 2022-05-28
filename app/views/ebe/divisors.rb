@@ -14,12 +14,8 @@ module Views::Ebe
       50000
     end
 
-    def raw_integer
-      @params["integer"]&.to_i
-    end
-
     def integer
-      !raw_integer.nil? && raw_integer <= maximum && raw_integer
+      integer_param "integer"
     end
 
     def divisors

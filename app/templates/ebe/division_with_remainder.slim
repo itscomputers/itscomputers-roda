@@ -68,7 +68,10 @@ section.examples
   h2 examples
 
   ol
-    - for dividend, divisor in @view.examples
+    - for example in @view.examples.take(4)
+      - dividend = example[:dividend]
+      - divisor = example[:divisor]
+
       li.example
         | What are the quotient and remainder when dividing $ #{dividend} $ by $ #{divisor}$?
 
@@ -104,7 +107,7 @@ section.exercises
 
       p Some test values:
       ul
-        - for example in @view.div_rem_examples
+        - for example in @view.examples
           li
             code div_rem(#{example[:dividend]}, #{example[:divisor]}) = [#{example[:quotient]}, #{example[:remainder]}]
 

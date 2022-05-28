@@ -25,11 +25,6 @@ module Views::Ebe
       @params["dividend"]&.to_i
     end
 
-    def div_rem(a, b)
-      return [] unless a && b && b != 0
-      Ebe.div_rem(a, b)
-    end
-
     def naive_code_snippet
       CodeSnippet.wrap(
         "module NumberTheory::Naive",

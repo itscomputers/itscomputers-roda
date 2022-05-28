@@ -1,10 +1,6 @@
 module Views::Ebe
   class DivisionWithRemainder < Views::Base
-    EXAMPLES = [1, -1].product([1, -1]).map do |sign, other_sign|
-      [47 * sign, 10 * other_sign]
-    end
-
-    DIV_REM_EXAMPLES = [
+    EXAMPLES = [
       {:dividend => 47, :divisor => 10, :quotient => 4, :remainder => 7},
       {:dividend => 47, :divisor => -10, :quotient => -4, :remainder => 7},
       {:dividend => -47, :divisor => 10, :quotient => -5, :remainder => 3},
@@ -35,10 +31,6 @@ module Views::Ebe
 
     def examples
       EXAMPLES
-    end
-
-    def div_rem_examples
-      DIV_REM_EXAMPLES
     end
 
     def code_snippet

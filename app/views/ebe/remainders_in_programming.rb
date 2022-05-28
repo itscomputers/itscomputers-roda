@@ -69,7 +69,7 @@ module Views::Ebe
     end
 
     def div_rem_examples
-      Views::Ebe::DivisionWithRemainder::DIV_REM_EXAMPLES
+      Views::Ebe::DivisionWithRemainder::EXAMPLES
     end
 
     def code_snippet(method_name)

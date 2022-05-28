@@ -61,10 +61,6 @@ module Peano
       nil
     end
 
-    def to_s
-      inspect
-    end
-
     def to_i
       @array.size
     end
