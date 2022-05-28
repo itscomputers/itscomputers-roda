@@ -19,6 +19,20 @@ describe Ebe::Division do
   describe "#divides" do
     subject { Ebe.divides(b, a) }
 
+    let(:b) { any(except: [0, 1, -1]) }
+
+    context "when `a` is a multiple of `b`" do
+      let(:a) { any * b }
+
+      it { is_expected.to be true }
+    end
+
+    context "when `a` is not a multiple of `b`" do
+      let(:a) { any * b + Random.rand(0...b.abs) }
+
+      it { is_expected.to be false }
+    end
+
     context "when `b == 0`" do
       let(:b) { 0 }
       let(:a) { any }
@@ -46,132 +60,59 @@ describe Ebe::Division do
 
       it { is_expected.to be true }
     end
-
-    context "when `b` is not 0, 1, or -1" do
-      let(:b) { any(except: [0, 1, -1]) }
-
-      context "when `a` is a multiple of `b`" do
-        let(:a) { any * b }
-
-        it { is_expected.to be true }
-      end
-
-      context "when `a` is not a multiple of `b`" do
-        let(:a) { any * b + Random.rand(0...b.abs) }
-
-        it { is_expected.to be false }
-      end
-    end
-
-    describe "explicit examples" do
-      Views::Ebe::Divisibility::EXAMPLES.each do |hash|
-        context "when dividing #{hash[:divisor]} into #{hash[:dividend]}" do
-          let(:a) { hash[:dividend] }
-          let(:b) { hash[:divisor] }
-
-          it { is_expected.to eq hash[:divides?] }
-        end
-      end
-    end
   end
 
   describe "#divisors" do
-    subject { Ebe.divisors(integer) }
+    let(:divisors) { Ebe.divisors(integer) }
+    let(:integer) { any lower_bound: 1, upper_bound: 1000 }
+    let(:non_divisors) { (1..integer).to_a - divisors }
 
-    Views::Ebe::Divisors::EXAMPLES.each do |hash|
-      context "when integer is #{hash[:integer]}" do
-        let(:integer) { hash[:integer] }
-
-        it { is_expected.to eq hash[:divisors] }
-      end
+    it "consists of divisors" do
+      expect(divisors.all? { |divisor| Ebe.divides(divisor, integer) }).to be true
     end
 
-    context "general behavior" do
-      let(:integer) { any lower_bound: 1, upper_bound: 1000 }
-      let(:non_divisors) { (1..integer).to_a - subject }
-
-      it "consists of divisors" do
-        expect(subject.all? { |divisor| Ebe.divides(divisor, integer) }).to be true
-      end
-
-      it "leaves out non_divisors" do
-        expect(non_divisors.none? { |non_divisor| Ebe.divides(non_divisor, integer) }).to be true
-      end
+    it "leaves out non_divisors" do
+      expect(non_divisors.none? { |non_divisor| Ebe.divides(non_divisor, integer) }).to be true
     end
   end
 
-  describe "div_rem" do
-    subject { Ebe.div_rem(dividend, divisor) }
-
-    let(:quotient) { subject.first }
-    let(:remainder) { subject.last }
-
-    shared_examples "satisfies division algorithm properties" do
-      it "has a nonnegative remainder" do
-        expect(remainder).to be >= 0
-      end
-
-      it "has a remainder less than the absolute value of the divisor" do
-        expect(remainder).to be < divisor.abs
-      end
-
-      it "satisfies the linear equation" do
-        expect(dividend).to eq divisor * quotient + remainder
-      end
-    end
-
+  describe "#div_rem" do
     context "when `divisor == 0`" do
-      let(:dividend) { any }
-      let(:divisor) { 0 }
-
-      it { expect { subject }.to raise_exception ZeroDivisionError }
+      it { expect { Ebe.div_rem(any, 0) }.to raise_exception ZeroDivisionError }
     end
 
-    context "when `dividend == 0`" do
-      let(:dividend) { 0 }
+    ["zero", "positive", "negative"].product(["positive", "negative"]).each do |a, b|
+      context "when dividend is #{a} and divisor is #{b}" do
+        let(:div_rem) { Ebe.div_rem(dividend, divisor) }
 
-      context "when divisor is positive" do
-        let(:divisor) { positive }
+        let(:quotient) { div_rem.first }
+        let(:remainder) { div_rem.last }
 
-        it_behaves_like "satisfies division algorithm properties"
-      end
+        let(:dividend) {
+          case a
+          when "zero" then 0
+          when "positive" then positive
+          when "negative" then negative
+          end
+        }
+        let(:divisor) {
+          case b
+          when "positive" then positive
+          when "negative" then negative
+          end
+        }
 
-      context "when divisor is negative" do
-        let(:divisor) { negative }
+        it "has a nonnegative remainder" do
+          expect(remainder).to be >= 0
+        end
 
-        it_behaves_like "satisfies division algorithm properties"
-      end
-    end
+        it "has a remainder less than the absolute value of the divisor" do
+          expect(remainder).to be < divisor.abs
+        end
 
-    context "when dividend is positive" do
-      let(:dividend) { positive }
-
-      context "when divisor is positive" do
-        let(:divisor) { positive }
-
-        it_behaves_like "satisfies division algorithm properties"
-      end
-
-      context "when divisor is negative" do
-        let(:divisor) { negative }
-
-        it_behaves_like "satisfies division algorithm properties"
-      end
-    end
-
-    context "when dividend is negative" do
-      let(:dividend) { negative }
-
-      context "when divisor is positive" do
-        let(:divisor) { positive }
-
-        it_behaves_like "satisfies division algorithm properties"
-      end
-
-      context "when divisor is negative" do
-        let(:divisor) { negative }
-
-        it_behaves_like "satisfies division algorithm properties"
+        it "satisfies the linear equation" do
+          expect(dividend).to eq divisor * quotient + remainder
+        end
       end
     end
   end

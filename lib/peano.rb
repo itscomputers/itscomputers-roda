@@ -41,7 +41,7 @@ module Peano
 
     def predecessor
       return if zero?
-      Integer.new(@array[...-1])
+      Integer.new(@array.take(@array.size - 1))
     end
 
     def +(other)
