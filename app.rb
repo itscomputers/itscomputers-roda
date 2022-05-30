@@ -37,7 +37,7 @@ class App < Roda
           @contents.section = section
           @scroll = r.params["scroll"]
           @view = get_view(section, route: r)
-          view "ebe/#{route}", layout: "ebe/layout"
+          view "ebe/#{section.id}", layout: "ebe/layout"
         end
       end
 
