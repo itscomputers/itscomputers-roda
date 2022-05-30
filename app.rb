@@ -21,8 +21,6 @@ class App < Roda
     r.assets
     r.public
 
-    check_csrf!
-
     r.root do
       @view = Views::Root.new(r.params)
       view "root"
@@ -37,8 +35,6 @@ class App < Roda
       @contents = Views::Ebe::TableOfContents.new(r.params)
 
       @contents.sections.values.drop(1).flatten.each do |section|
-        route = section.id.to_s
-
         r.on section.id.to_s do
           @contents.section = section
           @scroll = r.params["scroll"]
