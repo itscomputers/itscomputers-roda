@@ -1,0 +1,256 @@
+section.intro
+  p The ninth of the Peano axioms is known as the principle of mathematical
+    induction.
+
+  blockquote.definition
+    p
+      strong> Principle of mathematical induction.
+      |
+        If $ K $ is a set containing $ 0 $ that is closed under the successor
+        function, then $ K $ is equal to the natural numbers $ \mathbb{N}_0 $.
+
+  p
+    | We used this principle liberally in the
+    a<> href=@contents.url_for(:peano_axioms)
+      | Peano axioms exercises
+    | to prove various properties of the natural numbers.
+
+  .example
+    h3 example
+
+    p For any natural number $ n $, prove that the number $ n^2 + n $ is even.
+      (A natural number is even if and only if it can be expressed as a natural
+      number multiplied by 2.)
+
+
+    == render "components/_solution", :locals => { :id => "example" }
+      p We let $ K $ be the set of natural numbers satisfying the conclusion
+        $$ K = \{ k \in \mathbb{N}_0 \mid k^2 + k \text { is even} \}. $$
+        We want to prove that $ K = \mathbb{N} $, and we will use the principle
+        of mathematical induction to do so.
+
+      p First we prove that $ 0 \in K $. Zero is even since $ 0 = 2 \cdot 0 $.
+        Therefore, $ 0^2 + 0 = 0 $ is even, so $ 0 \in K $.
+
+      p Next we prove that $ K $ is closed under the successor function.
+        We need to prove: if $ k $ is in $ K $, then its successor $ k + 1 $
+        is also in $ K $. For any $ k \in K $, we have that
+        $ k^2 + k $ is even, so
+        $$ k^2 + k = 2 n $$
+        for some natural number $ n $. To prove that $ k + 1 \in K $, we calculate
+        $$ \begin{align}
+          (k + 1)^2 + (k + 1)
+            &= (k^2 + 2k + 1) + (k + 1) \\
+            &= (k^2 + k) + (2k + 2) \\
+            &= 2n + 2k + 2 \\
+            &= 2(n + k + 1)
+        \end{align} $$
+        and conclude that $ (k + 1)^2 + (k + 1) $ is even since it is a natural
+        number multiplied by 2. This shows that $ k + 1 \in K $, so $ K $ is
+        closed under the successor function.
+
+      p Finally we conclude that $ K = \mathbb{N}_0 $ by the principle of
+        mathematical induction.
+
+section
+  h2 Alternate characterization
+
+  p A more familiar version of the principle of mathematical induction involves
+    propositions about natural numbers.
+
+  blockquote.definition
+    p
+      strong> Principle of mathematical induction.
+      |
+        Let $ p(n) $ be a proposition about $ n \in \mathbb{N}_0 $.
+        Suppose that
+    ul
+      li
+        em> Base case:
+        | the proposition $ p(0) $ is true;
+      li
+        em> Inductive step:
+        |
+          for any $ k \in \mathbb{N}_0 $, if $ p(k) $ is true, then $ p(k + 1) $
+          is also true.
+
+    p Then $ p(n) $ is true for all $ n \in \mathbb{N}_0 $.
+
+  .example
+    h3 example
+
+    p We'll prove the same example from above using this alternate
+      characterization, that the number $ n^2 + n $ is even for any natural
+      number $ n $.
+
+    == render "components/_solution", :locals => { :id => "example-alternate" }
+      p For any natural number $ n $, let $ p(n) $ be the proposition that
+        $ n^2 + n $ is even.
+
+      p
+        em> Base case.
+        | The proposition $ p(0) $ is true since $ 0^2 + 0 = 2 \cdot 0 $ is even.
+
+      p
+        em> Inductive step.
+        |
+          Suppose that $ p(k) $ is true, ie, that $ k^2 + k $ is even. Then we can
+          express $ k^2 + k $ as $ 2n $ for some natural number $ n $. We need to
+          prove that $ p(k + 1) $ is true, ie, that $ (k + 1)^2 + (k + 1) $ is even.
+          As before,
+          $$ \begin{align}
+            (k + 1)^2 + (k + 1)
+              &= (k^2 + 2k + 1) + (k + 1) \\
+              &= (k^2 + k) + (2k + 2) \\
+              &= 2n + 2k + 2 \\
+              &= 2(n + k + 1)
+          \end{align} $$
+          is even, so $ p(k + 1) $ is true.
+
+      p By mathematical induction, since $ p(0) $ is true and $ p(k) $ implies $ p(k + 1) $
+        then $ p(n) $ is true for all $ n \in \mathbb{N}_0 $.
+
+section
+  h2 different base case
+
+  p The principle of mathematical induction can also be used to prove that a proposition is
+    true for all natural numbers above a certain threshold.
+
+  blockquote.definition
+    p
+      strong> Principle of mathematical induction.
+      |
+        Let $ p(n) $ be a proposition about
+        $ n \in \mathbb{N}_c = \{ c, c + 1, c + 2, \dots \} $.
+        Suppose that
+    ul
+      li
+        em> Base case:
+        | the proposition $ p(c) $ is true;
+      li
+        em> Inductive step.
+        |
+          for any $ k \in \mathbb{N}_c $, if $ p(k) $ is true, then $ p(k + 1) $
+          is also true.
+
+    p Then $ p(n) $ is true for all $ n \in \mathbb{N}_c $.
+
+  .example
+    h3 example
+
+    p For any natural number $ n \geq 1 $, prove that the sum of the first $ n $
+      odd natural numbers is equal to $ n^2 $.
+
+    == render "components/_solution", :locals => { :id => "example-2" }
+      p For $ n \in \mathbb{N}_1 $, let $ p(n) $ be the proposition that the sum
+        of the first $ n $ odd natural numbers is equal to $ n^2 $. For example,
+        here are the first four propositions.
+        $$ \begin{align}
+          {}p(1) &: 1 = 1^2 \\
+          p(2) &: 1 + 3 = 2^2 \\
+          p(3) &: 1 + 3 + 5 = 3^2 \\
+          p(4) &: 1 + 3 + 5 + 7 = 4^2
+        \end{align} $$
+
+      p To express the equation for $ p(n) $ in general, we need to know what the
+        $ n^\text{th} $ odd number is. Note that
+        $$ \begin{align}
+          1^\text{st} \text{ odd number: } & 1 = 2(1) - 1 \\
+          2^\text{nd} \text{ odd number: } & 3 = 2(2) - 1 \\
+          3^\text{rd} \text{ odd number: } & 5 = 2(3) - 1 \\
+          4^\text{th} \text{ odd number: } & 7 = 2(4) - 1 \\
+        \end{align} $$
+        From this pattern, we conclude that the $ n^\text{th} $ odd number is $ 2n - 1 $.
+        (This can be proven using mathematical induction, see the exercise below.)
+        The proposition $ p(n) $ is the equation
+        $$ 1 + 3 + 5 + \dots + (2n - 1) = n^2. $$
+
+      p
+        em> Base case.
+        |
+          The base case $ p(1) $ (expressed above) is clearly true. (In fact, by
+          inspection, we see that $ p(n) $ is true for those first four cases
+          $ n = 1, 2, 3, 4 $.)
+
+      p
+        em> Inductive step.
+        |
+          Assume that $ p(k) $ is true, so the sum of the first $ k $ odd numbers is
+          equal to $ k^2 $, ie,
+          $$ 1 + 3 + 5 + \dots + (2k - 1) = k^2. $$
+          To prove $ p(k + 1) $, we consider the sum of the first $ k + 1 $ odd numbers,
+          which is
+          $$ 1 + 3 + 5 + \dots + (2k + 1). $$
+          Notice that the first $ k $ odd numbers appear in this sum as well,
+          $$ (1 + 3 + 5 + \dots + (2k - 1)) + (2k + 1). $$
+          Since $ p(k) $ is true, this is equal to
+          $$ (k^2) + (2k + 1). $$
+          Factoring this expression, we get
+          $$ (k + 1)^2 $$
+          so we conclude that the sum of the first $ k + 1 $ odd numbers is equal
+          to $ (k + 1)^2 $; that is, we conclude that $ p(k + 1) $ is true.
+
+      p By the principle of mathematical induction, $ p(n) $ is true for all
+        natural numbers $ n \geq 1 $.
+
+section.exercises
+  h2 exercises
+
+  ol
+    li.exercise
+      |
+        For any $ n \in \mathbb{N}_1 $, prove that the $ n^\text{th} $ odd
+        number is equal to $ 2n - 1 $.
+      == render "components/_solution", locals: {id: "nth-odd-number"}
+        p Let $ p(n) $ be the statement that the $ n^\text{th} $ odd number
+          is $ 2n - 1 $.
+
+        p
+          em> Base case.
+          |
+            The statement $ p(1) $ is true since the 1st odd number is $ 1 $
+            and $ 2(1) - 1 = 1 $.
+
+        p
+          em> Inductive step.
+          |
+            Suppose that $ p(k) $ is true, ie, that $ 2k - 1 $ is the $ k^\text{th} $
+            odd number. Well, the $ (k + 1)^{st} $ odd number is just 2 more than
+            the $ k^{th} $ odd number, so it is equal to
+            $$ (2k - 1) + 2 = 2k + 1 = 2(k + 1) - 1, $$
+            which proves that $ p(k + 1) $ is true.
+
+        p By mathematical induction, $ p(n) $ is true for all $ n \geq 1 $.
+
+
+
+    li.exercise
+      | For any $ n \in \mathbb{N}_0 $, prove that $ 3^n - 1 $ is even.
+
+      == render "components/_solution", locals: {id: "power-of-three-is-odd"}
+        p Let $ p(n) $ be the statement that $ 3^n - 1 $ is even.
+
+        p
+          em> Base case.
+          |
+            The proposition $ p(0) $ is true since
+            $ 3^0 - 1 = 1 - 1 = 0 = 2 \cdot 0 $
+            is even.
+
+        p
+          em> Inductive step.
+          |
+            Suppose that $ p(k) $ is true, ie, that $ 3^k - 1 = 2n $ for some
+            natural number $ n $.  We compute
+            $$ \begin{align}
+              3^{k + 1} - 1
+                &= 3 \cdot 3^k - 1 \\
+                &= (2 + 1) \cdot 3^k - 1 \\
+                &= 2 \cdot 3^k + 3^k - 1 \\
+                &= 2 \cdot 3^k + 2n \\
+                &= 2 (3^k + 2)
+            \end{align} $$
+            to see that $ 3^{k + 1} - 1 $ is also even, hence $ p(k + 1) $ is true.
+
+        p By mathematical induction, $ p(n) $ is true for all $ n \geq 0 $.
+
