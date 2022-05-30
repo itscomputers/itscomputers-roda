@@ -3,11 +3,11 @@ html
   head
     == render "_head"
 
-  body onload="setScrollValue(#{@scroll})"
+  body onload="numberTheoryOnLoad(#{@scroll})"
     == render "_nav"
 
     main
-      == render "ebe/_breadcrumbs"
+      == render "ebe/_breadcrumbs", locals: {lower: false}
 
       h1 = @contents.section_title
 
@@ -16,6 +16,6 @@ html
 
       hr
 
-      == render "ebe/_breadcrumbs"
+      == render "ebe/_breadcrumbs", locals: {lower: true}
 
     == render "_footer"

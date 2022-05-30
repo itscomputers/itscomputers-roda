@@ -110,6 +110,7 @@ module Views::Ebe
     def breadcrumbs
       [
         {
+          id: "prev-breadcrumb",
           url: prev_section&.url,
           show: !prev_section.nil?,
           title: [
@@ -118,11 +119,13 @@ module Views::Ebe
           ].join(" "),
         },
         {
+          id: "toc-breadcrumb",
           url: "/ebe",
           show: true,
           title: "\u2191",
         },
         {
+          id: "next-breadcrumb",
           url: next_section&.url,
           show: !next_section.nil?,
           title: [
