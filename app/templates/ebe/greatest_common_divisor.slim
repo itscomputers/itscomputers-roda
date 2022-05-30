@@ -1,0 +1,117 @@
+section.intro
+  Every pair of integers has a common divisor (since $ 1 $ divides every
+  integer). And the set of divisors of a nonzero integer are bounded above by
+  that integer. Therefore, every pair of integers (not both zero) has a
+  greatest common divisor.
+
+  blockquote.definition
+    p
+      strong> definition.
+      | The
+      em<> greatest common divisor
+      |
+        of two integers (not both zero) is the largest positive integer that
+        divides them both.
+
+    hr
+
+    p We write $ \gcd(a, b) $ for the greatest common divisor of $ a $ and $ b $.
+
+section.examples
+  h2 examples
+
+  ol
+    - for a, b in [[30, 42], [21, 231], [130, 2401]]
+      li.example
+        | What is the greatest common divisor of $ #{a} $ and $ #{b} $ ?
+
+        .solution-container
+          - common_divisors = Ebe.common_divisors(a, b)
+          |
+            The common divisors of $ #{a} $ and $ #{b} $ are
+            $$ #{common_divisors.join(", ")} $$
+            so the greatest common divisor is
+            $$ \gcd(#{a}, #{b}) = #{common_divisors.max}. $$
+
+    li.example
+      == render "components/_scroll_form"
+        | What is the greatest common divisor of
+        input>(
+          id="number"
+          name="number"
+          value="#{@view.number}"
+          type="number"
+          required=true
+          placeholder="number"
+          max="#{@view.maximum}"
+        )
+        | and
+        input>(
+          id="other"
+          name="other"
+          value="#{@view.other}"
+          type="number"
+          required=true
+          placeholder="other number"
+          max="#{@view.maximum}"
+        )
+        | ?
+        input type="submit" value="submit"
+
+      - unless @view.number.nil? || @view.other.nil?
+        .solution-container
+          - if @view.number == 0 && @view.other == 0
+            |
+              There is no greatest common divisor of $ 0 $ and $ 0 $, ie,
+              $ \gcd(0, 0) $ is undefined.
+          - else
+            - a, b = @view.number, @view.other
+            - common_divisors = Ebe.common_divisors(a, b)
+            |
+              The common divisors of $ #{a} $ and $ #{b} $ are
+              $$ #{common_divisors.join(", ")} $$
+              so the greatest common divisor is
+              $$ \gcd(#{a}, #{b}) = #{common_divisors.max}. $$
+
+section.exercises
+  h2 exercises
+
+  ol
+    li.exercise
+      | For a nonzero integer $ a $, prove that $ \gcd(a, 0) = \gcd(0, a) = |a| $.
+
+      == render "components/_solution", :locals => { :id => "example-1" }
+        |
+          Since every integer divides $ 0 $, the common divisors of $ a $ and $ 0 $
+          are the divisors of $ a $. The largest positive divisor of $ a $ is $ |a| $,
+          therefore $ \gcd(a, 0) = |a| $.
+
+    li.exercise
+      | If $ a = b q + r $ with $ b \ne 0 $, prove that $ \gcd(a, b) = \gcd(b, r) $.
+
+      == render "components/_solution", :locals => { :id => "example-2" }
+        p Let $ C_{a, b} $ be the common divisors of $ a, b $ and $ C_{b, r} $
+          the common divisors of $ b, r $. We will prove these sets are equal.
+
+        p First, we show that $ C_{b, r} $ is a subset of $ C_{a, b} $ by
+          proving that every common divisor of $ b $ and $ r $ is also a
+          divisor of $ a $.  Let $ d $ be any element of $ C_{b, r} $. Since it
+          is a common divisor of $ b, r $, we can write $ d = b m $ and
+          $ d = r n $ for some integers $ m, n $. Substituting these equations
+          into the original relation, we get
+          $$ a = b q + r = (d m) q + (d n) = d(m q + n), $$
+          which indeed shows that $ d $ is a divisor of $ a $.
+
+        p Next, we show that $ C_{a, b} $ is a subset of $ C_{b, r} $ by
+          proving that every common divisor of $ a, b $ is also a divisor of $ r $.
+          Letting $ d $ be any element of $ C_{a, b} $, we can write $ a = d m $
+          and $ b = d n $ for some integers $ m, n $ since $ d $ is a divisor
+          of both $ a $ and $ b $.  Solving the original relation for $ r $ and
+          substituting, we get
+          $$ r = a - b q = (d m) - (d n) q = d (m - n q). $$
+          This shows that $ d $ is also a divisor of $ r $.
+
+        p Since $ C_{a, b} = C_{b, r} $, the maximum of $ C_{a, b} $ is equal
+          to the maximum of $ C_{b, r} $. In other words, the greatest common
+          divisor of $ a, b $ is equal to the greatest common divisor of $ b, r $.
+

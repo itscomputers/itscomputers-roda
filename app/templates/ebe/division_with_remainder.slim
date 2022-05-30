@@ -1,0 +1,132 @@
+section.intro
+  p In the previous section, we wrote a naive loop to determine if an integer is divisible
+    by another without proving that such a loop would terminate. Instead of proving that the
+    loop we wrote will eventually terminate, in this section we consider division with
+    remainder and prove a stronger result: that division of an integer by a nonzero
+    integer results in a unique quotient and remainder.
+
+  blockquote.definition
+    p
+      strong> division with remainder.
+      | For an integer $ a $ and a nonzero integer $ b $, there exist unique integers $ q $ and $ r $
+      | such that $ a = b \cdot q + r $ and $ 0 \le r < |b| $.
+
+    hr
+
+    p
+      | This is often called the
+      em<> division algorithm
+      | . In the output of the algorithm, the integer $ q $ is called the
+      em<> quotient
+      | and the integer $ r $ is called the
+      em<> remainder
+      | .
+
+  == render "components/_proof", :locals => { :id => "division-with-remainder-proof" }
+    p
+      strong> Case 1: when $ a $ is nonnegative.
+      | Consider the set
+        $$ S = \{ a - b n \mid n \in \mathbb{Z} \} $$
+        consisting of all integers of the form $ a - b n $ where $ n $ is any integer.
+        Now consider the subset
+        $$ S_+ = \{ s \in S \mid s \ge 0 \} $$
+        of elements in $ S $ which are nonnegative.
+
+    p Note that $ a $ is an element of $ S $ since $ a = a - b(0) $. And since $ a $
+      itself is nonnegative, it is in $ S_+$, which means that $ S_+ $ is nonempty. By
+      the well-ordering principle, there is a smallest element of $ S_+ $. By
+      definition, this smallest element is of the form $ r = a - b q $ for some
+      integer $ q $.
+
+    p We know that $ r $ is nonnegative, because it is an element in $ S_+ $. To
+      complete the proof in this case, we need to show that $ r < |b| $ or
+      equivalently that $ r - |b| $ is negative. This integer $ r - |b| $ is an
+      element of $ S $ since it is equal to $ a - b (q \pm 1) $, depending on the sign
+      of $ b $.  However, it cannot be an element of $ S_+ $ since it is smaller than
+      the smallest element $ r $. This is only possible if $ r - |b| $ is negative.
+
+    hr
+
+    p
+      strong> Case 2: $ a $ is negative.
+      | In this case, we know that $ -a $ is positive. Using the above, we can find unique
+        integers $ Q $ and $ R $ such that
+        $$ -a = bQ + R \quad \text{and} \quad  0 \le R < |b|. $$
+
+    p If $ R = 0 $, we set $ r = 0 $ and $ q = -Q $, which gives
+      $$ a = b(-Q) - 0 = bq + r. $$
+
+    p Otherwise, we set $ r = -R + |b| $ and $ q = -Q - |b| / b $, which gives
+      $$ a = b(-Q) - R = b(q + |b| / b) + (r - |b|) = bq + r. $$
+      Also, since $ R > 0 $, we know that
+      $$ 0 < R < |b| \quad \longrightarrow \quad -|b| < -R < 0, $$
+      which implies that
+      $$ 0 < -R + |b| < |b| \quad \longrightarrow \quad 0 < r < |b|. $$
+
+
+section.examples
+  h2 examples
+
+  ol
+    - for example in @view.examples.take(4)
+      - dividend = example[:dividend]
+      - divisor = example[:divisor]
+
+      li.example
+        | What are the quotient and remainder when dividing $ #{dividend} $ by $ #{divisor}$?
+
+        - locals = { :dividend => dividend, :divisor => divisor }
+        == render "ebe/division_with_remainder/_answer", :locals => locals
+
+    li.example
+      == render "components/_scroll_form"
+        | What are the quotient and remainder when dividing
+        input> id="integer" name="dividend" value="#{@view.dividend}" type="number" required=true placeholder="dividend"
+        | by
+        input> id="integer" name="divisor" value="#{@view.divisor}" type="number" required=true placeholder="divisor"
+        | ?
+        input type="submit" value="submit"
+
+      - if @view.divisor && @view.dividend
+        - locals = { :dividend => @view.dividend, :divisor => @view.divisor }
+        == render "ebe/division_with_remainder/_answer", :locals => locals
+
+
+section.exercises
+  h2 exercises
+
+  ol
+    li.exercise
+      | Write a naive
+      code<> div_rem
+      |
+        function that takes two inputs (any integer, any nonzero integer) and returns a
+        pair of integers consisting of the quotient and remainder resulting from dividing
+        the first integer by the second.
+        This function should only use addition, subtraction, multiplication, and comparison.
+
+      p Some test values:
+      ul
+        - for example in @view.examples
+          li
+            code div_rem(#{example[:dividend]}, #{example[:divisor]}) = [#{example[:quotient]}, #{example[:remainder]}]
+
+      == render "components/_solution", :locals => { :id => "exercise-div-rem" }
+        pre
+          code.language-ruby
+            == @view.code_snippet
+
+    li.exercise
+      |
+        If $ a $ is an integer and $ b $ is a nonzero integer, prove that $ b \mid a $ if
+        and only if division of $ a $ by $ b $ yields a remainder of $ 0 $.
+
+      == render "components/_solution", :locals => { :id => "example-2" }
+        p Suppose that $ b \mid a $.  Then $ a = b n $ for some integer $ n $, or
+          equivalently that $ a = b n + 0 $.  This satisfies the conditions for
+          division with remainder, so we conclude that the remainder is equal to $ 0 $,
+          since division with remainder yields a unique remainder.
+
+        p On the other hand, suppose that division with remainder gives a remainder of $ 0 $,
+          ie, that $ a = b q + 0 $.  Then $ a $ is a multiple of $ b $, hence $ b \mid a $.
+

@@ -7,7 +7,7 @@ class CodeSnippet
     [
       label,
       snippets.map { |snippet| snippet.split("\n").map { |line| "  #{line}" }.join("\n") }.join("\n\n"),
-      "end"
+      "end",
     ].join("\n")
   end
 
@@ -20,13 +20,20 @@ class CodeSnippet
     @snippet ||= lines.join("\n")
   end
 
+  def regexes
+    [
+      /def #{@method_name}$/,
+      /def #{@method_name}\(/,
+    ]
+  end
+
   def lines
     @lines ||= [
       *File.readlines(@file_name)
-        .drop_while { |line| !line.match(/def #{@method_name}/) }
+        .drop_while { |line| !regexes.any? { |regex| line.match(regex) } }
         .tap { |array| @spaces = array.first.chars.take_while { |ch| ch == " " }.count }
         .take_while { |line| !line.start_with? end_line },
-      end_line
+      end_line,
     ].map { |line| line.chars.drop(@spaces).join.chomp }
   end
 

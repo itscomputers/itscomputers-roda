@@ -23,24 +23,12 @@ module Views::Ebe
       integer_param "other"
     end
 
-    def divisors
-      Ebe.divisors(number)
-    end
-
-    def other_divisors
-      Ebe.divisors(other)
-    end
-
-    def common_divisors
-      Ebe.common_divisors(number, other)
-    end
-
-    def solution?
-      !number.nil? && !other.nil?
-    end
-
     def common_divisors_code_snippet
-      CodeSnippet.wrap "module Ebe", CodeSnippet.get("lib/ebe/division.rb", method_name: "common_divisors")
+      code_snippet(
+        filename: "division.rb",
+        method_name: "common_divisors",
+        module_name: "Division",
+      )
     end
 
     def common_divisors_examples

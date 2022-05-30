@@ -1,6 +1,6 @@
 section.intro
   p
-    | This study of integers begins with the notion of
+    | The study of division of integers begins with the notion of
     em< divisibility
     |
       , whether the division of two integers results in an integer.  Since division does not
@@ -20,7 +20,7 @@ section.intro
 
     p The following statements are equivalent ways of describing that $ b \mid a $.
 
-    == render "ebe/_divisibility_descriptions", :locals => { :dividend => "a", :divisor => "b", :divides => true }
+    == render "ebe/divisibility/_statements", :locals => { :dividend => "a", :divisor => "b", :divides => true }
 
 section.examples
   h2 examples
@@ -28,21 +28,13 @@ section.examples
   ol
     li.example
       | Does $ 15 $ divide $ 45 $?
-      .solution-container
-        strong> yes.
-        | $ 15 \mid 45 $ since $ 45 = 15 \cdot 3 $.  In other words,
 
-        == render "ebe/_divisibility_descriptions", :locals => { :dividend => 45, :divisor => 15, }
+      == render "ebe/divisibility/_answer", :locals => { :dividend => 45, :divisor => 15 }
 
     li.example
       | Does $ 10 $ divide $ 45 $?
-      .solution-container
-        strong> no.
-        |
-          $ 10 \nmid 45 $ since $ 45 $ is strictly between $ 10 \cdot 4 $ and
-          $ 10 \cdot 5 $, which shows that $ 45 = 10 \cdot n $ is impossible.
 
-        == render "ebe/_divisibility_descriptions", :locals => { :dividend => 45, :divisor => 10, }
+      == render "ebe/divisibility/_answer", :locals => { :dividend => 45, :divisor => 10 }
 
     li.example
       == render "components/_scroll_form"
@@ -54,21 +46,7 @@ section.examples
         input type="submit" value="submit"
 
       - if @view.divisor && @view.dividend
-        - answer = @view.divides? ? "yes" : "no"
-        - symbol = @view.divides? ? '\mid' : '\nmid'
-        - if @view.divides?
-          - details = "$ #{@view.dividend} = #{@view.divisor} \\cdot #{@view.quotient} $"
-        - elsif @view.divisor == 0
-          - details = "$ #{@view.dividend} = #{@view.divisor} \\cdot n $ is not possible for any value of $ n $." if @view.divisor == 0
-        - else
-          - bounds = @view.multipliers.map { |m| "$ #{@view.divisor} \\cdot #{m} $" }
-          - details = "$ #{@view.dividend} $ is strictly between #{bounds.join(" and ")}" if !@view.divides? && @view.divisor != 0
-
-        .solution-container
-          strong> #{answer}.
-          | $ #{@view.divisor} #{symbol} #{@view.dividend} $ since #{details}.
-
-          == render "ebe/_divisibility_descriptions", :locals => { :dividend => @view.dividend, :divisor => @view.divisor, }
+        == render "ebe/divisibility/_answer", :locals => { :dividend => @view.dividend, :divisor => @view.divisor }
 
 section
   h2 careful!

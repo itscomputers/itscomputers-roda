@@ -14,7 +14,7 @@ module Views::Ebe
       {divisor: 7, dividend: -7, divides?: true},
       {divisor: 1, dividend: 7, divides?: true},
       {divisor: -1, dividend: 7, divides?: true},
-      {divisor: 0, dividend: 7, divides?: false}
+      {divisor: 0, dividend: 7, divides?: false},
     ]
 
     def divisor
@@ -25,29 +25,11 @@ module Views::Ebe
       @params["dividend"]&.to_i
     end
 
-    def div_rem
-      return [] unless dividend && divisor && divisor != 0
-      @div_rem ||= Ebe.div_rem dividend, divisor
-    end
-
-    def quotient
-      div_rem.first
-    end
-
-    def multipliers
-      [quotient, quotient + 1].sort_by { |m| m * divisor }
-    end
-
-    def divides?
-      div_rem.last == 0
-    end
-
-    def naive_divides?(b, a)
-      Ebe::Naive.divides?(b, a)
-    end
-
     def naive_code_snippet
-      CodeSnippet.wrap "module Naive", CodeSnippet.get("lib/ebe/naive.rb", method_name: "divides")
+      CodeSnippet.wrap(
+        "module NumberTheory::Naive",
+        CodeSnippet.get("lib/ebe/naive.rb", method_name: "divides"),
+      )
     end
 
     def divides_examples

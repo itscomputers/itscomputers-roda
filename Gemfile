@@ -8,10 +8,14 @@ gem "slim"
 gem "kramdown"
 gem "sassc"
 
-gem "standardrb", group: [:development, :test]
+group :development, :test do
+  gem "standardrb", require: false
+  gem "rubocop-rspec", require: false
+end
 
 group :development do
   gem "rerun"
+  gem "irb"
 end
 
 group :test do
