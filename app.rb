@@ -15,8 +15,6 @@ class App < Roda
     engine: "slim",
     views: "app/templates"
 
-  plugin :route_csrf
-
   route do |r|
     r.assets
     r.public
