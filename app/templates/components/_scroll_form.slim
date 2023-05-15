@@ -1,4 +1,7 @@
 form id="#{locals[:id] || "dynamic-example"}" method="#{locals[:method] || "POST"}" onsubmit="submitScrollValue()"
+  == csrf_tag("/number_theory/#{@contents.route}")
+
   input id="scroll" name="scroll" hidden=true
 
   == yield
+

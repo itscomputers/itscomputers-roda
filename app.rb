@@ -1,4 +1,5 @@
 require "roda"
+require "securerandom"
 require "tilt/sass"
 
 require_relative "./lib/ebe"
@@ -14,6 +15,8 @@ class App < Roda
   plugin :render,
     engine: "slim",
     views: "app/templates"
+
+  plugin :sessions, secret: ENV["SESSION_SECRET"] || SecureRandom.base64(64)
 
   plugin :route_csrf
 
