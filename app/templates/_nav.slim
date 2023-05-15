@@ -2,10 +2,8 @@ aside
   .container
     nav
       ul
-        li
-          a href="/"
-            = "its computers"
-        li
-          a href="/ebe"
-            = "ebe"
+        - for link in @root.nav
+          li
+            a href="#{link.url}"
+              = link.text
 

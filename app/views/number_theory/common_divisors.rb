@@ -1,4 +1,4 @@
-module Views::Ebe
+module Views::NumberTheory
   class CommonDivisors < Views::Base
     EXAMPLES = [
       {inputs: [0, 25], common_divisors: [1, 5, 25]},

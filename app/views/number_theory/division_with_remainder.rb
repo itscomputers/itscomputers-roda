@@ -1,4 +1,4 @@
-module Views::Ebe
+module Views::NumberTheory
   class DivisionWithRemainder < Views::Base
     EXAMPLES = [
       {dividend: 47, divisor: 10, quotient: 4, remainder: 7},

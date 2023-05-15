@@ -1,4 +1,4 @@
-module Views::Ebe
+module Views::NumberTheory
   class Section
     attr_reader :id, :title
     attr_accessor :prev_section, :next_section, :section_number, :subsection_number
@@ -9,7 +9,7 @@ module Views::Ebe
     end
 
     def url
-      "/ebe/#{id}"
+      "/number_theory/#{id}"
     end
 
     def number
@@ -118,9 +118,9 @@ module Views::Ebe
           ].join(" "),
         },
         {
-          url: "/ebe",
+          url: "/number_theory",
           show: true,
-          title: "\u2191",
+          title: "contents",
         },
         {
           url: next_section&.url,

@@ -1,10 +1,10 @@
 require_relative "../../spec_helper"
 
-describe Views::Ebe::DivisionWithRemainder do
+describe Views::NumberTheory::DivisionWithRemainder do
   describe "#div_rem" do
     subject { Ebe::Naive.div_rem(a, b) }
 
-    Views::Ebe::DivisionWithRemainder::EXAMPLES.each do |hash|
+    Views::NumberTheory::DivisionWithRemainder::EXAMPLES.each do |hash|
       context "when dividing #{hash[:dividend]} by #{hash[:divisor]}" do
         let(:a) { hash[:dividend] }
         let(:b) { hash[:divisor] }
@@ -15,3 +15,4 @@ describe Views::Ebe::DivisionWithRemainder do
     end
   end
 end
+

@@ -1,4 +1,4 @@
-module Views::Ebe
+module Views::NumberTheory
   class GreatestCommonDivisor < Views::Base
     def maximum
       50000

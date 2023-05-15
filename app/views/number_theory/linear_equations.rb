@@ -1,4 +1,4 @@
-module Views::Ebe
+module Views::NumberTheory
   class LinearEquations < Views::Base
   end
 end

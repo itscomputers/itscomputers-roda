@@ -1,4 +1,4 @@
-module Views::Ebe
+module Views::NumberTheory
   class RemaindersInProgramming < Views::Base
     def euclidean_example
       <<~EUCLIDEAN
@@ -65,11 +65,11 @@ module Views::Ebe
     end
 
     def divides_examples
-      Views::Ebe::Divisibility::EXAMPLES
+      Views::NumberTheory::Divisibility::EXAMPLES
     end
 
     def div_rem_examples
-      Views::Ebe::DivisionWithRemainder::EXAMPLES
+      Views::NumberTheory::DivisionWithRemainder::EXAMPLES
     end
 
     def code_snippet(method_name)

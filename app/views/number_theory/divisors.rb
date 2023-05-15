@@ -1,4 +1,4 @@
-module Views::Ebe
+module Views::NumberTheory
   class Divisors < Views::Base
     EXAMPLES = [
       {integer: 25, divisors: [1, 5, 25]},

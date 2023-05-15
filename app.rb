@@ -23,8 +23,10 @@ class App < Roda
 
     check_csrf!
 
+    @root = Views::Root.new(r.params)
+
     r.root do
-      @view = Views::Root.new(r.params)
+      @view = @root
       view "root"
     end
 
@@ -33,8 +35,8 @@ class App < Roda
       view "archimedes_cattle_problem"
     end
 
-    r.on "ebe" do
-      @contents = Views::Ebe::TableOfContents.new(r.params)
+    r.on "number_theory" do
+      @contents = Views::NumberTheory::TableOfContents.new(r.params)
 
       @contents.sections.values.drop(1).flatten.each do |section|
         route = section.id.to_s
@@ -43,23 +45,24 @@ class App < Roda
           @contents.section = section
           @scroll = r.params["scroll"]
           @view = get_view(section, route: r)
-          view "ebe/#{route}", layout: "ebe/layout"
+          view "number_theory/#{route}", layout: "number_theory/layout"
         end
       end
 
       r.get do
-        @view = @contents.tap { |v| v.title = "ebe - number theory for programmers" }
-        view "ebe/table_of_contents"
+        @view = @contents.tap { |v| v.title = "number theory for programmers" }
+        view "number_theory/table_of_contents"
       end
     end
   end
 
   def get_view(section, route:)
     class_name = section.id.to_s.split("_").map(&:capitalize).join
-    Views::Ebe.module_eval(class_name).new(route.params).tap do |view|
+    Views::NumberTheory.module_eval(class_name).new(route.params).tap do |view|
       view.title = section.title
     end
   rescue NameError
     Views::Base.new(route.params)
   end
 end
+

@@ -1,4 +1,4 @@
-module Views::Ebe
+module Views::NumberTheory
   class Divisibility < Views::Base
     EXAMPLES = [
       {divisor: 15, dividend: 45, divides?: true},

@@ -1,4 +1,4 @@
-module Views::Ebe
+module Views::NumberTheory
   class LinearCombinations < Views::Base
     def number
       integer_param "number"

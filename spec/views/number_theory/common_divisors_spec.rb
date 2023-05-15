@@ -1,10 +1,10 @@
 require_relative "../../spec_helper"
 
-describe Views::Ebe::CommonDivisors do
+describe Views::NumberTheory::CommonDivisors do
   describe "#common_divisors" do
     subject { Ebe.common_divisors(*inputs) }
 
-    Views::Ebe::CommonDivisors::EXAMPLES.each do |hash|
+    Views::NumberTheory::CommonDivisors::EXAMPLES.each do |hash|
       context "when computing common divisors of #{hash[:inputs].join(", ")}" do
         let(:inputs) { hash[:inputs] }
 
@@ -13,3 +13,4 @@ describe Views::Ebe::CommonDivisors do
     end
   end
 end
+

@@ -2,7 +2,7 @@ h1 its computers
 
 section#links
   ul
-    - for link in @view.links
+    - for link in @root.links
       li
         a href="#{link.url}"
           = link.text

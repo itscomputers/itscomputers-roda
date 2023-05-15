@@ -76,7 +76,7 @@ section.examples
         | What are the quotient and remainder when dividing $ #{dividend} $ by $ #{divisor}$?
 
         - locals = { :dividend => dividend, :divisor => divisor }
-        == render "ebe/division_with_remainder/_answer", :locals => locals
+        == render "number_theory/division_with_remainder/_answer", :locals => locals
 
     li.example
       == render "components/_scroll_form"
@@ -89,7 +89,7 @@ section.examples
 
       - if @view.divisor && @view.dividend
         - locals = { :dividend => @view.dividend, :divisor => @view.divisor }
-        == render "ebe/division_with_remainder/_answer", :locals => locals
+        == render "number_theory/division_with_remainder/_answer", :locals => locals
 
 
 section.exercises

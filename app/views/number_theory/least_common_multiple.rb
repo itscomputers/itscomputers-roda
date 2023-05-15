@@ -1,4 +1,4 @@
-module Views::Ebe
+module Views::NumberTheory
   class LeastCommonMultiple < Views::Base
   end
 end
