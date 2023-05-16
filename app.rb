@@ -68,4 +68,3 @@ class App < Roda
     Views::Base.new(route.params)
   end
 end
-

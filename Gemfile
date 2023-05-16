@@ -1,6 +1,6 @@
 source "https://rubygems.org"
 
-ruby "2.7.2"
+ruby "3.2.2"
 
 gem "roda"
 gem "puma"
@@ -9,11 +9,12 @@ gem "kramdown"
 gem "sassc"
 
 group :development, :test do
-  gem "standardrb", require: false
+  gem "standard", "~> 1.28", require: false
   gem "rubocop-rspec", require: false
 end
 
 group :development do
+  gem "rackup", "~> 2.1"
   gem "rerun"
   gem "irb"
 end

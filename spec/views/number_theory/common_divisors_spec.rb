@@ -13,4 +13,3 @@ describe Views::NumberTheory::CommonDivisors do
     end
   end
 end
-

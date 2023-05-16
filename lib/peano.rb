@@ -8,7 +8,7 @@ module Peano
       raise ArgumentError.new("#{n} is not a natural number")
     end
 
-    INTEGER_LOOKUP[n] ||= n == 0 ?
+    INTEGER_LOOKUP[n] ||= (n == 0) ?
       Integer.zero :
       integer(n - 1).successor
   end

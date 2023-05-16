@@ -15,4 +15,3 @@ describe Views::NumberTheory::DivisionWithRemainder do
     end
   end
 end
-

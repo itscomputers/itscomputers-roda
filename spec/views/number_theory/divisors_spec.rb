@@ -5,7 +5,7 @@ describe Views::NumberTheory::Divisors do
     subject { Ebe.divisors(integer) }
 
     Views::NumberTheory::Divisors::EXAMPLES.each do |hash|
-      context "divisors of #{hash[:integer]}" do
+      context "when computing divisors of #{hash[:integer]}" do
         let(:integer) { hash[:integer] }
 
         it { is_expected.to eq hash[:divisors] }

@@ -74,9 +74,7 @@ module Views::NumberTheory
     end
 
     def main_sections
-      sections.reject do |section_id, _|
-        [:table_of_contents, :prologue, :appendix].include?(section_id)
-      end
+      sections.except(:table_of_contents, :prologue, :appendix)
     end
 
     def assign_breadcrumbs!
