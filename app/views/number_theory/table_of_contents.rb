@@ -108,6 +108,7 @@ module Views::NumberTheory
     def breadcrumbs
       [
         {
+          id: "prev-breadcrumb",
           url: prev_section&.url,
           show: !prev_section.nil?,
           title: [
@@ -116,11 +117,17 @@ module Views::NumberTheory
           ].join(" "),
         },
         {
+<<<<<<< HEAD:app/views/number_theory/table_of_contents.rb
           url: "/number_theory",
+=======
+          id: "toc-breadcrumb",
+          url: "/ebe",
+>>>>>>> 1893a16d8b7cf07ca536fbf7e1232fbdbeeac7ae:app/views/ebe/table_of_contents.rb
           show: true,
           title: "contents",
         },
         {
+          id: "next-breadcrumb",
           url: next_section&.url,
           show: !next_section.nil?,
           title: [

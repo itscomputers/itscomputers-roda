@@ -42,8 +42,6 @@ class App < Roda
       @contents = Views::NumberTheory::TableOfContents.new(r.params)
 
       @contents.sections.values.drop(1).flatten.each do |section|
-        route = section.id.to_s
-
         r.on section.id.to_s do
           @contents.section = section
           @scroll = r.params["scroll"]

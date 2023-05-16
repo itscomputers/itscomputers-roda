@@ -38,3 +38,24 @@ function submitScrollValue() {
   element.value = scrollValue;
 }
 
+function setBreadcrumbListeners() {
+  document.onkeydown = function(e) {
+    let element;
+    switch (e.keyCode) {
+      case 37:
+        element = document.getElementById("prev-breadcrumb");
+        if (element) { element.click(); }
+        break;
+      case 39:
+        element = document.getElementById("next-breadcrumb");
+        if (element) { element.click(); }
+        break;
+    }
+  }
+}
+
+function numberTheoryOnLoad(scrollValue) {
+  setScrollValue(scrollValue);
+  setBreadcrumbListeners();
+}
+
