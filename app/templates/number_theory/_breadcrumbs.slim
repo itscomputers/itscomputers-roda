@@ -1,10 +1,6 @@
 .breadcrumbs
   - for details in @contents.breadcrumbs
     - if details[:show]
-      - id = details[:id]
-      - if lower
-        - id = "#{id}-lower"
-
-      a id="#{id}" href="#{details[:url]}" = details[:title]
+      a href="#{details[:url]}" = details[:title]
     - else
-      div id="#{id}"
+      div

@@ -16,7 +16,8 @@ class App < Roda
     engine: "slim",
     views: "app/templates"
 
-  plugin :sessions, secret: ENV["SESSION_SECRET"] || SecureRandom.base64(64)
+  plugin :sessions,
+    secret: ENV["SESSION_SECRET"] || SecureRandom.base64(64)
 
   plugin :route_csrf
 
@@ -42,7 +43,8 @@ class App < Roda
       @contents = Views::NumberTheory::TableOfContents.new(r.params)
 
       @contents.sections.values.drop(1).flatten.each do |section|
-        r.on section.id.to_s do
+        route = section.id.to_s
+        r.on route do
           @contents.section = section
           @scroll = r.params["scroll"]
           @view = get_view(section, route: r)
